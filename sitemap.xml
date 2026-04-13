@@ -1,81 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://remixes.vincentbastille.online/</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <url>
-    <loc>https://remixes.vincentbastille.online/best-house-remixes-2026.html</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://remixes.vincentbastille.online/michael-jackson-house-remix.html</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://remixes.vincentbastille.online/madonna-house-remix.html</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://remixes.vincentbastille.online/sade-remix-electronic.html</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://remixes.vincentbastille.online/deep-house-remix-album.html</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://remixes.vincentbastille.online/disco-house-remix-album.html</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://remixes.vincentbastille.online/electronic-remix-album.html</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://remixes.vincentbastille.online/house-remix-album.html</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://remixes.vincentbastille.online/cinematic-electronic-remix.html</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://remixes.vincentbastille.online/daft-punk-style-remix.html</loc>
-    <lastmod>2026-04-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
+  <url><loc>https://remixes.vincentbastille.online/</loc><lastmod>2026-04-13</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/house-remix-album.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/electronic-remix-album.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/deep-house-remix-album.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/disco-house-remix-album.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/tech-house-remix-collection.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/melodic-house-remix-journey.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/afro-house-remix-selection.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/progressive-house-remix-guide.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/organic-house-remix-stories.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/minimal-house-remix-cuts.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/future-house-remix-session.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/vocal-house-remix-highlights.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/latin-house-remix-vibes.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/french-house-remix-grooves.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/garage-house-remix-classics.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/chicago-house-remix-energy.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/ibiza-house-remix-sunset.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/night-drive-house-remix.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/sunrise-house-remix-playlist.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/warehouse-house-remix-anthology.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/cinematic-electronic-remix.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/ambient-electronic-remix-atlas.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/downtempo-electronic-remix-escape.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/synthwave-electronic-remix-neon.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/electro-pop-remix-studio.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/indie-electronic-remix-picks.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/alt-electronic-remix-spotlight.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/minimal-electronic-remix-design.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/experimental-electronic-remix-lab.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/future-electronic-remix-guide.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/best-house-remixes-2026.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/best-electronic-remixes-2026.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/best-deep-house-remixes-2026.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/best-disco-house-remixes-2026.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/best-cinematic-remixes-2026.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/best-vocal-remixes-2026.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/best-night-remixes-2026.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/best-festival-remixes-2026.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/best-sunset-remixes-2026.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/best-underground-remixes-2026.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/madonna-house-remix.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/michael-jackson-house-remix.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/sade-remix-electronic.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/daft-punk-style-remix.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/depeche-mode-remix-electronic.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/new-order-remix-house.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/pet-shop-boys-remix-dance.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/roxy-music-remix-night.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/cher-remix-disco-house.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/prince-remix-funk-house.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/bjork-remix-electronic.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/massive-attack-remix-trip-hop-house.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/moby-remix-deep-house.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/chemical-brothers-remix-club.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/radiohead-remix-electronic.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/coldplay-remix-house.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/the-weeknd-remix-house.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/dua-lipa-remix-house.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/lorde-remix-electronic.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/billie-eilish-remix-downtempo.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/friday-night-remix-picks.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/saturday-club-remix-picks.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/sunday-chill-remix-picks.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/late-night-remix-therapy.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/golden-hour-remix-selection.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/afterparty-remix-stories.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/workout-house-remix-drive.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/focus-electronic-remix-flow.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/roadtrip-remix-collection.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/medication-number-one-feature.html</loc><lastmod>2026-04-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
 </urlset>
