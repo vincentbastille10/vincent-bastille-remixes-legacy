@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vincent Bastille – Remixes (Legacy) | House & Electronic Remix Album</title>
+  <meta name="description" content="Vincent Bastille reimagines Madonna, Michael Jackson, Sade, Daft Punk & more. Remixes (Legacy) is the definitive house & electronic remix album — cinematic, emotional, timeless. Listen & buy now." />
+  <meta name="keywords" content="house remixes, electronic remixes album, best house remix album, Vincent Bastille remix, disco house, Madonna remix, Michael Jackson remix, Sade remix, Daft Punk remix" />
+  <meta property="og:title" content="Vincent Bastille – Remixes (Legacy)" />
+  <meta property="og:description" content="Iconic songs. Reborn. Twelve reimaginings that live between the dancefloor and the soul." />
+  <meta property="og:image" content="https://f4.bcbits.com/img/a0541613845_10.jpg" />
+  <meta property="og:type" content="music.album" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #050508;
+      --deep: #080b14;
+      --midnight: #0d1220;
+      --navy: #111827;
+      --gold: #c9a96e;
+      --gold-pale: #e8d5a3;
+      --gold-dim: rgba(201,169,110,0.15);
+      --cyan: #00e5ff;
+      --cyan-dim: rgba(0,229,255,0.08);
+      --white: #f0ede8;
+      --grey: #8a8a9a;
+      --border: rgba(201,169,110,0.18);
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-serif: 'Cormorant Garamond', serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-serif);
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* ──── CUSTOM CURSOR ──── */
+    .cursor {
+      width: 10px; height: 10px;
+      background: var(--gold);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+      mix-blend-mode: difference;
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(201,169,110,0.5);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: transform 0.18s ease, width 0.4s, height 0.4s, border-color 0.3s;
+    }
+    body:hover .cursor-ring { border-color: var(--gold); }
+
+    /* ──── NOISE GRAIN OVERLAY ──── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 1; opacity: 0.45;
+    }
+
+    /* ──── NAV ──── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 48px;
+      background: linear-gradient(to bottom, rgba(5,5,8,0.95), transparent);
+      backdrop-filter: blur(0px);
+      transition: backdrop-filter 0.4s, background 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(5,5,8,0.92);
+      backdrop-filter: blur(20px);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--grey);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--black);
+      padding: 10px 24px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .nav-cta:hover { background: var(--gold-pale); transform: translateY(-1px); }
+
+    /* ──── HERO ──── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 120px 24px 80px;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(0,80,160,0.18) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 50% at 20% 70%, rgba(201,169,110,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 80% 80%, rgba(0,229,255,0.05) 0%, transparent 50%),
+        linear-gradient(170deg, #08101f 0%, #050508 45%, #08070f 100%);
+    }
+
+    .hero-album-art {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://f4.bcbits.com/img/a0541613845_10.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.06;
+      filter: blur(2px) saturate(0.3);
+      transform: scale(1.05);
+    }
+
+    .hero-grid-lines {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,169,110,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,169,110,0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 80%);
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 960px; }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.2s forwards;
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: ''; width: 40px; height: 1px; background: var(--gold); opacity: 0.5;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(72px, 12vw, 168px);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 0;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.4s forwards;
+    }
+    h1 .gold { color: var(--gold); }
+    h1 .outline {
+      -webkit-text-stroke: 1px rgba(240,237,232,0.3);
+      color: transparent;
+    }
+
+    .hero-sub {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(18px, 2.5vw, 26px);
+      color: rgba(240,237,232,0.6);
+      margin-top: 28px; margin-bottom: 52px;
+      max-width: 620px; margin-left: auto; margin-right: auto;
+      line-height: 1.5;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.65s forwards;
+    }
+
+    .hero-btns {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.85s forwards;
+    }
+    .btn-primary {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 700;
+      background: var(--gold);
+      color: var(--black);
+      padding: 16px 40px;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px;
+      position: relative; overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(255,255,255,0.15);
+      transform: translateX(-101%);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .btn-primary:hover::after { transform: translateX(0); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 48px rgba(201,169,110,0.35); }
+
+    .btn-secondary {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 400;
+      border: 1px solid var(--border);
+      color: var(--gold-pale);
+      padding: 16px 40px;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px;
+      transition: border-color 0.3s, background 0.3s, transform 0.25s;
+    }
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      background: var(--gold-dim);
+      transform: translateY(-2px);
+    }
+
+    .hero-stats {
+      position: absolute; bottom: 48px; left: 0; right: 0;
+      display: flex; justify-content: center; gap: 64px;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.1s forwards;
+    }
+    .stat { text-align: center; }
+    .stat-n {
+      font-family: var(--font-display);
+      font-size: 36px;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-l {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-top: 4px;
+    }
+
+    /* scroll indicator */
+    .scroll-ind {
+      position: absolute; bottom: 32px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.5s forwards;
+    }
+    .scroll-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%,100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.1); }
+    }
+
+    /* ──── SECTIONS ──── */
+    section { position: relative; z-index: 2; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+    .container-wide { max-width: 1400px; margin: 0 auto; padding: 0 48px; }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--gold); opacity: 0.4; }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 7vw, 96px);
+      line-height: 1;
+      letter-spacing: 0.03em;
+      color: var(--white);
+    }
+
+    /* ──── IMMERSION ──── */
+    #immersion {
+      padding: 140px 0;
+      background: linear-gradient(to bottom, var(--black), var(--deep));
+    }
+    .immersion-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .immersion-left { }
+    .immersion-copy {
+      font-size: clamp(18px, 2vw, 22px);
+      color: rgba(240,237,232,0.75);
+      line-height: 1.8;
+      margin-top: 32px;
+    }
+    .immersion-copy em { color: var(--gold-pale); font-style: italic; }
+    .immersion-copy p + p { margin-top: 20px; }
+    .immersion-right { position: relative; }
+    .album-art-wrap {
+      position: relative;
+      aspect-ratio: 1;
+    }
+    .album-art-wrap img {
+      width: 100%;
+      display: block;
+      position: relative; z-index: 2;
+      filter: saturate(0.85);
+      transition: filter 0.5s;
+    }
+    .album-art-wrap:hover img { filter: saturate(1.1); }
+    .album-art-glow {
+      position: absolute;
+      inset: -20px;
+      background: radial-gradient(ellipse at center, rgba(201,169,110,0.2) 0%, transparent 65%);
+      z-index: 1;
+      animation: glowPulse 4s ease-in-out infinite;
+    }
+    .album-art-border {
+      position: absolute;
+      inset: 12px;
+      border: 1px solid var(--border);
+      z-index: 3;
+      pointer-events: none;
+      transition: border-color 0.4s;
+    }
+    .album-art-wrap:hover .album-art-border { border-color: var(--gold); }
+    @keyframes glowPulse {
+      0%,100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.03); }
+    }
+
+    /* ──── TRACKS ──── */
+    #remixes {
+      padding: 140px 0;
+      background: var(--deep);
+    }
+    .remixes-header { text-align: center; margin-bottom: 80px; }
+    .remixes-header h2 { margin-bottom: 16px; }
+    .remixes-sub {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 20px;
+      color: var(--grey);
+    }
+
+    .tracks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2px;
+    }
+    .track-card {
+      position: relative;
+      padding: 28px 32px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(201,169,110,0.06);
+      cursor: pointer;
+      overflow: hidden;
+      transition: background 0.4s, border-color 0.4s, transform 0.3s;
+      text-decoration: none;
+      display: block;
+      color: inherit;
+    }
+    .track-card::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--gold);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .track-card:hover::before { transform: scaleY(1); }
+    .track-card:hover {
+      background: rgba(201,169,110,0.05);
+      border-color: rgba(201,169,110,0.2);
+      transform: translateX(4px);
+    }
+    .track-n {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      margin-bottom: 10px;
+      opacity: 0.7;
+    }
+    .track-artist {
+      font-family: var(--font-display);
+      font-size: 28px;
+      line-height: 1;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+    .track-name {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 15px;
+      color: var(--grey);
+      line-height: 1.4;
+    }
+    .track-duration {
+      position: absolute; top: 28px; right: 32px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--grey);
+    }
+    .track-play {
+      margin-top: 16px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .track-play svg { width: 14px; height: 14px; }
+    .track-card:hover .track-play { opacity: 1; }
+
+    /* FEATURED / LARGE TRACKS */
+    .track-card.featured {
+      grid-column: span 2;
+      padding: 40px 48px;
+    }
+    .track-card.featured .track-artist { font-size: 48px; }
+
+    /* ──── PLAYER CTA ──── */
+    #player-cta {
+      padding: 140px 0;
+      background: linear-gradient(to bottom, var(--deep), var(--midnight));
+      text-align: center;
+      overflow: hidden;
+    }
+    .player-quote {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 7vw, 96px);
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 16px;
+      letter-spacing: 0.03em;
+    }
+    .player-quote .italic-gold {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--gold);
+      font-size: 0.75em;
+      display: block;
+    }
+    .player-sub {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 56px;
+    }
+    .player-embed-wrap {
+      max-width: 700px;
+      margin: 0 auto 56px;
+      position: relative;
+    }
+    .player-embed-wrap::before {
+      content: '';
+      position: absolute; inset: -1px;
+      background: linear-gradient(135deg, var(--gold), transparent, var(--cyan));
+      opacity: 0.3;
+      z-index: 0;
+    }
+    .player-embed-wrap iframe {
+      display: block;
+      position: relative; z-index: 1;
+      border: none;
+      width: 100%;
+    }
+    .waveform {
+      display: flex; align-items: center; justify-content: center; gap: 4px;
+      height: 48px; margin-bottom: 40px;
+    }
+    .wave-bar {
+      width: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+      animation: wave 1.4s ease-in-out infinite;
+      opacity: 0.7;
+    }
+    @keyframes wave {
+      0%,100% { height: 8px; opacity: 0.3; }
+      50% { height: var(--h); opacity: 1; }
+    }
+
+    /* ──── WHY DIFFERENT ──── */
+    #why {
+      padding: 140px 0;
+      background: linear-gradient(to bottom, var(--midnight), var(--deep));
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .why-left h2 { margin-bottom: 32px; }
+    .why-left p {
+      font-size: 19px;
+      color: rgba(240,237,232,0.65);
+      line-height: 1.8;
+      font-style: italic;
+    }
+    .why-items { display: flex; flex-direction: column; gap: 2px; margin-top: 24px; }
+    .why-item {
+      padding: 28px 32px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.015);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s, transform 0.3s;
+    }
+    .why-item:hover {
+      background: rgba(201,169,110,0.06);
+      transform: translateX(6px);
+    }
+    .why-item-n {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--gold);
+      letter-spacing: 0.25em;
+      margin-bottom: 8px;
+    }
+    .why-item-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--white);
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .why-item-desc {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 15px;
+      color: var(--grey);
+      line-height: 1.6;
+    }
+
+    /* ──── ARTIST ──── */
+    #artist {
+      padding: 140px 0;
+      background: var(--deep);
+      overflow: hidden;
+    }
+    .artist-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+    .artist-img-wrap {
+      position: relative;
+    }
+    .artist-photo {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      filter: saturate(0.2) brightness(0.8);
+      display: block;
+      transition: filter 0.6s;
+    }
+    .artist-img-wrap:hover .artist-photo { filter: saturate(0.5) brightness(0.9); }
+    .artist-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,7,15,0.85) 0%, transparent 50%);
+    }
+    .artist-name-over {
+      position: absolute; bottom: 28px; left: 28px;
+      font-family: var(--font-display);
+      font-size: 56px;
+      color: var(--white);
+      line-height: 1;
+      letter-spacing: 0.04em;
+    }
+    .artist-name-over span { display: block; color: var(--gold); }
+    .artist-img-frame {
+      position: absolute;
+      top: 16px; left: 16px; right: -16px; bottom: -16px;
+      border: 1px solid var(--border);
+      z-index: -1;
+      transition: border-color 0.4s;
+    }
+    .artist-img-wrap:hover .artist-img-frame { border-color: var(--gold); }
+    .artist-bio h2 { margin-bottom: 28px; }
+    .artist-bio p {
+      font-size: 19px;
+      color: rgba(240,237,232,0.7);
+      line-height: 1.85;
+      margin-bottom: 20px;
+    }
+    .artist-bio em { color: var(--gold-pale); font-style: italic; }
+    .artist-tags {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-top: 36px;
+    }
+    .artist-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      color: var(--grey);
+      padding: 8px 18px;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .artist-tag:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ──── AUTHORITY ──── */
+    #authority {
+      padding: 120px 0;
+      background: linear-gradient(to bottom, var(--deep), var(--black));
+      overflow: hidden;
+    }
+    .authority-inner { text-align: center; }
+    .authority-inner h2 { margin-bottom: 20px; }
+    .authority-sub {
+      font-style: italic; font-size: 20px; color: var(--grey);
+      max-width: 600px; margin: 0 auto 80px;
+    }
+    .authority-row {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 2px;
+      flex-wrap: wrap;
+    }
+    .authority-card {
+      flex: 1; min-width: 200px; max-width: 280px;
+      padding: 48px 32px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.015);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s, transform 0.3s;
+    }
+    .authority-card:hover {
+      background: rgba(201,169,110,0.06);
+      transform: translateY(-6px);
+    }
+    .authority-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      transform: scaleX(0);
+      transition: transform 0.5s ease;
+    }
+    .authority-card:hover::after { transform: scaleX(1); }
+    .authority-icon {
+      font-family: var(--font-display);
+      font-size: 52px;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .authority-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--grey);
+      line-height: 1.6;
+    }
+
+    /* ──── FINAL CTA ──── */
+    #cta-final {
+      padding: 180px 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,60,120,0.2) 0%, transparent 70%),
+                  var(--black);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-bg-art {
+      position: absolute; inset: 0;
+      background-image: url('https://f4.bcbits.com/img/a0541613845_10.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.04;
+      filter: blur(4px);
+      transform: scale(1.08);
+    }
+    .cta-inner { position: relative; z-index: 2; }
+    .cta-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 32px;
+    }
+    .cta-headline {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 8vw, 120px);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .cta-statement {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(20px, 2.5vw, 28px);
+      color: rgba(240,237,232,0.55);
+      margin-bottom: 60px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
+    .cta-price {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      color: var(--grey);
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+    .cta-price strong { color: var(--gold-pale); }
+    .btn-buy {
+      font-family: var(--font-display);
+      font-size: 24px;
+      letter-spacing: 0.2em;
+      background: linear-gradient(135deg, var(--gold) 0%, #e8c87a 50%, var(--gold) 100%);
+      background-size: 200% 100%;
+      color: var(--black);
+      padding: 22px 64px;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 14px;
+      position: relative; overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s, background-position 0.5s;
+    }
+    .btn-buy:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 24px 64px rgba(201,169,110,0.45);
+      background-position: 100% 0;
+    }
+    .cta-fine {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-top: 24px;
+      opacity: 0.6;
+    }
+
+    /* ──── FOOTER ──── */
+    footer {
+      padding: 60px 48px 40px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px;
+      background: var(--black);
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 20px;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+    }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--grey);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: rgba(138,138,154,0.5);
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    /* ──── ANIMATIONS ──── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.4,0,0.2,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ──── MARQUEE ──── */
+    .marquee-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 0;
+      background: rgba(201,169,110,0.03);
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marqueeScroll 30s linear infinite;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    .marquee-item {
+      font-family: var(--font-display);
+      font-size: 18px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--grey);
+      padding: 0 40px;
+      white-space: nowrap;
+      transition: color 0.3s;
+    }
+    .marquee-item.gold { color: var(--gold); }
+    @keyframes marqueeScroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ──── MOBILE ──── */
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .nav-links { display: none; }
+      .hero-stats { flex-direction: column; gap: 24px; bottom: 80px; }
+      .immersion-grid { grid-template-columns: 1fr; gap: 48px; }
+      .why-grid { grid-template-columns: 1fr; gap: 48px; }
+      .artist-inner { grid-template-columns: 1fr; gap: 48px; }
+      .container, .container-wide { padding: 0 24px; }
+      .track-card.featured { grid-column: span 1; }
+      .tracks-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; }
+      .authority-row { flex-direction: column; align-items: center; }
+    }
+
+    /* ──── HOVER GLOW on body ──── */
+    a, button { cursor: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#hero" class="nav-logo">VB</a>
+    <ul class="nav-links">
+      <li><a href="#remixes">Tracklist</a></li>
+      <li><a href="#artist">Artist</a></li>
+      <li><a href="#why">The Vision</a></li>
+    </ul>
+    <a href="https://vincentbastille.bandcamp.com/album/vincent-bastille-remixes-legacy" target="_blank" class="nav-cta">Buy · €10</a>
+  </nav>
+
+  <!-- ═══════════════════════════════════════ HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-album-art"></div>
+    <div class="hero-grid-lines"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Vincent Bastille · 2026</div>
+      <h1>
+        REMIXES<br>
+        <span class="gold">LEGACY</span>
+      </h1>
+      <p class="hero-sub">
+        Iconic songs don't age — they wait.<br>
+        For someone who knows what to do with them.
+      </p>
+      <div class="hero-btns">
+        <a href="https://vincentbastille.bandcamp.com/album/vincent-bastille-remixes-legacy" target="_blank" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Listen Now
+        </a>
+        <a href="https://vincentbastille.bandcamp.com/album/vincent-bastille-remixes-legacy" target="_blank" class="btn-secondary">
+          Buy Album — €10
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-n">12</div>
+        <div class="stat-l">Reinterpretations</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">56+</div>
+        <div class="stat-l">Releases in Catalog</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">∞</div>
+        <div class="stat-l">Timeless</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item gold">Madonna</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item">Michael Jackson</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item gold">Sade</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item">Daft Punk</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item gold">Jennifer Lopez</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item">Calvin Harris</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item gold">The Eagles</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item">Nana Mouskouri</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item gold">Bruno Mars</span>
+      <span class="marquee-item">·</span>
+      <!-- duplicate for seamless loop -->
+      <span class="marquee-item gold">Madonna</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item">Michael Jackson</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item gold">Sade</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item">Daft Punk</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item gold">Jennifer Lopez</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item">Calvin Harris</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item gold">The Eagles</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item">Nana Mouskouri</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item gold">Bruno Mars</span>
+      <span class="marquee-item">·</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ IMMERSION -->
+  <section id="immersion">
+    <div class="container">
+      <div class="immersion-grid">
+        <div class="immersion-left reveal">
+          <div class="section-label">The Album</div>
+          <h2>FEEL EVERY<br>NOTE TWICE</h2>
+          <div class="immersion-copy">
+            <p>You already know these songs. You've lived inside them. That's exactly why this album exists.</p>
+            <p>Vincent Bastille doesn't remix. He <em>excavates</em> — pulling the soul out of a classic and rebuilding it with surgical restraint and club instinct.</p>
+            <p>Each track moves between two worlds: the dancefloor that never lies, and the quiet that follows 4am. <em>House without nostalgia. Emotion without sentimentality.</em></p>
+            <p>This is what happens when a lifetime of listening meets a career of knowing what moves people.</p>
+          </div>
+        </div>
+        <div class="immersion-right reveal" style="transition-delay: 0.2s;">
+          <div class="album-art-wrap">
+            <div class="album-art-glow"></div>
+            <img src="https://f4.bcbits.com/img/a0541613845_10.jpg" alt="Vincent Bastille – Remixes Legacy album artwork" />
+            <div class="album-art-border"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ TRACKS -->
+  <section id="remixes">
+    <div class="container-wide">
+      <div class="remixes-header reveal">
+        <div class="section-label" style="justify-content:center">Tracklist</div>
+        <h2>ICONIC SONGS.<br>REIMAGINED.</h2>
+        <p class="remixes-sub">Twelve transformations. One vision. Zero compromise.</p>
+      </div>
+
+      <div class="tracks-grid">
+
+        <a href="https://vincentbastille.bandcamp.com/track/jennifer-lopez-cant-get-enough-vincent-bastille-remix" target="_blank" class="track-card featured reveal">
+          <div class="track-n">01 — Jennifer Lopez</div>
+          <div class="track-artist">Can't Get<br>Enough</div>
+          <div class="track-name">Vincent Bastille Remix</div>
+          <div class="track-duration">04:13</div>
+          <div class="track-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play on Bandcamp
+          </div>
+        </a>
+
+        <a href="https://vincentbastille.bandcamp.com/track/madonna-ray-of-light-vincent-bastille-remix-2" target="_blank" class="track-card featured reveal" style="transition-delay:0.1s">
+          <div class="track-n">04 — Madonna</div>
+          <div class="track-artist">Ray Of<br>Light</div>
+          <div class="track-name">Vincent Bastille Remix</div>
+          <div class="track-duration">06:34</div>
+          <div class="track-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play on Bandcamp
+          </div>
+        </a>
+
+        <a href="https://vincentbastille.bandcamp.com/track/michael-jackson-you-rock-my-world-vincent-bastille-remix" target="_blank" class="track-card reveal" style="transition-delay:0.15s">
+          <div class="track-n">03 — Michael Jackson</div>
+          <div class="track-artist">You Rock<br>My World</div>
+          <div class="track-name">Disco House Remix</div>
+          <div class="track-duration">07:27</div>
+          <div class="track-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play on Bandcamp
+          </div>
+        </a>
+
+        <a href="https://vincentbastille.bandcamp.com/track/sade-smooth-operator-vincent-bastille-remix-2" target="_blank" class="track-card reveal" style="transition-delay:0.2s">
+          <div class="track-n">05 — Sade</div>
+          <div class="track-artist">Smooth<br>Operator</div>
+          <div class="track-name">Vincent Bastille Remix</div>
+          <div class="track-duration">07:21</div>
+          <div class="track-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play on Bandcamp
+          </div>
+        </a>
+
+        <a href="https://vincentbastille.bandcamp.com/track/modjo-lady-vincent-bastille-remix" target="_blank" class="track-card reveal" style="transition-delay:0.1s">
+          <div class="track-n">02 — Modjo</div>
+          <div class="track-artist">Lady</div>
+          <div class="track-name">Disco House Remix</div>
+          <div class="track-duration">04:21</div>
+          <div class="track-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play on Bandcamp
+          </div>
+        </a>
+
+        <a href="https://vincentbastille.bandcamp.com/track/calvin-harris-promises-vincent-bastille-remix" target="_blank" class="track-card reveal" style="transition-delay:0.25s">
+          <div class="track-n">09 — Calvin Harris</div>
+          <div class="track-artist">Promises</div>
+          <div class="track-name">Vincent Bastille Remix</div>
+          <div class="track-duration">06:22</div>
+          <div class="track-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play on Bandcamp
+          </div>
+        </a>
+
+        <a href="https://vincentbastille.bandcamp.com/track/the-eagles-hotel-california-vincent-bastille-remix-2" target="_blank" class="track-card reveal" style="transition-delay:0.15s">
+          <div class="track-n">07 — The Eagles</div>
+          <div class="track-artist">Hotel<br>California</div>
+          <div class="track-name">Vincent Bastille Remix</div>
+          <div class="track-duration">05:52</div>
+          <div class="track-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play on Bandcamp
+          </div>
+        </a>
+
+        <a href="https://vincentbastille.bandcamp.com/track/nana-mouskouri-quand-tu-chantes-vincent-bastille-remix" target="_blank" class="track-card reveal" style="transition-delay:0.2s">
+          <div class="track-n">06 — Nana Mouskouri</div>
+          <div class="track-artist">Quand Tu<br>Chantes</div>
+          <div class="track-name">Vincent Bastille Remix</div>
+          <div class="track-duration">04:09</div>
+          <div class="track-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play on Bandcamp
+          </div>
+        </a>
+
+        <a href="https://vincentbastille.bandcamp.com/track/jeanne-mason-avant-de-nous-dire-adieu-vincent-bastille-remix" target="_blank" class="track-card reveal" style="transition-delay:0.25s">
+          <div class="track-n">08 — Jeanne Mason</div>
+          <div class="track-artist">Avant De<br>Nous Dire</div>
+          <div class="track-name">Vincent Bastille Remix</div>
+          <div class="track-duration">05:56</div>
+          <div class="track-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play on Bandcamp
+          </div>
+        </a>
+
+        <a href="https://vincentbastille.bandcamp.com/track/bruno-mars-i-just-might-remix" target="_blank" class="track-card reveal" style="transition-delay:0.3s">
+          <div class="track-n">12 — Bruno Mars</div>
+          <div class="track-artist">I Just<br>Might</div>
+          <div class="track-name">Vincent Bastille Remix</div>
+          <div class="track-duration">05:28</div>
+          <div class="track-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play on Bandcamp
+          </div>
+        </a>
+
+        <a href="https://vincentbastille.bandcamp.com/track/vincent-bastille-mystic-arno-gonzalez-remix" target="_blank" class="track-card reveal" style="transition-delay:0.2s">
+          <div class="track-n">10 — Vincent Bastille</div>
+          <div class="track-artist">Mystic</div>
+          <div class="track-name">Arno Gonzalez Remix</div>
+          <div class="track-duration">05:44</div>
+          <div class="track-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play on Bandcamp
+          </div>
+        </a>
+
+        <a href="https://vincentbastille.bandcamp.com/track/vincent-bastille-medication-1" target="_blank" class="track-card reveal" style="transition-delay:0.25s">
+          <div class="track-n">11 — Vincent Bastille</div>
+          <div class="track-artist">Medication<br>#1</div>
+          <div class="track-name">Extended Mix · 20:52</div>
+          <div class="track-duration">20:52</div>
+          <div class="track-play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Play on Bandcamp
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ PLAYER CTA -->
+  <section id="player-cta">
+    <div class="container">
+      <div class="player-quote reveal">
+        You don't listen.
+        <span class="italic-gold">You enter it.</span>
+      </div>
+      <p class="player-sub reveal">Stream free · Download FLAC · Own it forever</p>
+      <div class="waveform reveal">
+        <div class="wave-bar" style="--h:32px; animation-delay:0.0s"></div>
+        <div class="wave-bar" style="--h:20px; animation-delay:0.1s"></div>
+        <div class="wave-bar" style="--h:40px; animation-delay:0.2s"></div>
+        <div class="wave-bar" style="--h:14px; animation-delay:0.3s"></div>
+        <div class="wave-bar" style="--h:44px; animation-delay:0.4s"></div>
+        <div class="wave-bar" style="--h:28px; animation-delay:0.5s"></div>
+        <div class="wave-bar" style="--h:38px; animation-delay:0.6s"></div>
+        <div class="wave-bar" style="--h:22px; animation-delay:0.7s"></div>
+        <div class="wave-bar" style="--h:42px; animation-delay:0.8s"></div>
+        <div class="wave-bar" style="--h:16px; animation-delay:0.9s"></div>
+        <div class="wave-bar" style="--h:36px; animation-delay:1.0s"></div>
+        <div class="wave-bar" style="--h:24px; animation-delay:1.1s"></div>
+        <div class="wave-bar" style="--h:44px; animation-delay:1.2s"></div>
+        <div class="wave-bar" style="--h:18px; animation-delay:1.3s"></div>
+        <div class="wave-bar" style="--h:30px; animation-delay:1.4s"></div>
+        <div class="wave-bar" style="--h:40px; animation-delay:1.5s"></div>
+        <div class="wave-bar" style="--h:12px; animation-delay:1.6s"></div>
+        <div class="wave-bar" style="--h:36px; animation-delay:1.7s"></div>
+        <div class="wave-bar" style="--h:26px; animation-delay:1.8s"></div>
+        <div class="wave-bar" style="--h:42px; animation-delay:1.9s"></div>
+      </div>
+      <div class="player-embed-wrap reveal">
+        <iframe
+          style="border: 0; width: 100%; height: 120px;"
+          src="https://bandcamp.com/EmbeddedPlayer/album=1540613845/size=large/bgcol=000000/linkcol=c9a96e/tracklist=false/artwork=small/transparent=true/"
+          seamless>
+          <a href="https://vincentbastille.bandcamp.com/album/vincent-bastille-remixes-legacy">Vincent Bastille – Remixes (Legacy)</a>
+        </iframe>
+      </div>
+      <a href="https://vincentbastille.bandcamp.com/album/vincent-bastille-remixes-legacy" target="_blank" class="btn-primary reveal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1a11 11 0 100 22A11 11 0 0012 1zm-2 15.5v-9l7 4.5-7 4.5z"/></svg>
+        Open Full Album on Bandcamp
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ WHY DIFFERENT -->
+  <section id="why">
+    <div class="container">
+      <div class="why-grid">
+        <div class="why-left reveal">
+          <div class="section-label">The Vision</div>
+          <h2>NOT A<br>REMIX<br>ALBUM.</h2>
+          <p>Every track here began as something legendary. What Vincent Bastille does to it is different — quieter, more deliberate, and ultimately more devastating.</p>
+        </div>
+        <div class="why-items reveal" style="transition-delay:0.15s">
+          <div class="why-item">
+            <div class="why-item-n">01</div>
+            <div class="why-item-title">REINTERPRETATION</div>
+            <div class="why-item-desc">Not a remix — a second life. Each track is rebuilt from its emotional core, not its structure.</div>
+          </div>
+          <div class="why-item">
+            <div class="why-item-n">02</div>
+            <div class="why-item-title">CLUB + CINEMA</div>
+            <div class="why-item-desc">Works at 2am on a packed floor. Works alone at midnight. This is rare.</div>
+          </div>
+          <div class="why-item">
+            <div class="why-item-n">03</div>
+            <div class="why-item-title">MINIMAL. POWERFUL.</div>
+            <div class="why-item-desc">No excess. Every element earns its place. The discipline is the aesthetic.</div>
+          </div>
+          <div class="why-item">
+            <div class="why-item-n">04</div>
+            <div class="why-item-title">CROSS-GENERATIONAL</div>
+            <div class="why-item-desc">From Hotel California to Jennifer Lopez — the music spans decades. The feeling doesn't.</div>
+          </div>
+          <div class="why-item">
+            <div class="why-item-n">05</div>
+            <div class="why-item-title">LOSSLESS QUALITY</div>
+            <div class="why-item-desc">Download in FLAC, WAV, MP3. Hear everything the producer heard when he made it.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ ARTIST -->
+  <section id="artist">
+    <div class="container">
+      <div class="artist-inner">
+        <div class="artist-img-wrap reveal">
+          <img
+            src="https://f4.bcbits.com/img/0040731089_10.jpg"
+            alt="Vincent Bastille – DJ and Producer"
+            class="artist-photo"
+          />
+          <div class="artist-overlay"></div>
+          <div class="artist-name-over">VINCENT<span>BASTILLE</span></div>
+          <div class="artist-img-frame"></div>
+        </div>
+        <div class="artist-bio reveal" style="transition-delay:0.2s">
+          <div class="section-label">The Artist</div>
+          <h2>A LIFE<br>IN MUSIC</h2>
+          <p>Vincent Bastille is not a producer chasing trends. He is a <em>student of the dancefloor</em> — one who has spent decades learning what moves people and why.</p>
+          <p>Based in Le Mans, his sound travels: house, disco, ambient, club. Elegant but never cold. Precise but never sterile. He carries the underground and the international in equal measure.</p>
+          <p>With over 56 releases in his catalog, <em>Remixes (Legacy)</em> is his most focused work — a distillation of everything he knows about transforming music into experience.</p>
+          <div class="artist-tags">
+            <span class="artist-tag">House</span>
+            <span class="artist-tag">Disco</span>
+            <span class="artist-tag">Ambient</span>
+            <span class="artist-tag">Club</span>
+            <span class="artist-tag">Electronic</span>
+            <span class="artist-tag">Le Mans · France</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ AUTHORITY -->
+  <section id="authority">
+    <div class="container">
+      <div class="authority-inner">
+        <div class="reveal">
+          <div class="section-label" style="justify-content:center">Legacy</div>
+          <h2>THE PROOF</h2>
+          <p class="authority-sub">Career work that speaks before he opens his mouth.</p>
+        </div>
+        <div class="authority-row">
+          <div class="authority-card reveal" style="transition-delay:0.05s">
+            <div class="authority-icon">56+</div>
+            <div class="authority-label">Releases across<br>two decades</div>
+          </div>
+          <div class="authority-card reveal" style="transition-delay:0.1s">
+            <div class="authority-icon">12</div>
+            <div class="authority-label">Icons reimagined<br>on this album</div>
+          </div>
+          <div class="authority-card reveal" style="transition-delay:0.15s">
+            <div class="authority-icon">FLAC</div>
+            <div class="authority-label">Lossless audio<br>16-bit / 44.1kHz</div>
+          </div>
+          <div class="authority-card reveal" style="transition-delay:0.2s">
+            <div class="authority-icon">∞</div>
+            <div class="authority-label">Streaming via<br>Bandcamp app</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ FINAL CTA -->
+  <section id="cta-final">
+    <div class="cta-bg-art"></div>
+    <div class="container">
+      <div class="cta-inner">
+        <div class="cta-eyebrow reveal">Vincent Bastille · Remixes (Legacy) · 2026</div>
+        <div class="cta-headline reveal" style="transition-delay:0.1s">
+          NOT A<br>REMIX<br>ALBUM.
+        </div>
+        <p class="cta-statement reveal" style="transition-delay:0.2s">
+          This is a transformation.<br>
+          Twelve legendary songs. One singular vision.<br>
+          And a feeling you won't find anywhere else.
+        </p>
+        <div class="cta-price reveal" style="transition-delay:0.3s">
+          Digital Album · MP3 · FLAC · WAV — <strong>€10 EUR</strong>
+        </div>
+        <a href="https://vincentbastille.bandcamp.com/album/vincent-bastille-remixes-legacy" target="_blank" class="btn-buy reveal" style="transition-delay:0.35s">
+          BUY NOW
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <div class="cta-fine reveal" style="transition-delay:0.45s">Includes unlimited streaming · Purchasable with gift card · Instant download</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">VINCENT BASTILLE</div>
+    <div class="footer-links">
+      <a href="https://vincentbastille.bandcamp.com" target="_blank">Bandcamp</a>
+      <a href="https://vincentbastille.bandcamp.com/music" target="_blank">Full Discography</a>
+      <a href="https://vincentbastille.bandcamp.com/album/vincent-bastille-remixes-legacy" target="_blank">Buy Album</a>
+    </div>
+    <div class="footer-copy">© 2026 Vincent Bastille. All rights reserved. Remixes (Legacy) — Released March 24, 2026.</div>
+  </footer>
+
+  <script>
+    // ── CURSOR
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    function animCursor() {
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animCursor);
+    }
+    animCursor();
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.width = '18px'; cursor.style.height = '18px';
+        ring.style.width = '56px'; ring.style.height = '56px';
+        ring.style.borderColor = 'var(--gold)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.width = '10px'; cursor.style.height = '10px';
+        ring.style.width = '36px'; ring.style.height = '36px';
+      });
+    });
+
+    // ── NAV SCROLL
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ── REVEAL ON SCROLL
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+
+    // ── WAVEFORM HEIGHTS (randomize for organic feel)
+    document.querySelectorAll('.wave-bar').forEach(bar => {
+      const h = Math.floor(Math.random() * 36) + 10;
+      bar.style.setProperty('--h', h + 'px');
+    });
+  </script>
+</body>
+</html>
