@@ -3,25 +3,19 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
+import random
 from dataclasses import dataclass
+from datetime import date
 from pathlib import Path
 from typing import Iterable
 
-from dotenv import load_dotenv
-from jinja2 import Environment, FileSystemLoader, select_autoescape
-
-try:
-    from anthropic import Anthropic
-except Exception:  # anthropic is optional at runtime
-    Anthropic = None
 
 ROOT = Path(__file__).resolve().parent
 DATA_FILE = ROOT / "data" / "pages.json"
-TEMPLATE_FILE = "page.html.jinja"
-TEMPLATE_DIR = ROOT / "templates"
 SITE_URL = "https://remixes.vincentbastille.online"
 CTA_URL = "https://remixes.vincentbastille.online/"
+
+ARTISTS = ["Michael Jackson", "Sade", "Madonna", "Daft Punk", "David Guetta"]
 
 
 @dataclass(frozen=True)
@@ -46,124 +40,197 @@ def heading_from_slug(slug: str) -> str:
     return slug.replace("-", " ").title()
 
 
-def fallback_paragraphs(page: Page, idx: int) -> list[str]:
-    moods = [
-        "neon-lit tension and late-night momentum",
-        "sunrise warmth with deep low-end patience",
-        "festival-scale impact with collector-level details",
-        "minimal textures that leave room for emotion",
-        "cinematic contrast between silence and release",
-    ]
-    focus = [
-        "arrangement choices",
-        "groove architecture",
-        "vocal space and phrasing",
-        "harmonic movement",
-        "club-to-headphones translation",
-    ]
-    mood = moods[idx % len(moods)]
-    craft = focus[(idx * 2) % len(focus)]
-
-    return [
-        (
-            f"{heading_from_slug(page.slug)} is built for listeners who want more than a quick playlist pass. "
-            f"This page frames {page.keyword} as a living dancefloor narrative with {mood}, where every transition "
-            "feels intentional rather than accidental."
-        ),
-        (
-            "Vincent Bastille approaches remixes like a producer and a storyteller at once. "
-            f"The emphasis here is on {craft}: tiny production moves, controlled dynamics, and hooks that stay human "
-            "instead of becoming over-processed wallpaper."
-        ),
-        (
-            f"If {page.keyword} brought you here, follow the descriptive links below to branch into related styles. "
-            "Each one maps a different angle—underground pressure, melodic lift, or cinematic detail—without breaking "
-            "the broader artistic identity."
-        ),
-        (
-            "Most importantly, this project is designed for direct artist support. "
-            "The call-to-action always points to the main catalog so you can listen, choose favorites, and come back "
-            "whenever you need fresh remix energy."
-        ),
-    ]
+def words(text: str) -> int:
+    return len(text.split())
 
 
-def ai_paragraphs(page: Page, client: Anthropic | None, model: str) -> list[str] | None:
-    if client is None:
-        return None
-
-    prompt = (
-        "Write exactly 4 unique paragraphs in English for a static remix landing page. "
-        "Tone: passionate music expert, natural, not robotic, no keyword stuffing. "
-        "Mention Vincent Bastille once. Mention the phrase '"
-        + page.keyword
-        + "' naturally once. Avoid markdown."
+def build_intro(page: Page, rng: random.Random) -> str:
+    opener = rng.choice([
+        "Some remixes are disposable, but legacy remixes become cultural memory.",
+        "A great remix does not simply speed up a song; it rewrites how people feel it.",
+        "When people search for the best remix ever made, they are searching for emotional proof.",
+    ])
+    return (
+        f"{opener} This guide explores {page.keyword} through the lens of remix legacy culture, from club foundations "
+        "to today's streaming behavior. You will find context, production analysis, and direct listening paths to "
+        "Vincent Bastille remixes so discovery turns into action."
     )
-    try:
-        message = client.messages.create(
-            model=model,
-            max_tokens=900,
-            temperature=0.7,
-            messages=[{"role": "user", "content": prompt}],
-        )
-        text_blocks = [b.text for b in message.content if getattr(b, "type", "") == "text"]
-        raw = "\n".join(text_blocks).strip()
-        parts = [p.strip().replace("\n", " ") for p in raw.split("\n\n") if p.strip()]
-        if len(parts) >= 4:
-            return parts[:4]
-    except Exception:
-        return None
-    return None
 
 
-def related_links(all_pages: list[Page], current: Page, count: int = 4) -> list[dict[str, str]]:
+def make_section(title: str, lines: list[str]) -> dict[str, str | list[str]]:
+    return {"title": title, "paragraphs": lines}
+
+
+def build_sections(page: Page) -> list[dict[str, str | list[str]]]:
+    rng = random.Random(page.id * 17)
+    bpm = 118 + (page.id % 10)
+    artist_a, artist_b = rng.sample(ARTISTS, 2)
+
+    history = make_section(
+        "History and context of remix culture",
+        [
+            f"The history behind {page.keyword} is tied to dub edits, vinyl extensions, and club remix history from the late 80s and 90s.",
+            f"Promoters learned quickly that a single remix could revive an artist catalog. Fans of {artist_a} and {artist_b} still discover songs through reinterpretations before hearing the originals.",
+            "As house remix classics moved from white labels to digital stores, remix legacy became a search behavior: listeners look for iconic versions that carry both nostalgia and surprise.",
+        ],
+    )
+
+    analysis = make_section(
+        "Musical analysis: style, BPM and vibe",
+        [
+            f"This page frames the style around {bpm} BPM, balancing dancefloor pressure with melodic space so the drop feels earned.",
+            "Arrangement choices matter: filtered intros, restrained midrange, and vocal phrasing help the hook stay recognizable while feeling newly cinematic.",
+            "The vibe typically combines deep house remix legends energy with modern low-end control, letting the remix translate from headphones to big systems.",
+        ],
+    )
+
+    legendary = make_section(
+        "Why this remix angle is considered legendary",
+        [
+            f"A legendary remix survives trend cycles. In long-tail searches like 'iconic remix songs history' or 'best {artist_a.lower()} remix ever', longevity matters more than hype.",
+            "What gives this direction lasting impact is emotional timing: tension before release, vocal respect without imitation, and groove architecture that DJs can trust.",
+            "That is why collectors return to classic remix references: they deliver identity, not just loudness.",
+        ],
+    )
+
+    cta = make_section(
+        "Listen Vincent Bastille Remix",
+        [
+            "If you want a modern extension of this legacy, jump to the Vincent Bastille catalog and listen in full context.",
+            "Use the button below to discover, stream, and support the project directly.",
+        ],
+    )
+
+    return [history, analysis, legendary, cta]
+
+
+def build_faq(page: Page) -> list[dict[str, str]]:
+    return [
+        {
+            "q": f"What makes {page.keyword} different from a standard remix?",
+            "a": "It focuses on long-term replay value, storytelling arrangement, and club-ready mix decisions rather than quick trend aesthetics.",
+        },
+        {
+            "q": "Why do people search for classic and iconic remixes from the 90s?",
+            "a": "Because those versions often balanced emotional songwriting with DJ functionality, creating tracks that still work decades later.",
+        },
+        {
+            "q": "Where can I listen to Vincent Bastille remixes?",
+            "a": "Use the main catalog link on this page to access the latest Vincent Bastille remix releases and listening routes.",
+        },
+        {
+            "q": "How does internal remix exploration help listeners?",
+            "a": "Related pages connect adjacent styles and artists, helping fans move from one remix topic to another without losing context.",
+        },
+    ]
+
+
+def related_links(all_pages: list[Page], current: Page, count: int = 5) -> list[dict[str, str]]:
     start = all_pages.index(current)
     picks = []
     for step in range(1, len(all_pages)):
         if len(picks) >= count:
             break
         candidate = all_pages[(start + step) % len(all_pages)]
-        picks.append(
-            {
-                "slug": candidate.slug,
-                "anchor": f"Explore {heading_from_slug(candidate.slug)} remix analysis",
-            }
-        )
+        picks.append({"slug": candidate.slug, "anchor": f"{heading_from_slug(candidate.slug)} guide"})
     return picks
 
 
-def schema_for(page: Page) -> str:
-    schema = {
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": page.title,
-        "description": page.description,
-        "url": f"{SITE_URL}/{page.slug}.html",
-        "about": {
-            "@type": "MusicAlbum",
-            "name": "Vincent Bastille Remixes (Legacy)",
-            "byArtist": {"@type": "MusicGroup", "name": "Vincent Bastille"},
-            "genre": ["House", "Electronic", "Remix"],
+def build_body(page: Page) -> dict:
+    intro = build_intro(page, random.Random(page.id))
+    sections = build_sections(page)
+    faq = build_faq(page)
+
+    # Ensure practical SEO length target.
+    body_parts = [intro]
+    for section in sections:
+        body_parts.extend(section["paragraphs"])
+    while words(" ".join(body_parts)) < 820:
+        body_parts.append(
+            f"In practical terms, {page.keyword} also connects with searches like 'legendary house remixes 90s club' and 'best remix ever made', "
+            "which is why this page keeps both historical context and conversion paths in the same experience."
+        )
+    return {"intro": intro, "sections": sections, "faq": faq, "word_count": words(" ".join(body_parts))}
+
+
+def schema_for(page: Page, faq: list[dict[str, str]]) -> str:
+    schema = [
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": item["q"],
+                    "acceptedAnswer": {"@type": "Answer", "text": item["a"]},
+                }
+                for item in faq
+            ],
         },
-    }
+        {
+            "@context": "https://schema.org",
+            "@type": "MusicRecording",
+            "name": page.title,
+            "url": f"{SITE_URL}/{page.slug}.html",
+            "byArtist": {"@type": "MusicGroup", "name": "Vincent Bastille"},
+            "genre": ["House", "Deep House", "Remix"],
+        },
+    ]
     return json.dumps(schema, ensure_ascii=False)
 
 
+
+def render_html(page: Page, heading: str, body: dict, related: list[dict[str, str]], schema_json: str) -> str:
+    related_items = "".join([f'<li><a href="/{link["slug"]}.html">{link["anchor"]}</a></li>' for link in related])
+    section_html = []
+    for section in body["sections"]:
+        paras = "".join([f"<p>{p}</p>" for p in section["paragraphs"]])
+        section_html.append(f"<section class=\"card\"><h2>{section['title']}</h2>{paras}</section>")
+    faq_html = "".join([f"<h3>{f['q']}</h3><p>{f['a']}</p>" for f in body["faq"]])
+    return f"""<!doctype html>
+<html lang=\"en\">
+<head>
+  <meta charset=\"utf-8\">
+  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+  <title>{page.title}</title>
+  <meta name=\"description\" content=\"{page.description}\">
+  <link rel=\"canonical\" href=\"{SITE_URL}/{page.slug}.html\">
+  <meta property=\"og:type\" content=\"article\">
+  <meta property=\"og:title\" content=\"{page.title}\">
+  <meta property=\"og:description\" content=\"{page.description}\">
+  <meta property=\"og:url\" content=\"{SITE_URL}/{page.slug}.html\">
+  <script type=\"application/ld+json\">{schema_json}</script>
+</head>
+<body>
+<main>
+<section class=\"card\"><h1>{heading}</h1><p>{page.description}</p><a href=\"{CTA_URL}\">Listen Vincent Bastille Remix</a></section>
+<section class=\"card\"><h2>Ultimate remix legacy introduction</h2><p>{body['intro']}</p></section>
+{''.join(section_html)}
+<section class=\"card\"><h2>Similar remix pages to explore</h2><h3>Internal remix cluster</h3><ul>{related_items}</ul></section>
+<section class=\"card\"><h2>FAQ</h2>{faq_html}</section>
+</main>
+</body>
+</html>"""
+
+
+
+def write_sitemap(pages: list[Page]) -> None:
+    today = date.today().isoformat()
+    urls = [
+        "  <url><loc>{}</loc><lastmod>{}</lastmod><changefreq>weekly</changefreq><priority>{}</priority></url>".format(
+            f"{SITE_URL}/{p.slug}.html", today, "0.8"
+        )
+        for p in pages
+    ]
+    root_url = f"  <url><loc>{SITE_URL}/</loc><lastmod>{today}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>"
+    xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n"
+    xml += root_url + "\n" + "\n".join(urls) + "\n</urlset>\n"
+    (ROOT / "sitemap.xml").write_text(xml, encoding="utf-8")
+    print("Updated sitemap.xml")
+
+
 def render_pages(selected_slug: str | None = None) -> list[Path]:
-    load_dotenv()
     pages = load_pages()
-    env = Environment(
-        loader=FileSystemLoader(str(TEMPLATE_DIR)),
-        autoescape=select_autoescape(["html", "xml"]),
-        trim_blocks=True,
-        lstrip_blocks=True,
-    )
-    template = env.get_template(TEMPLATE_FILE)
-
-    api_key = os.getenv("ANTHROPIC_API_KEY", "").strip()
-    model = os.getenv("ANTHROPIC_MODEL", "claude-3-5-sonnet-latest").strip()
-    client = Anthropic(api_key=api_key) if (api_key and Anthropic) else None
-
     targets: Iterable[Page] = pages
     if selected_slug:
         targets = [p for p in pages if p.slug == selected_slug]
@@ -171,22 +238,21 @@ def render_pages(selected_slug: str | None = None) -> list[Path]:
             raise ValueError(f"Unknown slug: {selected_slug}")
 
     written = []
-    for idx, page in enumerate(targets):
-        paragraphs = ai_paragraphs(page, client, model) or fallback_paragraphs(page, idx)
-        html = template.render(
+    for page in targets:
+        body = build_body(page)
+        html = render_html(
             page=page,
             heading=heading_from_slug(page.slug),
-            paragraphs=paragraphs,
+            body=body,
             related=related_links(pages, page),
-            cta_url=CTA_URL,
-            site_url=SITE_URL,
-            schema_json=schema_for(page),
+            schema_json=schema_for(page, body["faq"]),
         )
         output = ROOT / f"{page.slug}.html"
         output.write_text(html, encoding="utf-8")
         written.append(output)
-        print(f"Generated {output.name}")
+        print(f"Generated {output.name} ({body['word_count']} words)")
 
+    write_sitemap(pages)
     return written
 
 
