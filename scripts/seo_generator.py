@@ -13,7 +13,7 @@ if not TOGETHER_API_KEY:
 print("✅ API KEY OK")
 
 API_URL = "https://api.together.xyz/v1/chat/completions"
-MODEL = "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free"
+MODEL = "meta-llama/Meta-Llama-3-8B-Instruct-Lite"
 
 HEADERS = {
     "Authorization": f"Bearer {TOGETHER_API_KEY}",
