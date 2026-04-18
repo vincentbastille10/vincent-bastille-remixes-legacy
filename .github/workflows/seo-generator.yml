@@ -8,20 +8,27 @@ on:
   schedule:
     - cron: '0 6 * * 1'
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   generate-seo:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
       - name: Install dependencies
         run: pip install requests
+
       - name: Run SEO generator
         env:
           TOGETHER_API_KEY: ${{ secrets.TOGETHER_API_KEY }}
         run: python scripts/seo_generator.py
+
       - name: Commit generated pages
         run: |
           git config --local user.email "action@github.com"
