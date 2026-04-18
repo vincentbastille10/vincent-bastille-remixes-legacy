@@ -1,0 +1,146 @@
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== BODY ===== */
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: radial-gradient(circle at 20% 20%, #0f172a, #020617);
+  color: #e5e7eb;
+  line-height: 1.6;
+  padding: 40px 20px;
+}
+
+/* ===== CONTAINER ===== */
+main {
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* ===== HEADINGS ===== */
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 3rem;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #00ffc8, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #00ffc8;
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #9ca3af;
+}
+
+/* ===== CARDS ===== */
+.card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+  padding: 30px;
+  margin-bottom: 25px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0,255,200,0.3);
+  box-shadow: 0 0 40px rgba(0,255,200,0.1);
+}
+
+/* ===== TEXT ===== */
+p {
+  margin-bottom: 15px;
+  color: #cbd5f5;
+}
+
+/* ===== LINKS ===== */
+a {
+  color: #00ffc8;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ===== BUTTON STYLE ===== */
+a.button {
+  display: inline-block;
+  padding: 12px 22px;
+  margin-top: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #00ffc8, #3b82f6);
+  color: black;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+a.button:hover {
+  transform: scale(1.05);
+}
+
+/* ===== LIST ===== */
+ul {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+/* ===== GRID LINKS ===== */
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.link-box {
+  background: rgba(2,6,23,0.8);
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: 0.3s;
+}
+
+.link-box:hover {
+  background: rgba(0,255,200,0.05);
+  transform: scale(1.03);
+}
+
+/* ===== HERO GLOW ===== */
+.card:first-child {
+  position: relative;
+  overflow: hidden;
+}
+
+.card:first-child::before {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #00ffc8, transparent);
+  top: -100px;
+  left: -100px;
+  opacity: 0.2;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+}
