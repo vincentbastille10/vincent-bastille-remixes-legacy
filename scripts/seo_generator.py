@@ -340,11 +340,23 @@ Règles ABSOLUES :
     try:
         return json.loads(raw)
     except json.JSONDecodeError:
-        start = raw.find("{")
-        end = raw.rfind("}") + 1
-        if start >= 0 and end > start:
-            return json.loads(raw[start:end])
-        raise
+        # Tentative de nettoyage des apostrophes problématiques
+        import re
+        # Remplacer les apostrophes dans les valeurs JSON
+        raw_clean = re.sub(r"(?<!\\)'", "\\'", raw)
+        try:
+            return json.loads(raw)
+        except:
+            start = raw.find("{")
+            end = raw.rfind("}") + 1
+            if start >= 0 and end > start:
+                try:
+                    return json.loads(raw[start:end])
+                except:
+                    # Dernier recours : utiliser ast.literal_eval
+                    import ast
+                    return ast.literal_eval(raw[start:end])
+            raise
 
 # ─────────────────────────────────────────
 # BUILD HTML
