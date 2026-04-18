@@ -300,6 +300,8 @@ Règles ABSOLUES :
 - Faire des liens sémantiques entre les artistes (ex: "comme Daft Punk a influencé...", "dans la lignée de...")
 - Pas de placeholder, pas de [brackets], contenu 100% prêt
 - JSON strict : pas d'apostrophes dans les clés, pas de guillemets non échappés
+- CRITICAL : Dans le JSON, remplace toutes les apostrophes (') par des espaces ou reformule. Exemple : écris "l influence" au lieu de "l'influence", "d une" au lieu de "d'une".
+- Ne génère QUE du JSON valide, sans aucun caractère spécial non échappé.
 """
 
     payload = {
