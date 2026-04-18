@@ -17,7 +17,7 @@ BASE_URL = "https://vincent-bastille-remixes-legacy.vercel.app"
 BANDCAMP_URL = "https://vincentbastille.bandcamp.com/album/vincent-bastille-remixes-legacy"
 BANDCAMP_ARTIST = "https://vincentbastille.bandcamp.com"
 OUTPUT_DIR = "seo-pages"
-PAGES_PER_RUN = 150
+PAGES_PER_RUN = 5
 
 # ─────────────────────────────────────────
 # TRACKS RÉELS DE L'ALBUM
