@@ -424,74 +424,32 @@ def fallback_content(keyword: str, album_context: list[dict]) -> str:
 
 
 def llm_generate(keyword: str, album_context: list[dict]) -> str:
-    print("🔥 VERSION CLEAN 🔥")
-
-    if not TOGETHER_API_KEY:
-        return fallback_content(keyword, album_context)
+    print("🔥 LOCAL LLM (OLLAMA) 🔥")
 
     prompt = build_prompt(keyword, album_context)
 
-    payload = {
-        "model": "mistralai/Mistral-7B-Instruct-v0.1",
-        "prompt": prompt,
-        "max_tokens": 800,
-        "temperature": 0.7
-    }
-
     try:
         response = requests.post(
-            "https://api.together.xyz/v1/completions",
-            headers=headers(),
-            json=payload,
-            timeout=REQUEST_TIMEOUT
+            "http://localhost:11434/api/generate",
+            json={
+                "model": "llama3",
+                "prompt": prompt,
+                "stream": False
+            },
+            timeout=60
         )
 
-        print("STATUS:", response.status_code)
-        print("BODY:", response.text[:200])
-
-        response.raise_for_status()
-
         data = response.json()
-
-        text = data["choices"][0]["text"]
+        text = data.get("response", "").strip()
 
         if not text or word_count(text) < 100:
             return fallback_content(keyword, album_context)
 
-        return text.strip()
+        return text
 
     except Exception as e:
-        print("LLM ERROR:", e)
+        print("LOCAL LLM ERROR:", e)
         return fallback_content(keyword, album_context)
-
-
-def schema_article(title: str, description: str, slug: str, date_str: str) -> str:
-    data = {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": title,
-        "description": description,
-        "url": f"{BASE_URL}/seo-pages/{slug}.html",
-        "datePublished": date_str,
-        "dateModified": date_str,
-        "author": {
-            "@type": "Person",
-            "name": "Vincent Bastille",
-        },
-        "publisher": {
-            "@type": "Organization",
-            "name": "Vincent Bastille Remixes",
-        },
-        "about": [
-            "house remix",
-            "electronic remix",
-            "Vincent Bastille",
-            "remix culture",
-            "Bandcamp",
-        ],
-    }
-
-    return json.dumps(data, ensure_ascii=False, indent=2)
 
 
 def build_page(keyword: str, albums: list[dict], all_slugs: list[str], date_str: str) -> tuple[str, str]:
