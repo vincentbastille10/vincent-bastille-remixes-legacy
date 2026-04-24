@@ -33,7 +33,8 @@ JSON_PATH         = Path("bandcamp_full.json")
 SITEMAP_PATH      = Path("sitemap.xml")
 STATE_PATH        = Path(".seo_state.json")   # tracks already-generated slugs
 
-TOGETHER_API_KEY  = "tgp_v1_4cNHvapySS8beDrKvDdDOC4FNNwL_5uuNoHbpOW55nc"             # ← replace with real key
+TOGETHER_API_KEY = os.getenv("tgp_v1_4cNHvapySS8beDrKvDdDOC4FNNwL_5uuNoHbpOW55nc")
+
 MODEL             = "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"
 
 LLM_TIMEOUT       = 30          # seconds per attempt
