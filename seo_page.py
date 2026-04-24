@@ -33,7 +33,7 @@ JSON_PATH         = Path("bandcamp_full.json")
 SITEMAP_PATH      = Path("sitemap.xml")
 STATE_PATH        = Path(".seo_state.json")   # tracks already-generated slugs
 
-TOGETHER_API_KEY  = "TA_CLE_ICI"             # ← replace with real key
+TOGETHER_API_KEY  = "tgp_v1_4cNHvapySS8beDrKvDdDOC4FNNwL_5uuNoHbpOW55nc"             # ← replace with real key
 MODEL             = "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"
 
 LLM_TIMEOUT       = 30          # seconds per attempt
@@ -161,18 +161,22 @@ def llm_generate(keyword: str, album_context: list[dict]) -> str:
     tags_sample  = list({t for a in album_context for t in a.get("tags", [])})[:8]
     tags_str     = ", ".join(tags_sample)
 
+    angle = random.choice([
+        "club DJ usage",
+        "emotional listening experience",
+        "production techniques",
+        "remix history",
+        "modern streaming behavior"
+    ])
+
     prompt = (
-        f'Write a 550-650 word SEO article about "{keyword}".\n'
-        f"Context: the article is for Vincent Bastille, an electronic music producer "
-        f"known for house remixes. Some of his work includes: {album_titles}.\n"
-        f"Genres and styles: {tags_str}.\n\n"
-        "Requirements:\n"
-        "- Write in natural English — no keyword stuffing\n"
-        "- Cover: remix culture, production craft, listening context, and emotional feel\n"
-        "- Use varied sentence structure\n"
-        "- Do NOT use bullet lists\n"
-        "- Do NOT include a title — start directly with a paragraph\n"
-        "- Minimum 550 words\n"
+        f'Write a 700 word article about "{keyword}".\n'
+        f"Angle: {angle}.\n"
+        "The article must be UNIQUE and feel different from any other.\n"
+        "Each paragraph must introduce a new idea.\n"
+        "No repetition.\n"
+        "No generic sentences.\n"
+        "Write like a real human expert in electronic music.\n"
     )
 
     url     = "https://api.together.xyz/v1/chat/completions"
