@@ -481,7 +481,7 @@ def llm_generate(keyword: str, album_context: list[dict]) -> str:
 
     try:
         response = requests.post(
-            "https://api.together.xyz/v1/completions",
+            "https://api.together.xyz/v1/chat/completions",
             headers={
                 "Authorization": f"Bearer {TOGETHER_API_KEY}",
                 "Content-Type": "application/json"
