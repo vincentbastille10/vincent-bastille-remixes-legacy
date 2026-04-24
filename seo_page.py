@@ -474,41 +474,22 @@ def fallback_content(keyword: str, album_context: list[dict]) -> str:
 
 
 def llm_generate(keyword: str, album_context: list[dict]) -> str:
-    """
-    Call the Together AI chat completions endpoint with retry logic.
-    Tries PRIMARY_CHAT_MODEL first, then FALLBACK_CHAT_MODEL.
-    If all attempts fail, returns static fallback content.
-    Never raises — always returns a non-empty string.
-    """
     if not TOGETHER_API_KEY:
         log.error("TOGETHER_API_KEY is not set.")
         return fallback_content(keyword, album_context)
 
     prompt = build_prompt(keyword, album_context)
 
-    # Payload strictly follows Together AI's OpenAI-compatible chat/completions format.
-    # stop tokens prevent instruction tokens leaking into output on instruct models.
     def make_payload(model: str) -> dict:
         return {
             "model": model,
-            "messages": [
-                {
-                    "role": "system",
-                    "content": (
-                        "You are an expert music writer specialising in electronic music, "
-                        "house remixes and Bandcamp release culture. "
-                        "Write in natural English. No bullet points. No markdown. No repetition."
-                    ),
-                },
-                {"role": "user", "content": prompt},
-            ],
+            "messages": [{"role": "user", "content": prompt}],
             "temperature": 0.85,
             "max_tokens": 900,
             "top_p": 0.95,
-            "stop": ["</s>", "[INST]", "[/INST]"],
         }
 
-    for model_name in (PRIMARY_CHAT_MODEL, FALLBACK_CHAT_MODEL):
+    for model_name in ("meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo", FALLBACK_CHAT_MODEL):
         payload = make_payload(model_name)
 
         for attempt in range(1, RETRIES + 2):
@@ -517,44 +498,64 @@ def llm_generate(keyword: str, album_context: list[dict]) -> str:
                 model_name, attempt, RETRIES + 1, keyword,
             )
 
-            ok, text, status = post_json(CHAT_URL, payload)
+            status = 0
+            body_preview = ""
+            text = ""
 
-            log.info(
-                "LLM response — HTTP %s | words: %d",
-                status, word_count(text) if ok else 0,
-            )
-
-            if ok and word_count(text) >= MIN_WORDS:
-                return text
-
-            if ok and word_count(text) > 80:
-                # Usable but short: pad rather than discard.
-                log.warning(
-                    "LLM short response (%d words). Padding with fallback.", word_count(text)
+            try:
+                response = requests.post(
+                    "https://api.together.xyz/v1/chat/completions",
+                    headers=headers(),
+                    json=payload,
+                    timeout=REQUEST_TIMEOUT,
                 )
-                return text + "\n\n" + fallback_content(keyword, album_context)
+                status = response.status_code
+                body_preview = response.text[:300]
+                log.info("Together API HTTP %s | body: %s", status, body_preview)
 
-            # HTTP 400 means the request itself is malformed.
-            # Retrying the same payload against the same model will not help.
-            if status == 400:
-                log.error(
-                    "HTTP 400 from Together AI — model: %s | response: %s",
-                    model_name, text[:400],
-                )
-                break  # skip remaining attempts for this model, try next model
+                if status >= 400:
+                    if status == 400:
+                        log.error("HTTP 400 from Together AI for model %s", model_name)
+                        break
+                    if status in (429, 500, 502, 503, 504) and attempt <= RETRIES:
+                        wait = RETRY_DELAY * attempt
+                        log.warning("HTTP %s — backing off %ds before retry.", status, wait)
+                        time.sleep(wait)
+                        continue
+                    if attempt <= RETRIES:
+                        time.sleep(RETRY_DELAY)
+                    continue
 
-            # Transient server-side or rate-limit errors: back off and retry.
-            if status in (429, 500, 502, 503, 504) and attempt <= RETRIES:
-                wait = RETRY_DELAY * attempt
-                log.warning("HTTP %s — backing off %ds before retry.", status, wait)
-                time.sleep(wait)
-                continue
+                data = response.json()
+                text = str(
+                    (
+                        data.get("choices", [{}])[0]
+                        .get("message", {})
+                        .get("content", "")
+                    )
+                ).strip()
 
-            # Timeout or unexpected error: standard delay before retry.
-            if attempt <= RETRIES:
-                time.sleep(RETRY_DELAY)
+                if text and word_count(text) >= MIN_WORDS:
+                    return text
 
-    # All models and all retries exhausted.
+                if text and word_count(text) > 80:
+                    log.warning(
+                        "LLM short response (%d words). Padding with fallback.", word_count(text)
+                    )
+                    return text + "\n\n" + fallback_content(keyword, album_context)
+
+                if attempt <= RETRIES:
+                    time.sleep(RETRY_DELAY)
+
+            except requests.exceptions.Timeout:
+                log.warning("Together API timeout on model %s attempt %d", model_name, attempt)
+                if attempt <= RETRIES:
+                    time.sleep(RETRY_DELAY)
+            except Exception as exc:
+                log.error("Together API error on model %s: %s", model_name, exc)
+                if attempt <= RETRIES:
+                    time.sleep(RETRY_DELAY)
+
     log.error(
         "All LLM attempts failed for keyword '%s'. Using static fallback.", keyword
     )
