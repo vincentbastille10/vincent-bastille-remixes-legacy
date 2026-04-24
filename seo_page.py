@@ -424,7 +424,8 @@ def fallback_content(keyword: str, album_context: list[dict]) -> str:
 
 
 def llm_generate(keyword: str, album_context: list[dict]) -> str:
-    print("🔥 VERSION V2 ACTIVE 🔥")
+    print("🔥 VERSION STABLE ACTIVE 🔥")
+
     if not TOGETHER_API_KEY:
         log.error("Missing API key")
         return fallback_content(keyword, album_context)
@@ -432,12 +433,8 @@ def llm_generate(keyword: str, album_context: list[dict]) -> str:
     prompt = build_prompt(keyword, album_context)
 
     payload = {
-        "model": "meta-llama/Llama-3-8b-chat-hf",
+        "model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
         "messages": [
-            {
-                "role": "system",
-                "content": "You are a professional music writer. Write natural English. No bullet points. No markdown."
-            },
             {
                 "role": "user",
                 "content": prompt
@@ -462,10 +459,10 @@ def llm_generate(keyword: str, album_context: list[dict]) -> str:
 
         data = response.json()
 
-        # ✅ parsing correct
         text = data["choices"][0]["message"]["content"]
 
-        if not text or word_count(text) < 100:
+        if not text or word_count(text) < 120:
+            log.warning("Fallback triggered (short content)")
             return fallback_content(keyword, album_context)
 
         return text.strip()
@@ -473,49 +470,6 @@ def llm_generate(keyword: str, album_context: list[dict]) -> str:
     except Exception as e:
         log.error(f"LLM ERROR: {e}")
         return fallback_content(keyword, album_context)
-
-
-def paragraphize(text: str) -> list[str]:
-    text = text.replace("\r\n", "\n")
-    parts = [p.strip() for p in re.split(r"\n\s*\n", text) if p.strip()]
-
-    if len(parts) <= 1:
-        sentences = re.split(r"(?<=[.!?])\s+", text.strip())
-        chunks = []
-        buf = []
-
-        for sentence in sentences:
-            buf.append(sentence)
-            if len(" ".join(buf).split()) >= 90:
-                chunks.append(" ".join(buf))
-                buf = []
-
-        if buf:
-            chunks.append(" ".join(buf))
-
-        parts = chunks
-
-    cleaned = []
-    for part in parts:
-        part = re.sub(r"^#+\s*", "", part.strip())
-        if part:
-            cleaned.append(part)
-
-    return cleaned
-def build_internal_links(current_slug: str, all_slugs: list[str], max_links: int = 8) -> str:
-    candidates = [s for s in all_slugs if s != current_slug]
-
-    if not candidates:
-        return ""
-
-    picks = random.sample(candidates, min(max_links, len(candidates)))
-
-    items = []
-    for slug in picks:
-        label = slug.replace("-", " ").capitalize()
-        items.append(f'<li><a href="/seo-pages/{safe_text(slug)}.html">{safe_text(label)}</a></li>')
-
-    return "\n        ".join(items)
 
 
 def schema_article(title: str, description: str, slug: str, date_str: str) -> str:
