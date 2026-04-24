@@ -445,6 +445,11 @@ def llm_generate(keyword: str, album_context: list[dict]) -> str:
         if not text or word_count(text) < 100:
             return fallback_content(keyword, album_context)
 
+        if word_count(text) < 300 or "Vincent Bastille" not in text:
+            log.warning("LLM content weak → enriching with fallback")
+            return text + "\n\n" + fallback_content(keyword, album_context)
+
+    
         return text
 
     except Exception as e:
