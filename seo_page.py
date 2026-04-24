@@ -434,7 +434,13 @@ def llm_generate(keyword: str, album_context: list[dict]) -> str:
             json={
                 "model": "llama3",
                 "prompt": prompt,
-                "stream": False
+                "stream": False,
+                "options": {
+                    "temperature": 0.7,
+                    "num_predict": 900
+                    "top_p": 0.9,
+                    "repeat_penalty": 1.1
+                }
             },
             timeout=60
         )
