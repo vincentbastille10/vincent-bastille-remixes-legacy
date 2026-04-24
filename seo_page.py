@@ -165,7 +165,7 @@ FALLBACK_PARAGRAPHS = [
         "and gives the original song another possible life."
     ),
     (
-        "Vincent Bastille’s catalogue sits in that zone between archive, club tool and personal production diary. "
+        "Vincent Bastille's catalogue sits in that zone between archive, club tool and personal production diary. "
         "The music points toward house, electronic remix culture, cinematic atmosphere and independent release energy."
     ),
 ]
@@ -430,39 +430,33 @@ def build_prompt(keyword: str, album_context: list[dict]) -> str:
     angle = random.choice(ANGLE_POOL)
     albums_txt = album_context_text(album_context)
 
-    return f"""
-Write a unique long-form SEO article in natural English.
-
-Topic:
-{keyword}
-
-Angle:
-{angle}
-
-Context:
-This page is for remixes.vincentbastille.online, a site about Vincent Bastille's electronic music, house remixes, remix culture, Bandcamp catalogue, club listening, and cinematic production.
-
-Real album data to use as source material:
-{albums_txt}
-
-Strict requirements:
-- 550 to 750 words.
-- Plain paragraphs only.
-- No bullet points.
-- No markdown.
-- No fake facts.
-- Do not claim official collaborations.
-- Mention Vincent Bastille naturally.
-- Mention house remix, electronic remix, Bandcamp, listening context, production craft.
-- Every paragraph must bring a new idea.
-- Avoid generic filler.
-- Do not repeat the same sentence structure.
-- Write like a real music writer, not like a robot.
-""".strip()
+    return (
+        f"Write a unique long-form SEO article in natural English.\n\n"
+        f"Topic:\n{keyword}\n\n"
+        f"Angle:\n{angle}\n\n"
+        f"Context:\n"
+        f"This page is for remixes.vincentbastille.online, a site about Vincent Bastille's electronic music, "
+        f"house remixes, remix culture, Bandcamp catalogue, club listening, and cinematic production.\n\n"
+        f"Real album data to use as source material:\n{albums_txt}\n\n"
+        f"Strict requirements:\n"
+        f"- 550 to 750 words.\n"
+        f"- Plain paragraphs only.\n"
+        f"- No bullet points.\n"
+        f"- No markdown.\n"
+        f"- No fake facts.\n"
+        f"- Do not claim official collaborations.\n"
+        f"- Mention Vincent Bastille naturally.\n"
+        f"- Mention house remix, electronic remix, Bandcamp, listening context, production craft.\n"
+        f"- Every paragraph must bring a new idea.\n"
+        f"- Avoid generic filler.\n"
+        f"- Do not repeat the same sentence structure.\n"
+        f"- Write like a real music writer, not like a robot."
+    )
 
 
 def fallback_content(keyword: str, album_context: list[dict]) -> str:
-    random.shuffle(FALLBACK_PARAGRAPHS)
+    paragraphs = list(FALLBACK_PARAGRAPHS)
+    random.shuffle(paragraphs)
 
     album_titles = ", ".join(
         album.get("title", "Vincent Bastille release")
@@ -472,54 +466,100 @@ def fallback_content(keyword: str, album_context: list[dict]) -> str:
     intro = (
         f"{keyword} connects directly with the way Vincent Bastille treats remix culture: "
         f"not as a shortcut, but as a way to rebuild atmosphere, rhythm and emotional movement. "
-        f"The surrounding catalogue includes releases such as {album_titles}, giving the subject a real musical context rather than a generic search phrase."
+        f"The surrounding catalogue includes releases such as {album_titles}, giving the subject "
+        f"a real musical context rather than a generic search phrase."
     )
 
-    return intro + "\n\n" + "\n\n".join(FALLBACK_PARAGRAPHS[:6])
+    return intro + "\n\n" + "\n\n".join(paragraphs[:6])
 
 
 def llm_generate(keyword: str, album_context: list[dict]) -> str:
-    import requests
-
+    """
+    Call the Together AI chat completions endpoint with retry logic.
+    Tries PRIMARY_CHAT_MODEL first, then FALLBACK_CHAT_MODEL.
+    If all attempts fail, returns static fallback content.
+    Never raises — always returns a non-empty string.
+    """
     if not TOGETHER_API_KEY:
-        print("❌ NO API KEY")
-        return f"{keyword} electronic remix article."
+        log.error("TOGETHER_API_KEY is not set.")
+        return fallback_content(keyword, album_context)
 
-    prompt = f"""
-Write a 600 word article about {keyword}.
-Style: electronic music expert, human, no repetition, no lists.
-"""
+    prompt = build_prompt(keyword, album_context)
 
-    url = "https://api.together.xyz/v1/chat/completions"
+    # Payload strictly follows Together AI's OpenAI-compatible chat/completions format.
+    # stop tokens prevent instruction tokens leaking into output on instruct models.
+    def make_payload(model: str) -> dict:
+        return {
+            "model": model,
+            "messages": [
+                {
+                    "role": "system",
+                    "content": (
+                        "You are an expert music writer specialising in electronic music, "
+                        "house remixes and Bandcamp release culture. "
+                        "Write in natural English. No bullet points. No markdown. No repetition."
+                    ),
+                },
+                {"role": "user", "content": prompt},
+            ],
+            "temperature": 0.85,
+            "max_tokens": 900,
+            "top_p": 0.95,
+            "stop": ["</s>", "[INST]", "[/INST]"],
+        }
 
-    headers = {
-        "Authorization": f"Bearer {TOGETHER_API_KEY}",
-        "Content-Type": "application/json"
-    }
+    for model_name in (PRIMARY_CHAT_MODEL, FALLBACK_CHAT_MODEL):
+        payload = make_payload(model_name)
 
-    payload = {
-        "model": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
-        "messages": [
-            {"role": "user", "content": prompt}
-        ],
-        "temperature": 0.9,
-        "max_tokens": 800
-    }
+        for attempt in range(1, RETRIES + 2):
+            log.info(
+                "LLM call — model: %s | attempt: %d/%d | keyword: %s",
+                model_name, attempt, RETRIES + 1, keyword,
+            )
 
-    try:
-        r = requests.post(url, headers=headers, json=payload, timeout=30)
+            ok, text, status = post_json(CHAT_URL, payload)
 
-        # 🔥 DEBUG IMPORTANT
-        print("STATUS:", r.status_code)
-        print("RESPONSE:", r.text)
+            log.info(
+                "LLM response — HTTP %s | words: %d",
+                status, word_count(text) if ok else 0,
+            )
 
-        r.raise_for_status()
+            if ok and word_count(text) >= MIN_WORDS:
+                return text
 
-        return r.json()["choices"][0]["message"]["content"]
+            if ok and word_count(text) > 80:
+                # Usable but short: pad rather than discard.
+                log.warning(
+                    "LLM short response (%d words). Padding with fallback.", word_count(text)
+                )
+                return text + "\n\n" + fallback_content(keyword, album_context)
 
-    except Exception as e:
-        print("❌ ERROR:", e)
-        return f"{keyword} house remix article."
+            # HTTP 400 means the request itself is malformed.
+            # Retrying the same payload against the same model will not help.
+            if status == 400:
+                log.error(
+                    "HTTP 400 from Together AI — model: %s | response: %s",
+                    model_name, text[:400],
+                )
+                break  # skip remaining attempts for this model, try next model
+
+            # Transient server-side or rate-limit errors: back off and retry.
+            if status in (429, 500, 502, 503, 504) and attempt <= RETRIES:
+                wait = RETRY_DELAY * attempt
+                log.warning("HTTP %s — backing off %ds before retry.", status, wait)
+                time.sleep(wait)
+                continue
+
+            # Timeout or unexpected error: standard delay before retry.
+            if attempt <= RETRIES:
+                time.sleep(RETRY_DELAY)
+
+    # All models and all retries exhausted.
+    log.error(
+        "All LLM attempts failed for keyword '%s'. Using static fallback.", keyword
+    )
+    return fallback_content(keyword, album_context)
+
 
 # =============================================================================
 # HTML
