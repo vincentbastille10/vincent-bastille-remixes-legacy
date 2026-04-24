@@ -45,7 +45,7 @@ STATE_PATH = Path(".seo_state.json")
 
 TOGETHER_API_KEY = os.getenv("TOGETHER_API_KEY", "").strip()
 
-PRIMARY_CHAT_MODEL = "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"
+PRIMARY_CHAT_MODEL = "meta-llama/Meta-Llama-3-8B-Instruct-Turbo"
 FALLBACK_CHAT_MODEL = "meta-llama/Meta-Llama-3-8B-Instruct-Turbo"
 
 CHAT_URL = "https://api.together.xyz/v1/chat/completions"
