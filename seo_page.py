@@ -474,92 +474,42 @@ def fallback_content(keyword: str, album_context: list[dict]) -> str:
 
 
 def llm_generate(keyword: str, album_context: list[dict]) -> str:
+
     if not TOGETHER_API_KEY:
-        log.error("TOGETHER_API_KEY is not set.")
+        log.error("Missing API key")
         return fallback_content(keyword, album_context)
 
     prompt = build_prompt(keyword, album_context)
 
-    def make_payload(model: str) -> dict:
-        return {
-            "model": model,
-            "messages": [{"role": "user", "content": prompt}],
-            "temperature": 0.85,
-            "max_tokens": 900,
-            "top_p": 0.95,
-        }
+    try:
+        response = requests.post(
+            "https://api.together.xyz/v1/completions",
+            headers={
+                "Authorization": f"Bearer {TOGETHER_API_KEY}",
+                "Content-Type": "application/json"
+            },
+            json={
+                "model": "mistralai/Mistral-7B-Instruct-v0.2",
+                "prompt": prompt,
+                "max_tokens": 800,
+                "temperature": 0.7
+            },
+            timeout=30
+        )
 
-    for model_name in ("meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo", FALLBACK_CHAT_MODEL):
-        payload = make_payload(model_name)
+        log.info(f"STATUS: {response.status_code}")
+        log.info(f"BODY: {response.text[:300]}")
 
-        for attempt in range(1, RETRIES + 2):
-            log.info(
-                "LLM call — model: %s | attempt: %d/%d | keyword: %s",
-                model_name, attempt, RETRIES + 1, keyword,
-            )
+        response.raise_for_status()
 
-            status = 0
-            body_preview = ""
-            text = ""
+        data = response.json()
+        text = data["choices"][0]["text"]
 
-            try:
-                response = requests.post(
-                    "https://api.together.xyz/v1/chat/completions",
-                    headers=headers(),
-                    json=payload,
-                    timeout=REQUEST_TIMEOUT,
-                )
-                status = response.status_code
-                body_preview = response.text[:300]
-                log.info("Together API HTTP %s | body: %s", status, body_preview)
+        return text if text else fallback_content(keyword, album_context)
 
-                if status >= 400:
-                    if status == 400:
-                        log.error("HTTP 400 from Together AI for model %s", model_name)
-                        break
-                    if status in (429, 500, 502, 503, 504) and attempt <= RETRIES:
-                        wait = RETRY_DELAY * attempt
-                        log.warning("HTTP %s — backing off %ds before retry.", status, wait)
-                        time.sleep(wait)
-                        continue
-                    if attempt <= RETRIES:
-                        time.sleep(RETRY_DELAY)
-                    continue
-
-                data = response.json()
-                text = str(
-                    (
-                        data.get("choices", [{}])[0]
-                        .get("message", {})
-                        .get("content", "")
-                    )
-                ).strip()
-
-                if text and word_count(text) >= MIN_WORDS:
-                    return text
-
-                if text and word_count(text) > 80:
-                    log.warning(
-                        "LLM short response (%d words). Padding with fallback.", word_count(text)
-                    )
-                    return text + "\n\n" + fallback_content(keyword, album_context)
-
-                if attempt <= RETRIES:
-                    time.sleep(RETRY_DELAY)
-
-            except requests.exceptions.Timeout:
-                log.warning("Together API timeout on model %s attempt %d", model_name, attempt)
-                if attempt <= RETRIES:
-                    time.sleep(RETRY_DELAY)
-            except Exception as exc:
-                log.error("Together API error on model %s: %s", model_name, exc)
-                if attempt <= RETRIES:
-                    time.sleep(RETRY_DELAY)
-
-    log.error(
-        "All LLM attempts failed for keyword '%s'. Using static fallback.", keyword
-    )
-    return fallback_content(keyword, album_context)
+    except Exception as e:
+        log.error(f"LLM ERROR: {e}")
+        return fallback_content(keyword, album_context)
 
 
 # =============================================================================
