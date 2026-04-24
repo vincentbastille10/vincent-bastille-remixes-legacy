@@ -479,88 +479,47 @@ def fallback_content(keyword: str, album_context: list[dict]) -> str:
 
 
 def llm_generate(keyword: str, album_context: list[dict]) -> str:
-    prompt = build_prompt(keyword, album_context)
+    import requests
 
-    chat_payloads = [
-        {
-            "model": PRIMARY_CHAT_MODEL,
-            "messages": [
-                {
-                    "role": "system",
-                    "content": "You are an expert music SEO writer. You write natural, original, long-form articles about electronic music.",
-                },
-                {
-                    "role": "user",
-                    "content": prompt,
-                },
-            ],
-            "temperature": 0.85,
-            "max_tokens": 1100,
-            "top_p": 0.92,
-        },
-        {
-            "model": FALLBACK_CHAT_MODEL,
-            "messages": [
-                {
-                    "role": "system",
-                    "content": "You are an expert music SEO writer. You write natural, original, long-form articles about electronic music.",
-                },
-                {
-                    "role": "user",
-                    "content": prompt,
-                },
-            ],
-            "temperature": 0.85,
-            "max_tokens": 1100,
-            "top_p": 0.92,
-        },
-    ]
+    if not TOGETHER_API_KEY:
+        print("❌ NO API KEY")
+        return f"{keyword} electronic remix article."
 
-    for payload in chat_payloads:
-        for attempt in range(1, RETRIES + 1):
-            ok, result, status = post_json(CHAT_URL, payload)
+    prompt = f"""
+Write a 600 word article about {keyword}.
+Style: electronic music expert, human, no repetition, no lists.
+"""
 
-            if ok and word_count(result) >= MIN_WORDS:
-                return result
+    url = "https://api.together.xyz/v1/chat/completions"
 
-            log.warning(
-                "Chat LLM failed model=%s attempt=%d/%d status=%s reason=%s",
-                payload.get("model"),
-                attempt,
-                RETRIES,
-                status,
-                result[:250],
-            )
-
-            time.sleep(RETRY_DELAY * attempt)
-
-    completion_payload = {
-        "model": COMPLETION_MODEL,
-        "prompt": prompt,
-        "temperature": 0.85,
-        "max_tokens": 1100,
-        "top_p": 0.92,
+    headers = {
+        "Authorization": f"Bearer {TOGETHER_API_KEY}",
+        "Content-Type": "application/json"
     }
 
-    for attempt in range(1, RETRIES + 1):
-        ok, result, status = post_json(COMPLETION_URL, completion_payload)
+    payload = {
+        "model": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
+        "messages": [
+            {"role": "user", "content": prompt}
+        ],
+        "temperature": 0.9,
+        "max_tokens": 800
+    }
 
-        if ok and word_count(result) >= MIN_WORDS:
-            return result
+    try:
+        r = requests.post(url, headers=headers, json=payload, timeout=30)
 
-        log.warning(
-            "Completion LLM failed attempt=%d/%d status=%s reason=%s",
-            attempt,
-            RETRIES,
-            status,
-            result[:250],
-        )
+        # 🔥 DEBUG IMPORTANT
+        print("STATUS:", r.status_code)
+        print("RESPONSE:", r.text)
 
-        time.sleep(RETRY_DELAY * attempt)
+        r.raise_for_status()
 
-    log.error("All LLM calls failed for keyword: %s. Using fallback.", keyword)
-    return fallback_content(keyword, album_context)
+        return r.json()["choices"][0]["message"]["content"]
 
+    except Exception as e:
+        print("❌ ERROR:", e)
+        return f"{keyword} house remix article."
 
 # =============================================================================
 # HTML
