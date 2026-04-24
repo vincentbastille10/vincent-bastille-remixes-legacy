@@ -424,7 +424,7 @@ def fallback_content(keyword: str, album_context: list[dict]) -> str:
 
 
 def llm_generate(keyword: str, album_context: list[dict]) -> str:
-
+print("🔥 VERSION V2 ACTIVE 🔥")
     if not TOGETHER_API_KEY:
         log.error("Missing API key")
         return fallback_content(keyword, album_context)
