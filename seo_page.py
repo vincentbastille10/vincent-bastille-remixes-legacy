@@ -296,7 +296,7 @@ def existing_page_is_valid(path: Path) -> bool:
     if "is part of modern house remix culture" in content:
         return False
 
-    if word_count(content) < 350:
+    if word_count(content) < MIN_WORDS:
         return False
 
     return True
