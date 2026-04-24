@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "routes": [
+    { "src": "^/$", "dest": "/index.html" },
+
+    { "src": "^/sitemap.xml$", "dest": "/sitemap.xml" },
+    { "src": "^/robots.txt$", "dest": "/robots.txt" },
+
+    { "src": "^/SEO/(.*\\.html)$", "dest": "/SEO/$1" },
+    { "src": "^/seo-pages/(.*\\.html)$", "dest": "/seo-pages/$1" },
+
+    { "src": "^/assets/(.*)$", "dest": "/assets/$1" },
+    { "src": "^/static/(.*)$", "dest": "/static/$1" },
+
+    { "src": "^/(.*\\.html)$", "dest": "/$1" }
+  ]
+}
