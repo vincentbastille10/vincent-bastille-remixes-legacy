@@ -376,40 +376,6 @@ def parse_chat_response(data: dict) -> str:
 
 
 
-def post_json(url: str, payload: dict) -> tuple[bool, str, int]:
-    try:
-        response = requests.post(
-            url,
-            headers=headers(),
-            json=payload,
-            timeout=REQUEST_TIMEOUT,
-        )
-
-        status = response.status_code
-
-        if status >= 400:
-            body = response.text[:500]
-            return False, f"HTTP {status}: {body}", status
-
-        data = response.json()
-
-        if url.endswith("/chat/completions"):
-            text = parse_chat_response(data)
-        else:
-            text = parse_completion_response(data)
-
-        if not text:
-            return False, f"Empty response: {json.dumps(data)[:500]}", status
-
-        return True, text, status
-
-    except requests.exceptions.Timeout:
-        return False, "Timeout", 0
-
-    except Exception as exc:
-        return False, str(exc), 0
-
-
 def build_prompt(keyword: str, album_context: list[dict]) -> str:
     angle = random.choice(ANGLE_POOL)
     albums_txt = album_context_text(album_context)
