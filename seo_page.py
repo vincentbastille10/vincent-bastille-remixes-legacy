@@ -474,6 +474,34 @@ def llm_generate(keyword: str, album_context: list[dict]) -> str:
         log.error(f"LLM ERROR: {e}")
         return fallback_content(keyword, album_context)
 
+
+def paragraphize(text: str) -> list[str]:
+    text = text.replace("\r\n", "\n")
+    parts = [p.strip() for p in re.split(r"\n\s*\n", text) if p.strip()]
+
+    if len(parts) <= 1:
+        sentences = re.split(r"(?<=[.!?])\s+", text.strip())
+        chunks = []
+        buf = []
+
+        for sentence in sentences:
+            buf.append(sentence)
+            if len(" ".join(buf).split()) >= 90:
+                chunks.append(" ".join(buf))
+                buf = []
+
+        if buf:
+            chunks.append(" ".join(buf))
+
+        parts = chunks
+
+    cleaned = []
+    for part in parts:
+        part = re.sub(r"^#+\s*", "", part.strip())
+        if part:
+            cleaned.append(part)
+
+    return cleaned
 def build_internal_links(current_slug: str, all_slugs: list[str], max_links: int = 8) -> str:
     candidates = [s for s in all_slugs if s != current_slug]
 
