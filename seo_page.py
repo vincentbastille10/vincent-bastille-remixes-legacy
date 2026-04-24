@@ -1,5 +1,6 @@
 import os
 import json
+import html
 import logging
 import random
 import re
@@ -7,12 +8,14 @@ import sys
 import time
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 import requests
-#
-# ─────────────────────────────────────────────────────────────────────────────
+
+
+# =============================================================================
 # LOGGING
-# ─────────────────────────────────────────────────────────────────────────────
+# =============================================================================
 
 logging.basicConfig(
     level=logging.INFO,
@@ -22,32 +25,53 @@ logging.basicConfig(
         logging.FileHandler("seo_generator.log", encoding="utf-8"),
     ],
 )
+
 log = logging.getLogger(__name__)
 
-# ─────────────────────────────────────────────────────────────────────────────
+
+# =============================================================================
 # CONFIG
-# ─────────────────────────────────────────────────────────────────────────────
+# =============================================================================
 
-BASE_URL          = "https://remixes.vincentbastille.online"
-OUTPUT_DIR        = Path("seo-pages")
-JSON_PATH         = Path("bandcamp_full.json")
-SITEMAP_PATH      = Path("sitemap.xml")
-STATE_PATH        = Path(".seo_state.json")   # tracks already-generated slugs
+BASE_URL = "https://remixes.vincentbastille.online"
 
-TOGETHER_API_KEY = os.getenv("TOGETHER_API_KEY")
+ROOT_DIR = Path(".")
+OUTPUT_DIR = Path("seo-pages")
+SEO_DIRS = [Path("SEO"), Path("seo-pages")]
 
-MODEL             = "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"
+JSON_PATH = Path("bandcamp_full.json")
+SITEMAP_PATH = Path("sitemap.xml")
+STATE_PATH = Path(".seo_state.json")
 
-LLM_TIMEOUT       = 30          # seconds per attempt
-LLM_RETRIES       = 3
-LLM_RETRY_DELAY   = 5           # seconds between retries
-MIN_CONTENT_WORDS = 500         # enforce minimum length
+TOGETHER_API_KEY = os.getenv("TOGETHER_API_KEY", "").strip()
 
-BATCH_PAUSE       = 0.5         # seconds between pages (be kind to the API)
+PRIMARY_CHAT_MODEL = "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"
+FALLBACK_CHAT_MODEL = "meta-llama/Meta-Llama-3-8B-Instruct-Turbo"
+COMPLETION_MODEL = "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"
 
-# ─────────────────────────────────────────────────────────────────────────────
-# KEYWORD SEEDS — natural variation base
-# ─────────────────────────────────────────────────────────────────────────────
+CHAT_URL = "https://api.together.xyz/v1/chat/completions"
+COMPLETION_URL = "https://api.together.xyz/v1/completions"
+
+REQUEST_TIMEOUT = 40
+RETRIES = 2
+RETRY_DELAY = 4
+
+# Important :
+# 40 pages par run = raisonnable pour GitHub Actions + API.
+# Si tu veux plus, tu peux mettre un secret/variable GitHub MAX_PAGES_PER_RUN=100.
+MAX_PAGES_PER_RUN = int(os.getenv("MAX_PAGES_PER_RUN", "40"))
+
+BATCH_PAUSE = 0.4
+
+MIN_WORDS = 450
+
+RANDOM_SEED = 42
+random.seed(RANDOM_SEED)
+
+
+# =============================================================================
+# KEYWORDS
+# =============================================================================
 
 KEYWORD_SEEDS = [
     "best house remixes 2026",
@@ -72,278 +96,707 @@ KEYWORD_SEEDS = [
     "progressive house remix 2026",
 ]
 
-# Suffix pool — prevents duplicate keyword strings across iterations
 SUFFIX_POOL = [
-    "vol {n}", "edition {n}", "part {n}", "mix {n}", "session {n}",
-    "series {n}", "chapter {n}", "release {n}", "drop {n}", "cut {n}",
+    "guide",
+    "selection",
+    "listening notes",
+    "producer analysis",
+    "club perspective",
+    "archive entry",
+    "deep dive",
+    "session",
+    "mix culture",
+    "sound design notes",
 ]
 
-# ─────────────────────────────────────────────────────────────────────────────
-# HELPERS
-# ─────────────────────────────────────────────────────────────────────────────
+ANGLE_POOL = [
+    "club DJ usage and how the track could work in a set",
+    "emotional listening experience and late-night replay value",
+    "production techniques, sound design, rhythm and arrangement",
+    "remix history, French touch influence and electronic culture",
+    "modern streaming behavior and why listeners search for remixes",
+    "the link between cinematic music, house music and personal storytelling",
+    "how classic artists can be reframed through modern electronic production",
+    "why house remixes remain useful for DJs, collectors and close listeners",
+]
 
-def slugify(text: str) -> str:
-    text = text.lower().strip()
-    text = re.sub(r"[^\w\s-]", "", text)
-    text = re.sub(r"[\s_-]+", "-", text)
-    return text.strip("-")[:120]   # cap slug length
-
-
-def word_count(text: str) -> int:
-    return len(text.split())
-
-
-def load_state() -> dict:
-    if STATE_PATH.exists():
-        try:
-            return json.loads(STATE_PATH.read_text(encoding="utf-8"))
-        except Exception:
-            pass
-    return {"generated": []}
-
-
-def save_state(state: dict) -> None:
-    STATE_PATH.write_text(json.dumps(state, indent=2), encoding="utf-8")
+MOOD_POOL = [
+    "cinematic",
+    "late-night",
+    "deep",
+    "club-ready",
+    "emotional",
+    "textural",
+    "hypnotic",
+    "French electronic",
+    "warm",
+    "underground",
+]
 
 
-def unique_keyword(seed: str, n: int) -> str:
-    suffix = random.choice(SUFFIX_POOL).format(n=n)
-    return f"{seed} {suffix}"
+# =============================================================================
+# FALLBACK CONTENT
+# =============================================================================
 
-
-# ─────────────────────────────────────────────────────────────────────────────
-# LLM CALL WITH RETRY + FALLBACK
-# ─────────────────────────────────────────────────────────────────────────────
-
-_FALLBACK_PARAGRAPHS = [
+FALLBACK_PARAGRAPHS = [
     (
-        "House music has always been a space where originals are reborn. A well-crafted remix "
-        "doesn't just extend a track's life — it opens a second conversation with the listener, "
+        "House music has always been a space where originals are reborn. "
+        "A well-crafted remix does not simply extend the life of a track; it opens a second conversation with the listener, "
         "one built on familiarity and surprise in equal measure."
     ),
     (
-        "In the world of electronic production, the remix is both a technical exercise and a "
-        "creative statement. Producers who excel at it understand the geometry of a track: "
-        "where the tension lives, where the release arrives, and how to reshape both without "
-        "losing the original's soul."
+        "In electronic production, the remix is both a technical exercise and a creative statement. "
+        "The producer has to understand where the tension lives, where the release arrives, and how to reshape both without removing the soul of the original idea."
     ),
     (
-        "A house remix at 124 BPM is a precise thing. The kick must anchor, the hi-hats must "
-        "breathe, and the harmonic content must remain coherent across filters, pitched loops, "
-        "and added layers. When it works, the floor responds before the brain catches up."
+        "A house remix around 124 BPM depends on balance. The kick must anchor the body, the percussion must breathe, "
+        "and the harmonic material has to remain clear enough to carry emotion through a club system or a pair of headphones."
     ),
     (
-        "Remix culture in France has a distinct character. Influenced by the early Daft Punk "
-        "era, the filtered-disco school, and the deeper underground strands of Chicago and "
-        "Detroit, French producers bring a particular sensitivity to texture and space."
+        "French electronic music has a recognizable relationship with texture and repetition. "
+        "From filtered disco to deeper underground forms, the best productions often use restraint rather than excess to create momentum."
     ),
     (
-        "Listening to a great house remix at the end of a long drive or on headphones late at "
-        "night reveals details that a club mix would hide. The reverb tails, the side-chain "
-        "breathe, the small edits that reward close attention. That depth is what separates "
-        "craft from commodity."
+        "Listening to a remix late at night reveals decisions that can disappear on first contact: the tail of a reverb, a small filter movement, "
+        "a bass note that arrives half a second later than expected. Those details separate craft from simple edit culture."
     ),
     (
-        "The best electronic remixes age well. What sounds fresh in 2026 often carries echoes "
-        "of 1989 Chicago or 1994 London — production philosophies that understood rhythm as "
-        "architecture, not decoration."
+        "A strong remix becomes useful because it offers more than novelty. It gives DJs a bridge, gives listeners a new emotional angle, "
+        "and gives the original song another possible life."
     ),
     (
-        "Building a remix around a vocal requires restraint. The temptation is to bury the "
-        "original under new production. The discipline is knowing which elements to keep "
-        "exposed so the listener's connection to the source remains intact."
+        "Vincent Bastille’s catalogue sits in that zone between archive, club tool and personal production diary. "
+        "The music points toward house, electronic remix culture, cinematic atmosphere and independent release energy."
     ),
 ]
 
 
-def llm_generate(keyword: str, album_context: list[dict]) -> str:
-    import requests
+# =============================================================================
+# BASIC HELPERS
+# =============================================================================
 
-    album_titles = ", ".join(a["title"] for a in album_context[:5])
+def slugify(text: str) -> str:
+    text = text.lower().strip()
+    text = text.replace("&", " and ")
+    text = re.sub(r"[^\w\s-]", " ", text)
+    text = re.sub(r"[\s_-]+", "-", text)
+    return text.strip("-")[:120]
 
-    prompt = f"""
-Write a 600 word SEO article about: {keyword}
 
-Context:
-Vincent Bastille is an electronic music producer focused on house remixes.
+def safe_text(value: Any) -> str:
+    return html.escape(str(value or "").strip())
 
-Albums:
-{album_titles}
 
-Requirements:
-- Natural human writing
-- No repetition
-- No bullet points
-- Strong emotional + musical tone
-- Unique content
-- At least 600 words
-"""
+def word_count(text: str) -> int:
+    return len(re.findall(r"\b\w+\b", text or ""))
 
-    url = "https://api.together.xyz/v1/completions"
 
-    headers = {
-        "Authorization": f"Bearer {TOGETHER_API_KEY}",
-        "Content-Type": "application/json"
-    }
+def load_json(path: Path) -> Any:
+    return json.loads(path.read_text(encoding="utf-8"))
 
-    payload = {
-        "model": "mistralai/Mistral-7B-Instruct-v0.2",
-        "prompt": prompt,
-        "max_tokens": 900,
-        "temperature": 0.9
-    }
+
+def write_json(path: Path, data: Any) -> None:
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def load_state() -> dict:
+    if not STATE_PATH.exists():
+        return {"generated": []}
 
     try:
-        response = requests.post(url, headers=headers, json=payload, timeout=30)
-        response.raise_for_status()
-        return response.json()["choices"][0]["text"]
-
-    except Exception as e:
-        print("LLM ERROR:", e)
-
-        return f"""
-{keyword} is a central theme in modern electronic music culture.
-
-Vincent Bastille explores remix structures through rhythm, emotion, and sound design.
-Each track reflects a balance between club energy and personal listening experience.
-
-House music continues to evolve, and remixes remain a key format for reinterpretation.
-"""
+        data = load_json(STATE_PATH)
+        if "generated" not in data or not isinstance(data["generated"], list):
+            return {"generated": []}
+        return data
+    except Exception:
+        return {"generated": []}
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# INTERNAL LINK BUILDER
-# ─────────────────────────────────────────────────────────────────────────────
-
-def _anchor_text(slug: str) -> str:
-    """Convert slug to readable anchor text — no raw slug dumps."""
-    words = slug.replace("-", " ").split()
-    # Capitalise first word only
-    return " ".join([words[0].capitalize()] + words[1:]) if words else slug
+def save_state(state: dict) -> None:
+    write_json(STATE_PATH, state)
 
 
-def build_internal_links(current_slug: str, all_slugs: list[str], max_links: int = 5) -> str:
-    candidates = [s for s in all_slugs if s != current_slug]
-    if not candidates:
-        return ""
-    picks = random.sample(candidates, min(max_links, len(candidates)))
-    items = "\n        ".join(
-        f'<li><a href="{BASE_URL}/{s}.html">{_anchor_text(s)}</a></li>'
-        for s in picks
-    )
-    return items
+def clean_tags(tags: list[str]) -> list[str]:
+    seen = set()
+    cleaned = []
+
+    for tag in tags or []:
+        t = str(tag).strip()
+        key = t.lower()
+
+        if not t:
+            continue
+
+        if key in seen:
+            continue
+
+        seen.add(key)
+        cleaned.append(t)
+
+    return cleaned
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# ALBUM LINK BUILDER
-# ─────────────────────────────────────────────────────────────────────────────
+def extract_artist_from_title(title: str) -> str:
+    title = title.strip()
 
-def build_album_links(albums: list[dict], max_links: int = 5) -> str:
-    picks = random.sample(albums, min(max_links, len(albums)))
-    items = "\n        ".join(
-        f'<li><a href="{a["url"]}" rel="noopener">{a["title"]}</a></li>'
-        for a in picks
-    )
-    return items
+    if " - " in title:
+        artist = title.split(" - ", 1)[0].strip()
+    else:
+        artist = title
+
+    artist = re.sub(r"\(.*?\)", "", artist).strip()
+
+    if not artist:
+        return "Vincent Bastille"
+
+    return artist
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# HTML PAGE BUILDER
-# ─────────────────────────────────────────────────────────────────────────────
+def make_keyword(seed: str, n: int) -> str:
+    suffix = random.choice(SUFFIX_POOL)
+    mood = random.choice(MOOD_POOL)
 
-def build_page(
-    keyword: str,
-    albums: list[dict],
-    all_slugs: list[str],
-    date_str: str,
-) -> tuple[str, str]:
-    slug    = slugify(keyword)
-    title   = keyword.title()
-    content = llm_generate(keyword, random.sample(albums, min(6, len(albums))))
+    if n == 1:
+        return f"{seed} {suffix}"
 
-    # Split content into paragraphs for semantic HTML structure
-    raw_paras = [p.strip() for p in content.split("\n\n") if p.strip()]
-    if not raw_paras:
-        raw_paras = [content]
+    return f"{seed} {mood} {suffix} {n}"
 
-    # First paragraph is the lede; rest form the body sections
-    lede  = raw_paras[0]
-    body  = raw_paras[1:]
 
-    # Build paragraph HTML
-    lede_html = f"<p class=\"lede\">{lede}</p>"
-    body_html = "\n\n    ".join(f"<p>{p}</p>" for p in body) if body else ""
+def build_keyword_plan() -> list[str]:
+    keywords = []
 
-    # Section midpoint — insert an H2 halfway through if enough paragraphs
-    mid_section = ""
-    if len(body) >= 4:
-        half      = len(body) // 2
-        first_half = "\n\n    ".join(f"<p>{p}</p>" for p in body[:half])
-        sec_label  = f"Producing a {title}"
-        second_half = "\n\n    ".join(f"<p>{p}</p>" for p in body[half:])
-        body_html  = (
-            f"{first_half}\n\n"
-            f"    <h2>{sec_label}</h2>\n\n"
-            f"    {second_half}"
+    for n in range(1, 50):
+        for seed in KEYWORD_SEEDS:
+            kw = make_keyword(seed, n)
+            keywords.append(kw)
+
+    deduped = []
+    seen = set()
+
+    for kw in keywords:
+        slug = slugify(kw)
+        if slug in seen:
+            continue
+        seen.add(slug)
+        deduped.append(kw)
+
+    return deduped
+
+
+def existing_page_is_valid(path: Path) -> bool:
+    if not path.exists():
+        return False
+
+    try:
+        content = path.read_text(encoding="utf-8", errors="replace")
+    except Exception:
+        return False
+
+    if "LLM ERROR" in content:
+        return False
+
+    if "is part of modern house remix culture" in content:
+        return False
+
+    if word_count(content) < 350:
+        return False
+
+    return True
+
+
+# =============================================================================
+# ALBUM CONTEXT
+# =============================================================================
+
+def pick_album_context(albums: list[dict], count: int = 6) -> list[dict]:
+    if not albums:
+        return []
+
+    return random.sample(albums, min(count, len(albums)))
+
+
+def album_context_text(albums: list[dict]) -> str:
+    lines = []
+
+    for album in albums[:6]:
+        title = album.get("title", "Unknown release")
+        tags = ", ".join(clean_tags(album.get("tags", []))[:8])
+        tracks = ", ".join(album.get("tracks", [])[:5])
+        url = album.get("url", "")
+
+        lines.append(
+            f"- Title: {title}\n"
+            f"  Tags: {tags}\n"
+            f"  Tracks: {tracks}\n"
+            f"  URL: {url}"
         )
 
-    internal_items = build_internal_links(slug, all_slugs)
-    album_items    = build_album_links(albums)
+    return "\n".join(lines)
 
-    description_meta = (
-        f"{title} — Explore Vincent Bastille's take on {keyword.lower()}. "
-        "House remixes, electronic edits and production insight."
-    )[:160]
 
-    html = f"""<!DOCTYPE html>
+def build_album_links(albums: list[dict], max_links: int = 5) -> str:
+    if not albums:
+        return ""
+
+    picks = random.sample(albums, min(max_links, len(albums)))
+
+    items = []
+    for album in picks:
+        title = safe_text(album.get("title", "Vincent Bastille release"))
+        url = safe_text(album.get("url", "https://vincentbastille.bandcamp.com"))
+        items.append(f'<li><a href="{url}" rel="noopener" target="_blank">{title}</a></li>')
+
+    return "\n        ".join(items)
+
+
+# =============================================================================
+# TOGETHER API
+# =============================================================================
+
+def headers() -> dict:
+    return {
+        "Authorization": f"Bearer {TOGETHER_API_KEY}",
+        "Content-Type": "application/json",
+    }
+
+
+def parse_chat_response(data: dict) -> str:
+    try:
+        choice = data["choices"][0]
+
+        if "message" in choice and "content" in choice["message"]:
+            return str(choice["message"]["content"]).strip()
+
+        if "text" in choice:
+            return str(choice["text"]).strip()
+
+    except Exception:
+        return ""
+
+    return ""
+
+
+def parse_completion_response(data: dict) -> str:
+    try:
+        choice = data["choices"][0]
+
+        if "text" in choice:
+            return str(choice["text"]).strip()
+
+        if "message" in choice and "content" in choice["message"]:
+            return str(choice["message"]["content"]).strip()
+
+    except Exception:
+        return ""
+
+    return ""
+
+
+def post_json(url: str, payload: dict) -> tuple[bool, str, int]:
+    try:
+        response = requests.post(
+            url,
+            headers=headers(),
+            json=payload,
+            timeout=REQUEST_TIMEOUT,
+        )
+
+        status = response.status_code
+
+        if status >= 400:
+            body = response.text[:500]
+            return False, f"HTTP {status}: {body}", status
+
+        data = response.json()
+
+        if url.endswith("/chat/completions"):
+            text = parse_chat_response(data)
+        else:
+            text = parse_completion_response(data)
+
+        if not text:
+            return False, f"Empty response: {json.dumps(data)[:500]}", status
+
+        return True, text, status
+
+    except requests.exceptions.Timeout:
+        return False, "Timeout", 0
+
+    except Exception as exc:
+        return False, str(exc), 0
+
+
+def build_prompt(keyword: str, album_context: list[dict]) -> str:
+    angle = random.choice(ANGLE_POOL)
+    albums_txt = album_context_text(album_context)
+
+    return f"""
+Write a unique long-form SEO article in natural English.
+
+Topic:
+{keyword}
+
+Angle:
+{angle}
+
+Context:
+This page is for remixes.vincentbastille.online, a site about Vincent Bastille's electronic music, house remixes, remix culture, Bandcamp catalogue, club listening, and cinematic production.
+
+Real album data to use as source material:
+{albums_txt}
+
+Strict requirements:
+- 550 to 750 words.
+- Plain paragraphs only.
+- No bullet points.
+- No markdown.
+- No fake facts.
+- Do not claim official collaborations.
+- Mention Vincent Bastille naturally.
+- Mention house remix, electronic remix, Bandcamp, listening context, production craft.
+- Every paragraph must bring a new idea.
+- Avoid generic filler.
+- Do not repeat the same sentence structure.
+- Write like a real music writer, not like a robot.
+""".strip()
+
+
+def fallback_content(keyword: str, album_context: list[dict]) -> str:
+    random.shuffle(FALLBACK_PARAGRAPHS)
+
+    album_titles = ", ".join(
+        album.get("title", "Vincent Bastille release")
+        for album in album_context[:4]
+    )
+
+    intro = (
+        f"{keyword} connects directly with the way Vincent Bastille treats remix culture: "
+        f"not as a shortcut, but as a way to rebuild atmosphere, rhythm and emotional movement. "
+        f"The surrounding catalogue includes releases such as {album_titles}, giving the subject a real musical context rather than a generic search phrase."
+    )
+
+    return intro + "\n\n" + "\n\n".join(FALLBACK_PARAGRAPHS[:6])
+
+
+def llm_generate(keyword: str, album_context: list[dict]) -> str:
+    prompt = build_prompt(keyword, album_context)
+
+    chat_payloads = [
+        {
+            "model": PRIMARY_CHAT_MODEL,
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "You are an expert music SEO writer. You write natural, original, long-form articles about electronic music.",
+                },
+                {
+                    "role": "user",
+                    "content": prompt,
+                },
+            ],
+            "temperature": 0.85,
+            "max_tokens": 1100,
+            "top_p": 0.92,
+        },
+        {
+            "model": FALLBACK_CHAT_MODEL,
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "You are an expert music SEO writer. You write natural, original, long-form articles about electronic music.",
+                },
+                {
+                    "role": "user",
+                    "content": prompt,
+                },
+            ],
+            "temperature": 0.85,
+            "max_tokens": 1100,
+            "top_p": 0.92,
+        },
+    ]
+
+    for payload in chat_payloads:
+        for attempt in range(1, RETRIES + 1):
+            ok, result, status = post_json(CHAT_URL, payload)
+
+            if ok and word_count(result) >= MIN_WORDS:
+                return result
+
+            log.warning(
+                "Chat LLM failed model=%s attempt=%d/%d status=%s reason=%s",
+                payload.get("model"),
+                attempt,
+                RETRIES,
+                status,
+                result[:250],
+            )
+
+            time.sleep(RETRY_DELAY * attempt)
+
+    completion_payload = {
+        "model": COMPLETION_MODEL,
+        "prompt": prompt,
+        "temperature": 0.85,
+        "max_tokens": 1100,
+        "top_p": 0.92,
+    }
+
+    for attempt in range(1, RETRIES + 1):
+        ok, result, status = post_json(COMPLETION_URL, completion_payload)
+
+        if ok and word_count(result) >= MIN_WORDS:
+            return result
+
+        log.warning(
+            "Completion LLM failed attempt=%d/%d status=%s reason=%s",
+            attempt,
+            RETRIES,
+            status,
+            result[:250],
+        )
+
+        time.sleep(RETRY_DELAY * attempt)
+
+    log.error("All LLM calls failed for keyword: %s. Using fallback.", keyword)
+    return fallback_content(keyword, album_context)
+
+
+# =============================================================================
+# HTML
+# =============================================================================
+
+def paragraphize(text: str) -> list[str]:
+    text = text.replace("\r\n", "\n")
+    parts = [p.strip() for p in re.split(r"\n\s*\n", text) if p.strip()]
+
+    if len(parts) <= 1:
+        sentences = re.split(r"(?<=[.!?])\s+", text.strip())
+        chunks = []
+        buf = []
+
+        for sentence in sentences:
+            buf.append(sentence)
+
+            if len(" ".join(buf).split()) >= 90:
+                chunks.append(" ".join(buf))
+                buf = []
+
+        if buf:
+            chunks.append(" ".join(buf))
+
+        parts = chunks
+
+    cleaned = []
+
+    for part in parts:
+        part = part.strip()
+
+        if not part:
+            continue
+
+        part = re.sub(r"^#+\s*", "", part)
+        cleaned.append(part)
+
+    return cleaned
+
+
+def build_internal_links(current_slug: str, all_slugs: list[str], max_links: int = 8) -> str:
+    candidates = [s for s in all_slugs if s != current_slug]
+
+    if not candidates:
+        return ""
+
+    picks = random.sample(candidates, min(max_links, len(candidates)))
+
+    items = []
+    for slug in picks:
+        label = slug.replace("-", " ").capitalize()
+        items.append(f'<li><a href="/seo-pages/{safe_text(slug)}.html">{safe_text(label)}</a></li>')
+
+    return "\n        ".join(items)
+
+
+def schema_article(title: str, description: str, slug: str, date_str: str) -> str:
+    data = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": title,
+        "description": description,
+        "url": f"{BASE_URL}/seo-pages/{slug}.html",
+        "datePublished": date_str,
+        "dateModified": date_str,
+        "author": {
+            "@type": "Person",
+            "name": "Vincent Bastille",
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Vincent Bastille Remixes",
+        },
+        "about": [
+            "house remix",
+            "electronic remix",
+            "Vincent Bastille",
+            "remix culture",
+            "Bandcamp",
+        ],
+    }
+
+    return json.dumps(data, ensure_ascii=False, indent=2)
+
+
+def build_page(keyword: str, albums: list[dict], all_slugs: list[str], date_str: str) -> tuple[str, str]:
+    slug = slugify(keyword)
+    title = keyword.title()
+    album_context = pick_album_context(albums, 6)
+
+    content = llm_generate(keyword, album_context)
+    paragraphs = paragraphize(content)
+
+    if not paragraphs:
+        paragraphs = paragraphize(fallback_content(keyword, album_context))
+
+    lede = paragraphs[0]
+    rest = paragraphs[1:]
+
+    if not rest:
+        rest = paragraphs
+
+    midpoint = max(1, len(rest) // 2)
+    first_half = rest[:midpoint]
+    second_half = rest[midpoint:]
+
+    meta_description = (
+        f"{title} — a Vincent Bastille guide to house remix culture, electronic remix production, Bandcamp listening and club-focused reinterpretation."
+    )[:155]
+
+    album_items = build_album_links(album_context, 6)
+    internal_items = build_internal_links(slug, all_slugs, 8)
+    schema = schema_article(title, meta_description, slug, date_str)
+
+    first_html = "\n      ".join(f"<p>{safe_text(p)}</p>" for p in first_half)
+    second_html = "\n      ".join(f"<p>{safe_text(p)}</p>" for p in second_half)
+
+    if not internal_items:
+        internal_items = '<li><a href="/">Main Vincent Bastille remix catalogue</a></li>'
+
+    html_doc = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title} | Vincent Bastille</title>
-  <meta name="description" content="{description_meta}">
+  <title>{safe_text(title)} | Vincent Bastille Remixes</title>
+  <meta name="description" content="{safe_text(meta_description)}">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="{title} | Vincent Bastille">
-  <meta property="og:description" content="{description_meta}">
+  <link rel="canonical" href="{BASE_URL}/seo-pages/{safe_text(slug)}.html">
+
   <meta property="og:type" content="article">
-  <meta property="og:url" content="{BASE_URL}/{slug}.html">
-  <link rel="canonical" href="{BASE_URL}/{slug}.html">
+  <meta property="og:title" content="{safe_text(title)} | Vincent Bastille Remixes">
+  <meta property="og:description" content="{safe_text(meta_description)}">
+  <meta property="og:url" content="{BASE_URL}/seo-pages/{safe_text(slug)}.html">
+
+  <script type="application/ld+json">
+{schema}
+  </script>
+
   <style>
-    body {{ font-family: Georgia, serif; max-width: 800px; margin: 0 auto; padding: 2rem 1rem; color: #111; line-height: 1.75; }}
-    h1 {{ font-size: 2rem; margin-bottom: 0.5rem; }}
-    h2 {{ font-size: 1.4rem; margin-top: 2.5rem; margin-bottom: 0.75rem; }}
-    p.lede {{ font-size: 1.1rem; font-weight: 500; }}
-    nav.related ul, section.listen ul {{ list-style: none; padding: 0; }}
-    nav.related li, section.listen li {{ margin: 0.4rem 0; }}
-    a {{ color: #333; }}
-    footer {{ margin-top: 3rem; font-size: 0.85rem; color: #777; border-top: 1px solid #ddd; padding-top: 1rem; }}
+    body {{
+      font-family: Georgia, serif;
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      color: #111;
+      line-height: 1.75;
+      background: #fff;
+    }}
+    header {{
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 1.5rem;
+    }}
+    h1 {{
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.05;
+      margin-bottom: 1rem;
+    }}
+    h2 {{
+      font-size: 1.55rem;
+      margin-top: 2.6rem;
+      margin-bottom: 0.8rem;
+    }}
+    p {{
+      font-size: 1.05rem;
+      margin-bottom: 1.15rem;
+    }}
+    p.lede {{
+      font-size: 1.18rem;
+      font-weight: 500;
+    }}
+    a {{
+      color: #111;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }}
+    nav ul, section.listen ul {{
+      padding-left: 1.2rem;
+    }}
+    li {{
+      margin: 0.4rem 0;
+    }}
+    .meta {{
+      color: #777;
+      font-size: 0.9rem;
+    }}
+    .cta {{
+      margin: 2rem 0;
+      padding: 1.25rem;
+      border: 1px solid #ddd;
+      background: #fafafa;
+    }}
+    footer {{
+      margin-top: 3rem;
+      border-top: 1px solid #ddd;
+      padding-top: 1rem;
+      color: #777;
+      font-size: 0.9rem;
+    }}
   </style>
 </head>
 <body>
 
 <article>
   <header>
-    <h1>{title}</h1>
+    <p class="meta">Vincent Bastille Remixes · Published {safe_text(date_str)}</p>
+    <h1>{safe_text(title)}</h1>
+    <p class="lede">{safe_text(lede)}</p>
   </header>
 
-  <section class="content">
-    {lede_html}
+  <section>
+    <h2>{safe_text(title)}: Remix Context</h2>
+      {first_html}
+  </section>
 
-    <h2>Inside the Remix</h2>
+  <section>
+    <h2>Production, Listening And Club Energy</h2>
+      {second_html}
+  </section>
 
-    {body_html}
+  <section class="cta">
+    <h2>Listen To Vincent Bastille On Bandcamp</h2>
+    <p>Explore the full Vincent Bastille catalogue, including house remixes, electronic releases, cinematic material and independent Bandcamp releases.</p>
+    <p><a href="https://vincentbastille.bandcamp.com" target="_blank" rel="noopener">Open Vincent Bastille Bandcamp →</a></p>
   </section>
 
   <section class="listen">
-    <h2>Listen to Related Work</h2>
+    <h2>Related Bandcamp Releases</h2>
     <ul>
         {album_items}
     </ul>
-    <p><a href="https://vincentbastille.bandcamp.com" rel="noopener">Full discography on Bandcamp →</a></p>
   </section>
 
-  <nav class="related" aria-label="Related pages">
-    <h2>Explore More</h2>
+  <nav aria-label="Related remix pages">
+    <h2>Explore More Remix Pages</h2>
     <ul>
         {internal_items}
     </ul>
@@ -351,142 +804,171 @@ def build_page(
 </article>
 
 <footer>
-  <p>Published {date_str} · <a href="{BASE_URL}/sitemap.xml">Sitemap</a></p>
+  <p><a href="/">Back to main remix catalogue</a> · <a href="/sitemap.xml">Sitemap</a></p>
 </footer>
 
 </body>
 </html>
 """
-    return slug, html
+
+    return slug, html_doc
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# =============================================================================
 # SITEMAP
-# ─────────────────────────────────────────────────────────────────────────────
+# =============================================================================
 
-def write_sitemap(slugs: list[str], date_str: str) -> None:
-    urls = "\n  ".join(
-        f"<url>"
-        f"<loc>{BASE_URL}/{s}.html</loc>"
-        f"<lastmod>{date_str}</lastmod>"
-        f"<changefreq>monthly</changefreq>"
-        f"<priority>0.7</priority>"
-        f"</url>"
-        for s in slugs
-    )
-    xml = (
-        '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        f"  {urls}\n"
-        "</urlset>\n"
-    )
-    SITEMAP_PATH.write_text(xml, encoding="utf-8")
-    log.info("Sitemap written: %d URLs → %s", len(slugs), SITEMAP_PATH)
+def collect_all_html_urls() -> list[str]:
+    urls = ["/"]
+
+    for folder in SEO_DIRS:
+        if not folder.exists():
+            continue
+
+        for path in sorted(folder.rglob("*.html")):
+            if path.name.lower().startswith("google"):
+                continue
+
+            rel = "/" + str(path).replace("\\", "/")
+            urls.append(rel)
+
+    deduped = []
+    seen = set()
+
+    for url in urls:
+        if url in seen:
+            continue
+        seen.add(url)
+        deduped.append(url)
+
+    return deduped
 
 
-# ─────────────────────────────────────────────────────────────────────────────
-# GOOGLE PING
-# ─────────────────────────────────────────────────────────────────────────────
+def write_sitemap(date_str: str) -> None:
+    urls = collect_all_html_urls()
+
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ]
+
+    for rel_url in urls:
+        priority = "1.0" if rel_url == "/" else "0.8"
+        changefreq = "daily" if rel_url == "/" else "weekly"
+
+        lines.append("  <url>")
+        lines.append(f"    <loc>{BASE_URL}{safe_text(rel_url)}</loc>")
+        lines.append(f"    <lastmod>{safe_text(date_str)}</lastmod>")
+        lines.append(f"    <changefreq>{changefreq}</changefreq>")
+        lines.append(f"    <priority>{priority}</priority>")
+        lines.append("  </url>")
+
+    lines.append("</urlset>")
+
+    SITEMAP_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    log.info("Sitemap written: %d URLs → %s", len(urls), SITEMAP_PATH)
+
 
 def ping_google() -> None:
     sitemap_url = f"{BASE_URL}/sitemap.xml"
-    ping_url    = f"https://www.google.com/ping?sitemap={sitemap_url}"
+    ping_url = f"https://www.google.com/ping?sitemap={sitemap_url}"
+
     try:
-        r = requests.get(ping_url, timeout=10)
-        if r.status_code == 200:
-            log.info("Google sitemap ping OK (HTTP 200).")
-        else:
-            log.warning("Google ping returned HTTP %d.", r.status_code)
-    except requests.exceptions.Timeout:
-        log.warning("Google ping timed out — sitemap still valid.")
+        response = requests.get(ping_url, timeout=10)
+        log.info("Google ping response: HTTP %s", response.status_code)
+
     except Exception as exc:
         log.warning("Google ping failed: %s", exc)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+# =============================================================================
 # MAIN
-# ─────────────────────────────────────────────────────────────────────────────
+# =============================================================================
 
 def main() -> None:
     log.info("SEO GENERATOR START")
 
-    # ── Validate config ──────────────────────────────────────────────────────
-    if TOGETHER_API_KEY == "TA_CLE_ICI":
-        log.error("TOGETHER_API_KEY is not set. Edit the CONFIG section and rerun.")
+    if not TOGETHER_API_KEY:
+        log.error("Missing TOGETHER_API_KEY. Add it in GitHub Secrets → Actions.")
         sys.exit(1)
 
     if not JSON_PATH.exists():
-        log.error("JSON file not found: %s", JSON_PATH)
+        log.error("Missing bandcamp_full.json at repo root.")
         sys.exit(1)
 
-    # ── Load data ────────────────────────────────────────────────────────────
-    albums: list[dict] = json.loads(JSON_PATH.read_text(encoding="utf-8"))
+    albums = load_json(JSON_PATH)
+
+    if not isinstance(albums, list) or not albums:
+        log.error("bandcamp_full.json must contain a non-empty list.")
+        sys.exit(1)
+
     log.info("Loaded %d albums from %s", len(albums), JSON_PATH)
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    state    = load_state()
-    existing = set(state["generated"])
+
+    state = load_state()
+    generated = set(state.get("generated", []))
     date_str = datetime.now().date().isoformat()
 
-    # ── Build keyword list — 20 iterations × len(KEYWORD_SEEDS) ─────────────
-    all_keywords: list[str] = []
-    for n in range(1, 3):
-        for seed in KEYWORD_SEEDS:
-            kw = unique_keyword(seed, n)
-            if slugify(kw) not in existing:
-                all_keywords.append(kw)
+    keyword_plan = build_keyword_plan()
+    selected_keywords = []
 
-    total_planned = len(all_keywords)
-    log.info("Pages to generate this run: %d", total_planned)
-
-    # all_slugs includes previously generated ones for internal linking
-    all_slugs: list[str] = list(existing)
-    newly_generated: list[str] = []
-    errors = 0
-
-    for idx, keyword in enumerate(all_keywords, 1):
+    for keyword in keyword_plan:
         slug = slugify(keyword)
+        out_path = OUTPUT_DIR / f"{slug}.html"
 
-        # Guard: slug collision (e.g. two keywords that normalise identically)
-        if slug in existing or slug in newly_generated:
-            log.debug("Skipping duplicate slug: %s", slug)
+        if slug in generated and existing_page_is_valid(out_path):
             continue
 
-        log.info("[%d/%d] Generating: %s", idx, total_planned, keyword)
+        selected_keywords.append(keyword)
+
+        if len(selected_keywords) >= MAX_PAGES_PER_RUN:
+            break
+
+    log.info("Pages to generate this run: %d", len(selected_keywords))
+
+    all_existing_slugs = []
+    for path in OUTPUT_DIR.glob("*.html"):
+        all_existing_slugs.append(path.stem)
+
+    newly_generated = []
+    errors = 0
+
+    for index, keyword in enumerate(selected_keywords, start=1):
+        slug = slugify(keyword)
+        out_path = OUTPUT_DIR / f"{slug}.html"
+
+        log.info("[%d/%d] Generating: %s", index, len(selected_keywords), keyword)
 
         try:
-            slug, html = build_page(keyword, albums, all_slugs, date_str)
-            out_path = OUTPUT_DIR / f"{slug}.html"
-            out_path.write_text(html, encoding="utf-8")
+            current_link_pool = list(set(all_existing_slugs + newly_generated))
+            slug, page_html = build_page(keyword, albums, current_link_pool, date_str)
 
+            out_path.write_text(page_html, encoding="utf-8")
+
+            generated.add(slug)
             newly_generated.append(slug)
-            all_slugs.append(slug)
 
-            # Persist state after every page — safe against mid-run crashes
-            state["generated"] = list(set(state["generated"]) | set(newly_generated))
+            state["generated"] = sorted(generated)
             save_state(state)
+
+            log.info("Written: %s", out_path)
 
         except Exception as exc:
             errors += 1
-            log.error("Failed to generate '%s': %s", keyword, exc)
+            log.error("Failed generating %s: %s", keyword, exc)
 
         time.sleep(BATCH_PAUSE)
 
-    # ── Sitemap ───────────────────────────────────────────────────────────────
-    all_known_slugs = list(set(state["generated"]))
-    write_sitemap(all_known_slugs, date_str)
-
-    # ── Google ping ───────────────────────────────────────────────────────────
+    write_sitemap(date_str)
     ping_google()
 
-    # ── Summary ───────────────────────────────────────────────────────────────
-    log.info("─" * 50)
+    log.info("─" * 60)
     log.info("DONE")
-    log.info("  Pages planned   : %d", total_planned)
-    log.info("  Pages generated : %d", len(newly_generated))
-    log.info("  Errors          : %d", errors)
-    log.info("  Total in state  : %d", len(all_known_slugs))
-    log.info("─" * 50)
+    log.info("Generated this run: %d", len(newly_generated))
+    log.info("Errors: %d", errors)
+    log.info("Total generated in state: %d", len(generated))
+    log.info("─" * 60)
 
 
 if __name__ == "__main__":
