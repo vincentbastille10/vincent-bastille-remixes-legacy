@@ -374,20 +374,6 @@ def parse_chat_response(data: dict) -> str:
     return ""
 
 
-def parse_completion_response(data: dict) -> str:
-    try:
-        choice = data["choices"][0]
-
-        if "text" in choice:
-            return str(choice["text"]).strip()
-
-        if "message" in choice and "content" in choice["message"]:
-            return str(choice["message"]["content"]).strip()
-
-    except Exception:
-        return ""
-
-    return ""
 
 
 def post_json(url: str, payload: dict) -> tuple[bool, str, int]:
