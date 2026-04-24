@@ -424,51 +424,44 @@ def fallback_content(keyword: str, album_context: list[dict]) -> str:
 
 
 def llm_generate(keyword: str, album_context: list[dict]) -> str:
-    print("🔥 VERSION STABLE ACTIVE 🔥")
+    print("🔥 VERSION CLEAN 🔥")
 
     if not TOGETHER_API_KEY:
-        log.error("Missing API key")
         return fallback_content(keyword, album_context)
 
     prompt = build_prompt(keyword, album_context)
 
     payload = {
-        "model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
-        "messages": [
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ],
+        "model": "mistralai/Mistral-7B-Instruct-v0.1",
+        "prompt": prompt,
         "max_tokens": 800,
         "temperature": 0.7
     }
 
     try:
         response = requests.post(
-            CHAT_URL,
+            "https://api.together.xyz/v1/completions",
             headers=headers(),
             json=payload,
             timeout=REQUEST_TIMEOUT
         )
 
-        log.info(f"STATUS: {response.status_code}")
-        log.info(f"BODY: {response.text[:300]}")
+        print("STATUS:", response.status_code)
+        print("BODY:", response.text[:200])
 
         response.raise_for_status()
 
         data = response.json()
 
-        text = data["choices"][0]["message"]["content"]
+        text = data["choices"][0]["text"]
 
-        if not text or word_count(text) < 120:
-            log.warning("Fallback triggered (short content)")
+        if not text or word_count(text) < 100:
             return fallback_content(keyword, album_context)
 
         return text.strip()
 
     except Exception as e:
-        log.error(f"LLM ERROR: {e}")
+        print("LLM ERROR:", e)
         return fallback_content(keyword, album_context)
 
 
