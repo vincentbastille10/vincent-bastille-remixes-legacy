@@ -489,7 +489,7 @@ def llm_generate(keyword: str, album_context: list[dict]) -> str:
                 "Content-Type": "application/json"
             },
             json={
-                "model": "mistralai/Mistral-7B-Instruct-v0.2",
+                "model": "meta-llama/Llama-3-8b-chat-hf"
                 "prompt": prompt,
                 "max_tokens": 800,
                 "temperature": 0.7
