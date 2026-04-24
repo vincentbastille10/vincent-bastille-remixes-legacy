@@ -157,88 +157,58 @@ _FALLBACK_PARAGRAPHS = [
 
 
 def llm_generate(keyword: str, album_context: list[dict]) -> str:
-    """Call Together API with retry. Return a content string of at least MIN_CONTENT_WORDS words."""
+    import requests
 
     album_titles = ", ".join(a["title"] for a in album_context[:5])
-    tags_sample  = list({t for a in album_context for t in a.get("tags", [])})[:8]
-    tags_str     = ", ".join(tags_sample)
 
-    angle = random.choice([
-        "club DJ usage",
-        "emotional listening experience",
-        "production techniques",
-        "remix history",
-        "modern streaming behavior"
-    ])
+    prompt = f"""
+Write a 600 word SEO article about: {keyword}
 
-    prompt = (
-        f'Write a 700 word article about "{keyword}".\n'
-        f"Angle: {angle}.\n"
-        "The article must be UNIQUE and feel different from any other.\n"
-        "Each paragraph must introduce a new idea.\n"
-        "No repetition.\n"
-        "No generic sentences.\n"
-        "Write like a real human expert in electronic music.\n"
-    )
+Context:
+Vincent Bastille is an electronic music producer focused on house remixes.
 
-    url     = "https://api.together.xyz/v1/chat/completions"
+Albums:
+{album_titles}
+
+Requirements:
+- Natural human writing
+- No repetition
+- No bullet points
+- Strong emotional + musical tone
+- Unique content
+- At least 600 words
+"""
+
+    url = "https://api.together.xyz/v1/completions"
+
     headers = {
         "Authorization": f"Bearer {TOGETHER_API_KEY}",
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
     }
+
     payload = {
-        "model": MODEL,
-        "messages": [
-            {
-                "role": "system",
-                "content": (
-                    "You are an elite SEO writer specialising in electronic music. "
-                    "You write long-form, natural, human-sounding content. "
-                    "You never repeat phrases. You never write lists. "
-                    "Every paragraph is distinct."
-                ),
-            },
-            {"role": "user", "content": prompt},
-        ],
-        "temperature": 0.88,
+        "model": "mistralai/Mistral-7B-Instruct-v0.2",
+        "prompt": prompt,
         "max_tokens": 900,
-        "top_p": 0.95,
+        "temperature": 0.9
     }
 
-    for attempt in range(1, LLM_RETRIES + 1):
-        try:
-            r = requests.post(url, headers=headers, json=payload, timeout=LLM_TIMEOUT)
-            r.raise_for_status()
-            text = r.json()["choices"][0]["message"]["content"].strip()
-            if word_count(text) >= MIN_CONTENT_WORDS:
-                return text
-            # Too short — pad with a random fallback paragraph
-            log.warning("LLM returned only %d words, padding.", word_count(text))
-            extra = random.sample(
-                _FALLBACK_PARAGRAPHS,
-                min(3, len(_FALLBACK_PARAGRAPHS)),
-            )
-            return text + "\n\n" + "\n\n".join(extra)
-        except requests.exceptions.Timeout:
-            log.warning("LLM timeout (attempt %d/%d) for keyword: %s", attempt, LLM_RETRIES, keyword)
-        except requests.exceptions.HTTPError as exc:
-            log.warning("LLM HTTP error %s (attempt %d/%d)", exc.response.status_code, attempt, LLM_RETRIES)
-        except Exception as exc:
-            log.warning("LLM unexpected error (attempt %d/%d): %s", attempt, LLM_RETRIES, exc)
+    try:
+        response = requests.post(url, headers=headers, json=payload, timeout=30)
+        response.raise_for_status()
+        return response.json()["choices"][0]["text"]
 
-        if attempt < LLM_RETRIES:
-            time.sleep(LLM_RETRY_DELAY * attempt)   # exponential-ish back-off
+    except Exception as e:
+        print("LLM ERROR:", e)
 
-    # Full fallback — guaranteed unique via keyword inclusion
-    log.error("All LLM attempts failed for '%s'. Using static fallback.", keyword)
-    shuffled = random.sample(_FALLBACK_PARAGRAPHS, len(_FALLBACK_PARAGRAPHS))
-    base = "\n\n".join(shuffled)
-    intro = (
-        f"The phrase \"{keyword}\" points directly at what Vincent Bastille has been "
-        "building for years: a catalogue where electronic production and remix culture "
-        "meet without compromise."
-    )
-    return intro + "\n\n" + base
+        return f"""
+{keyword} is a central theme in modern electronic music culture.
+
+Vincent Bastille explores remix structures through rhythm, emotion, and sound design.
+Each track reflects a balance between club energy and personal listening experience.
+
+House music continues to evolve, and remixes remain a key format for reinterpretation.
+"""
 
 
 # ─────────────────────────────────────────────────────────────────────────────
