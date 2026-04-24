@@ -479,20 +479,28 @@ def llm_generate(keyword: str, album_context: list[dict]) -> str:
 
     prompt = build_prompt(keyword, album_context)
 
+    payload = {
+        "model": PRIMARY_CHAT_MODEL,
+        "messages": [
+            {
+                "role": "system",
+                "content": "You are a professional music writer. Write natural English. No bullet points. No markdown."
+            },
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        "max_tokens": 800,
+        "temperature": 0.7
+    }
+
     try:
         response = requests.post(
-            "https://api.together.xyz/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {TOGETHER_API_KEY}",
-                "Content-Type": "application/json"
-            },
-            json={
-                "model": "meta-llama/Llama-3-8b-chat-hf"
-                "prompt": prompt,
-                "max_tokens": 800,
-                "temperature": 0.7
-            },
-            timeout=30
+            CHAT_URL,
+            headers=headers(),
+            json=payload,
+            timeout=REQUEST_TIMEOUT
         )
 
         log.info(f"STATUS: {response.status_code}")
@@ -501,53 +509,18 @@ def llm_generate(keyword: str, album_context: list[dict]) -> str:
         response.raise_for_status()
 
         data = response.json()
-        text = data["choices"][0]["text"]
 
-        return text if text else fallback_content(keyword, album_context)
+        # ✅ parsing correct
+        text = data["choices"][0]["message"]["content"]
+
+        if not text or word_count(text) < 100:
+            return fallback_content(keyword, album_context)
+
+        return text.strip()
 
     except Exception as e:
         log.error(f"LLM ERROR: {e}")
         return fallback_content(keyword, album_context)
-
-
-# =============================================================================
-# HTML
-# =============================================================================
-
-def paragraphize(text: str) -> list[str]:
-    text = text.replace("\r\n", "\n")
-    parts = [p.strip() for p in re.split(r"\n\s*\n", text) if p.strip()]
-
-    if len(parts) <= 1:
-        sentences = re.split(r"(?<=[.!?])\s+", text.strip())
-        chunks = []
-        buf = []
-
-        for sentence in sentences:
-            buf.append(sentence)
-
-            if len(" ".join(buf).split()) >= 90:
-                chunks.append(" ".join(buf))
-                buf = []
-
-        if buf:
-            chunks.append(" ".join(buf))
-
-        parts = chunks
-
-    cleaned = []
-
-    for part in parts:
-        part = part.strip()
-
-        if not part:
-            continue
-
-        part = re.sub(r"^#+\s*", "", part)
-        cleaned.append(part)
-
-    return cleaned
-
 
 def build_internal_links(current_slug: str, all_slugs: list[str], max_links: int = 8) -> str:
     candidates = [s for s in all_slugs if s != current_slug]
