@@ -1,0 +1,30 @@
+name: SEO Sync
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  seo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Run SEO script
+        run: |
+          python scripts/seo_sync.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "seo-bot"
+          git config user.email "seo@bot.com"
+          git add .
+          git commit -m "auto: SEO sync" || echo "No changes"
+          git push
