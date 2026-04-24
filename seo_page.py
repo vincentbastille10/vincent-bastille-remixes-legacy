@@ -430,7 +430,7 @@ def main() -> None:
 
     # ── Build keyword list — 20 iterations × len(KEYWORD_SEEDS) ─────────────
     all_keywords: list[str] = []
-    for n in range(1, 21):
+    for n in range(1, 3):
         for seed in KEYWORD_SEEDS:
             kw = unique_keyword(seed, n)
             if slugify(kw) not in existing:
