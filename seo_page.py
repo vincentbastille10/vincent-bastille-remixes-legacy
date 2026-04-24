@@ -432,7 +432,7 @@ def llm_generate(keyword: str, album_context: list[dict]) -> str:
     prompt = build_prompt(keyword, album_context)
 
     payload = {
-        "model": PRIMARY_CHAT_MODEL,
+        "model": "meta-llama/Llama-3-8b-chat-hf",
         "messages": [
             {
                 "role": "system",
