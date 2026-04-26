@@ -3,437 +3,1526 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>House Music Remix Guides 2026 | Vincent Bastille</title>
-  <meta name="description" content="Explore 300 in-depth house music remix guides covering deep house, afro house, vocal house, French house, and more. Curated by Vincent Bastille.">
-  <link rel="canonical" href="https://remixes.vincentbastille.online/index.html">
-  <meta property="og:title" content="House Music Remix Guides 2026 | Vincent Bastille">
-  <meta property="og:description" content="The complete house music guide: 300 pages covering every style, BPM, mood, and DJ technique.">
-  <meta property="og:url" content="https://remixes.vincentbastille.online/index.html">
+  <title>Vincent Bastille — House Music, Remixes & DJ Culture</title>
+  <meta name="description" content="Vincent Bastille — DJ, producer, remixer. Disco house, afro house, French touch. Remixes of Madonna, Jennifer Lopez, Sade, Modjo. House music guides. Paris · Ibiza · Athens.">
+  <link rel="canonical" href="https://remixes.vincentbastille.online/">
+  <meta property="og:title" content="Vincent Bastille — House Music, Remixes & DJ Culture">
+  <meta property="og:description" content="DJ and producer since 1995. Remixes of Madonna, Jennifer Lopez, Sade. Disco house, afro house, French touch. Complete house music guides.">
+  <meta property="og:url" content="https://remixes.vincentbastille.online/">
   <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Mono:wght@300;400;500&family=Bricolage+Grotesque:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
-    body { font-family: Georgia, serif; max-width: 1000px; margin: 0 auto; padding: 20px 24px; color: #1a1a1a; line-height: 1.7; background: #fff; }
-    h1 { font-size: 2.2em; color: #111; margin-bottom: 0.3em; }
-    h2 { font-size: 1.25em; color: #222; border-bottom: 2px solid #111; padding-bottom: 0.3em; margin-top: 2.5em; }
-    .subtitle { font-size: 1.1em; color: #555; margin-bottom: 2em; }
-    .theme-group { margin-bottom: 2em; }
-    .page-list { columns: 3; column-gap: 2em; padding: 0; margin: 0.8em 0 0; list-style: none; }
-    .page-list li { break-inside: avoid; margin-bottom: 0.45em; font-size: 0.93em; }
-    a { color: #0057b7; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .site-header { background: #111; color: #fff; padding: 16px 20px; margin-bottom: 2em; display: flex; align-items: center; justify-content: space-between; }
-    .site-header a { color: #aad4ff; font-size: 0.9em; }
-    .stats { background: #f0f4f8; border-left: 4px solid #0057b7; padding: 12px 20px; margin-bottom: 2em; font-size: 0.95em; }
-    footer { margin-top: 4em; padding-top: 2em; border-top: 1px solid #eee; font-size: 0.85em; color: #999; }
-    .seo-intro p { margin-bottom: 1.2em; }
-    .seo-intro { margin-bottom: 2.5em; }
-    .category-intro { margin-bottom: 1em; font-size: 0.97em; color: #333; }
-    .closing-section { margin-top: 3em; border-top: 2px solid #111; padding-top: 2em; }
-    .closing-section p { margin-bottom: 1.2em; }
-    @media (max-width: 600px) { .page-list { columns: 1; } }
+    :root {
+      --black: #080808;
+      --deep: #0e0e10;
+      --surface: #141416;
+      --border: #1e1e22;
+      --muted: #2a2a30;
+      --amber: #d4943a;
+      --amber-light: #e8b060;
+      --amber-dim: rgba(212, 148, 58, 0.15);
+      --amber-glow: rgba(212, 148, 58, 0.06);
+      --white: #f0ede8;
+      --grey-mid: #8a8a90;
+      --grey-light: #b8b5ae;
+      --text: #d8d4cc;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.35;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(20px, 5vw, 80px);
+      height: 64px;
+      background: rgba(8, 8, 8, 0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: clamp(16px, 3vw, 40px);
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: var(--grey-mid);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--amber); }
+
+    .nav-cta {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--amber) !important;
+      border: 1px solid var(--amber) !important;
+      padding: 6px 14px;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--amber) !important;
+      color: var(--black) !important;
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px clamp(20px, 5vw, 80px) 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(212, 148, 58, 0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(212, 148, 58, 0.04) 0%, transparent 60%),
+        linear-gradient(180deg, var(--black) 0%, var(--deep) 50%, var(--black) 100%);
+    }
+
+    .hero-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 79px,
+          rgba(212, 148, 58, 0.04) 80px
+        );
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 800px; }
+
+    .hero-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 2rem;
+      opacity: 0.8;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      font-weight: 300;
+      line-height: 0.95;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4em;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--amber-light);
+    }
+
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: var(--grey-light);
+      margin-bottom: 3rem;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-meta-item {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grey-mid);
+    }
+
+    .hero-meta-item span {
+      color: var(--amber);
+      display: block;
+      font-size: 0.62rem;
+      margin-bottom: 2px;
+      letter-spacing: 0.15em;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--amber);
+      color: var(--black);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--amber-light); transform: translateY(-1px); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--white);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 14px 28px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-secondary:hover { border-color: var(--amber); color: var(--amber); }
+
+    /* ─── SCROLL INDICATOR ─── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.4;
+    }
+
+    .scroll-hint-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grey-mid);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--amber), transparent);
+      animation: scrollAnim 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollAnim {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    /* ─── SECTIONS ─── */
+    section { padding: clamp(60px, 10vw, 120px) clamp(20px, 5vw, 80px); }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 1.5rem;
+      opacity: 0.7;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--amber-light);
+    }
+
+    /* ─── ARTIST SECTION ─── */
+    #artist {
+      background: var(--deep);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .artist-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    .artist-bio p {
+      font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+      line-height: 1.85;
+      color: var(--text);
+      margin-bottom: 1.4em;
+    }
+
+    .artist-bio p:last-child { margin-bottom: 0; }
+
+    .artist-bio strong { color: var(--white); font-weight: 500; }
+
+    .artist-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .stat-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat-row:first-child { border-top: 1px solid var(--border); }
+
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      font-weight: 300;
+      color: var(--amber);
+      line-height: 1;
+      min-width: 80px;
+    }
+
+    .stat-desc {
+      font-size: 0.85rem;
+      color: var(--grey-light);
+      line-height: 1.5;
+    }
+
+    .stat-desc strong {
+      display: block;
+      color: var(--white);
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-bottom: 2px;
+    }
+
+    /* ─── TIMELINE ─── */
+    .timeline {
+      margin-top: 3rem;
+      position: relative;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 20px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+
+    .timeline-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--amber);
+      letter-spacing: 0.1em;
+      min-width: 50px;
+      padding-top: 2px;
+    }
+
+    .timeline-content {
+      font-size: 0.88rem;
+      color: var(--grey-light);
+      line-height: 1.5;
+    }
+
+    .timeline-content strong { color: var(--white); }
+
+    /* ─── BANDCAMP SECTION ─── */
+    #bandcamp {
+      position: relative;
+      overflow: hidden;
+    }
+
+    #bandcamp::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(212, 148, 58, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .bandcamp-hero {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .bandcamp-cta-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--amber);
+      padding: clamp(30px, 5vw, 60px);
+      margin-bottom: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .bandcamp-cta-text { flex: 1; min-width: 260px; }
+
+    .bandcamp-cta-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 0.5em;
+      line-height: 1.2;
+    }
+
+    .bandcamp-cta-text p {
+      font-size: 0.92rem;
+      color: var(--grey-light);
+      max-width: 480px;
+    }
+
+    .bandcamp-btn-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ─── RELEASES GRID ─── */
+    .releases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .release-card {
+      background: var(--surface);
+      padding: 24px;
+      transition: background 0.2s;
+      position: relative;
+    }
+
+    .release-card:hover { background: var(--muted); }
+
+    .release-card::after {
+      content: '↗';
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 0.8rem;
+      color: var(--amber);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .release-card:hover::after { opacity: 1; }
+
+    .release-card a { text-decoration: none; color: inherit; display: block; }
+
+    .release-type {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 10px;
+      opacity: 0.7;
+    }
+
+    .release-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+
+    .release-tracks {
+      list-style: none;
+      padding: 0;
+    }
+
+    .release-tracks li {
+      font-size: 0.78rem;
+      color: var(--grey-mid);
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .release-tracks li:last-child { border-bottom: none; }
+
+    .release-more {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--amber);
+      margin-top: 8px;
+      opacity: 0.7;
+    }
+
+    /* ─── MID-PAGE CTA ─── */
+    .mid-cta {
+      background: linear-gradient(135deg, var(--deep) 0%, var(--surface) 100%);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--amber);
+      padding: 40px;
+      text-align: center;
+      margin: 60px 0;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .mid-cta p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      color: var(--grey-light);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── REMIXES HIGHLIGHT ─── */
+    #remixes {
+      background: var(--deep);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .remixes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      max-width: 1200px;
+      margin: 3rem auto 0;
+    }
+
+    .remix-card {
+      background: var(--surface);
+      padding: 20px 22px;
+    }
+
+    .remix-artist {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 6px;
+    }
+
+    .remix-title {
+      font-size: 0.88rem;
+      color: var(--white);
+      line-height: 1.4;
+      font-weight: 400;
+    }
+
+    /* ─── GUIDES SECTION ─── */
+    #guides {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .guides-intro {
+      max-width: 680px;
+      margin-bottom: 3rem;
+    }
+
+    .guides-intro p {
+      font-size: 0.95rem;
+      color: var(--grey-light);
+      line-height: 1.8;
+    }
+
+    .guides-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .guide-category {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 28px;
+      transition: border-color 0.2s;
+    }
+
+    .guide-category:hover { border-color: var(--amber); }
+
+    .guide-cat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .guide-cat-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--white);
+    }
+
+    .guide-cat-count {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--amber);
+      letter-spacing: 0.1em;
+    }
+
+    .guide-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .guide-list li {
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .guide-list li:last-child { border-bottom: none; }
+
+    .guide-list a {
+      font-size: 0.82rem;
+      color: var(--grey-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .guide-list a:hover { color: var(--amber-light); }
+
+    /* ─── LEGACY SECTION ─── */
+    #legacy {
+      background: var(--deep);
+      border-top: 1px solid var(--border);
+    }
+
+    .legacy-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .legacy-text p {
+      font-size: 0.95rem;
+      color: var(--grey-light);
+      line-height: 1.85;
+      margin-bottom: 1.2em;
+    }
+
+    .legacy-text p:last-child { margin-bottom: 0; }
+
+    .legacy-archive {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .legacy-archive-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .legacy-archive-header span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--amber);
+    }
+
+    .legacy-archive-count {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      color: var(--white);
+    }
+
+    .legacy-archive-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .legacy-archive-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.2s;
+    }
+
+    .legacy-archive-list li:last-child { border-bottom: none; }
+
+    .legacy-archive-list li:hover { background: var(--muted); }
+
+    .legacy-archive-list li a {
+      font-size: 0.82rem;
+      color: var(--grey-light);
+      text-decoration: none;
+      transition: color 0.2s;
+      flex: 1;
+    }
+
+    .legacy-archive-list li:hover a { color: var(--white); }
+
+    .legacy-archive-list li::before {
+      content: '▸';
+      color: var(--amber);
+      font-size: 0.6rem;
+      opacity: 0.5;
+    }
+
+    /* ─── FINAL CTA ─── */
+    #final-cta {
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #final-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(212, 148, 58, 0.07) 0%, transparent 70%);
+    }
+
+    .final-cta-content {
+      position: relative;
+      z-index: 2;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .final-big-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .final-big-text em { font-style: italic; color: var(--amber-light); }
+
+    .final-cta-content p {
+      font-size: 0.95rem;
+      color: var(--grey-light);
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .final-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .bandcamp-url {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--grey-mid);
+      letter-spacing: 0.1em;
+      margin-top: 1rem;
+    }
+
+    .bandcamp-url a {
+      color: var(--amber);
+      text-decoration: none;
+    }
+
+    .bandcamp-url a:hover { text-decoration: underline; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px clamp(20px, 5vw, 80px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: gap;
+      gap: 20px;
+    }
+
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--grey-mid);
+    }
+
+    .footer-brand strong { color: var(--white); }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--grey-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--amber); }
+
+    .footer-bandcamp {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--amber);
+      text-decoration: none;
+      border: 1px solid rgba(212, 148, 58, 0.3);
+      padding: 8px 16px;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .footer-bandcamp:hover { background: var(--amber); color: var(--black); }
+
+    /* ─── DIVIDER ─── */
+    .amber-line {
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--amber);
+      margin: 2rem 0;
+      opacity: 0.6;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .artist-grid,
+      .legacy-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .nav-links { display: none; }
+
+      .bandcamp-cta-box {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-meta { gap: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      .releases-grid { grid-template-columns: 1fr; }
+      .guides-categories { grid-template-columns: 1fr; }
+    }
+
+    /* ─── UTILITY ─── */
+    .text-amber { color: var(--amber); }
+    .w-full { max-width: 1200px; margin-left: auto; margin-right: auto; }
+
+    a { color: inherit; }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-content > * {
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero-label { animation-delay: 0.1s; }
+    .hero-title { animation-delay: 0.25s; }
+    .hero-subtitle { animation-delay: 0.4s; }
+    .hero-meta { animation-delay: 0.55s; }
+    .hero-actions { animation-delay: 0.7s; }
   </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MusicGroup",
+    "name": "Vincent Bastille",
+    "url": "https://remixes.vincentbastille.online/",
+    "sameAs": [
+      "https://vincentbastille.bandcamp.com/",
+      "https://vincentbastille.online"
+    ],
+    "genre": ["House Music", "Disco House", "Afro House", "French House"],
+    "description": "DJ and house music producer since 1995. Remixes of Madonna, Jennifer Lopez, Sade, Modjo. Paris · Ibiza · Athens."
+  }
+  </script>
 </head>
 <body>
 
-<div class="site-header">
-  <strong style="color:#fff;">Vincent Bastille — Remix Guides</strong>
-  <a href="https://remixes.vincentbastille.online">Visit Main Site</a>
-</div>
-
-<h1>House Music Remix Guides 2026</h1>
-<p class="subtitle">The definitive resource for DJs, producers, and music lovers exploring house music, remixes, and electronic dance culture — curated by producer Vincent Bastille.</p>
-
-<div class="stats">
-  <strong>300 guides</strong> covering deep house, afro house, vocal house, French house, tech house, nu disco, and more.
-  Updated: 2026-04-24
-</div>
-
-<div class="seo-intro">
-
-<p>There is something almost sacred about a great house remix. It takes a song you already love — a melody, a vocal, a groove — and opens it up like a room you didn't know existed. The kick drum finds its rhythm at 124 BPM and suddenly your body understands something your mind cannot explain. This is what house music does. And this is exactly what every guide on this site is built to help you understand, feel, and use, whether you are a working DJ pulling tracks at 2am, a producer hunting for the right <a href="seo-pages/house-remix-guide.html">house remix</a> reference, or simply a listener who wants to go deeper.</p>
-
-<p>Vincent Bastille has spent years immersed in this music — not as a passive fan, but as a producer and selector who understands how a remix lives and dies in a room. A well-executed <a href="seo-pages/house-electronic-remix.html">electronic remix</a> does not just rework a source track; it recontextualizes it, strips away the familiar, and replaces it with something that feels both inevitable and completely new. The 300 guides collected here are the result of that immersion: a practical, deeply researched archive covering every major subgenre, tempo range, geographic scene, and mood that house music has produced in the modern era.</p>
-
-<p>BPM is not just a number. It is a decision. When a DJ selects a track running at 120 BPM versus one pushing 128 BPM, the entire emotional temperature of a set shifts. Deeper, slower tempos invite introspection. They suit a warm-up set, a late-night comedown, or a listening session at home. Faster tempos, particularly in the 126 to 130 BPM range, belong to peak-hour floors and the kind of energy that makes strangers feel like old friends. These guides cover the full spectrum, from rolling <a href="seo-pages/deep-house-remix-120-bpm.html">deep house at 120 BPM</a> all the way to <a href="seo-pages/underground-house-edit-130-bpm.html">underground edits pushing 130 BPM</a>, giving you the context to understand not just what a track sounds like, but where and when it belongs.</p>
-
-<p>The geography of house music matters enormously. Chicago gave the world its foundation — that raw, minimal, almost brutalist groove that made clubs feel like church. Detroit refined it into something more mechanical and futuristic. New York layered it with gospel, jazz, and the sweaty urgency of the Paradise Garage. London absorbed all of it and added garage energy and a distinctly British sense of restraint that could explode without warning. Paris brought filter work, warmth, and a cinematic sensibility that turned the dance floor into a film set. Every one of these cities shaped what a <a href="seo-pages/house-remix-guide.html">house remix</a> could be, and every one of them is represented across these 300 pages.</p>
-
-<p>Vincent Bastille's work sits comfortably at the intersection of these traditions. Rooted in Paris but fluent in the entire global vocabulary of electronic music, the productions and analyses gathered here reflect a genuine love for the craft. You will find them available on Bandcamp, where each release comes with full liner notes, BPM information, and context for how the tracks were built. Bandcamp has become the preferred home for this kind of work precisely because it respects both the artist and the listener — no algorithm deciding what you hear next, just music and the people who made it.</p>
-
-<p>What makes a house remix great? The question sounds simple but the answer is layered. It starts with the source material: a vocal that carries emotional weight, a chord progression with room to breathe, a melody that survives being stripped to its skeleton. Then comes the producer's vision — the choice of whether to go deeper or more energetic, whether to honor the original or fundamentally reimagine it. Great remix work always has a point of view. You can hear it in the way the drums sit in the mix, in the space left between elements, in the moment a filtered chord slowly opens and the floor lifts. These guides are designed to help you develop that ear, to hear what a DJ hears and understand why certain tracks work in ways that others, technically similar, simply do not.</p>
-
-<p>The archive is organized by subgenre, then by theme, then by location and mood. This is intentional. House music is not one thing. Afro house carries percussive polyrhythm and a spiritual intensity that tech house cannot replicate. <a href="seo-pages/soulful-house-remix.html">Soulful house</a> lives in the voice — in phrasing, in breath, in the human vulnerability that no synthesizer can fake. Nu disco reaches back to the 1970s and pulls something warm and analog into a contemporary context. Each of these genres deserves its own language, and each of the guides here attempts to provide exactly that. Start anywhere. Follow the links. Let the music lead.</p>
-
-</div>
-
-<div class="stats">
-  <strong>300 guides</strong> covering deep house, afro house, vocal house, French house, tech house, nu disco, and more.
-  Updated: 2026-04-24
-</div>
-
-
-<section class="theme-group">
-  <h2>Afro House</h2>
-  <p class="category-intro">Afro house is where the drum becomes a conversation. Rooted in the polyrhythmic traditions of West and Southern Africa and refined in clubs from Johannesburg to London, this subgenre carries a spiritual intensity that sets it apart from anything else in the house spectrum. The percussion is the architecture — congas, djembes, shakers, and programmed rhythms layered in ways that create movement before the bassline even enters. A good <a href="seo-pages/tribal-house-remix-guide.html">tribal house remix</a> does not just add African elements to a house track; it reconstructs the entire rhythmic logic of the record from the inside out. These guides explore the full range of this music, from peak-hour floor weapons to late-night journeys. Whether you are a DJ looking for <a href="seo-pages/tribal-house-remix-for-djs.html">tribal house tracks built for DJ use</a> or a producer studying how BPM and percussion interact in this style — especially in the <a href="seo-pages/tribal-house-remix-124-bpm.html">124 BPM range</a> and the <a href="seo-pages/tribal-house-remix-126-bpm.html">126 BPM range</a> that define most afro house — these pages offer both the analytical depth and the emotional context you need.</p>
-  <ul class="page-list">
-    <li><a href="seo-pages/best-tribal-house-remix.html">Best Tribal House Remix</a></li>
-<li><a href="seo-pages/house-tribal-remix-2026.html">House Tribal Remix 2026</a></li>
-<li><a href="seo-pages/top-tribal-house-remix-2026.html">Top Tribal House Remix 2026</a></li>
-<li><a href="seo-pages/tribal-house-remix-124-bpm.html">Tribal House Remix 124 Bpm</a></li>
-<li><a href="seo-pages/tribal-house-remix-126-bpm.html">Tribal House Remix 126 Bpm</a></li>
-<li><a href="seo-pages/tribal-house-remix-archive-entry.html">Tribal House Remix Archive Entry</a></li>
-<li><a href="seo-pages/tribal-house-remix-best-of.html">Tribal House Remix Best Of</a></li>
-<li><a href="seo-pages/tribal-house-remix-club-ready.html">Tribal House Remix Club Ready</a></li>
-<li><a href="seo-pages/tribal-house-remix-for-djs.html">Tribal House Remix For Djs</a></li>
-<li><a href="seo-pages/tribal-house-remix-guide.html">Tribal House Remix Guide</a></li>
-<li><a href="seo-pages/tribal-house-remix-late-night.html">Tribal House Remix Late Night</a></li>
-<li><a href="seo-pages/tribal-house-remix-london.html">Tribal House Remix London</a></li>
-<li><a href="seo-pages/tribal-house-remix-new-york.html">Tribal House Remix New York</a></li>
-<li><a href="seo-pages/tribal-house-remix-paris.html">Tribal House Remix Paris</a></li>
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav>
+  <a href="/" class="nav-logo">Vincent Bastille</a>
+  <ul class="nav-links">
+    <li><a href="#artist">Artist</a></li>
+    <li><a href="#bandcamp">Releases</a></li>
+    <li><a href="#remixes">Remixes</a></li>
+    <li><a href="#guides">Guides</a></li>
+    <li><a href="#legacy">Legacy</a></li>
+    <li><a href="https://vincentbastille.bandcamp.com/" target="_blank" rel="noopener" class="nav-cta">Bandcamp ↗</a></li>
   </ul>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+
+  <div class="hero-content">
+    <p class="hero-label">DJ · Producer · Remixer</p>
+
+    <h1 class="hero-title">
+      Vincent<br><em>Bastille</em>
+    </h1>
+
+    <p class="hero-subtitle">
+      House Music · Disco · Afro · French Touch<br>
+      Paris — Ibiza — Athens — New York
+    </p>
+
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span>Since</span>
+        1995
+      </div>
+      <div class="hero-meta-item">
+        <span>Style</span>
+        Disco House
+      </div>
+      <div class="hero-meta-item">
+        <span>Releases</span>
+        25+ albums
+      </div>
+      <div class="hero-meta-item">
+        <span>Guides</span>
+        300 pages
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a href="https://vincentbastille.bandcamp.com/" target="_blank" rel="noopener" class="btn-primary">
+        ♫ &nbsp;Listen on Bandcamp
+      </a>
+      <a href="#guides" class="btn-secondary">
+        Explore Remix Guides
+      </a>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span class="scroll-hint-text">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
 </section>
 
-<section class="theme-group">
-  <h2>Vocal House</h2>
-  <p class="category-intro">The voice is the most powerful instrument in house music — and soulful house knows this better than any other subgenre. When a vocalist finds the pocket of a track and surrenders to it completely, something happens on the dance floor that no synthesizer patch can replicate. It is communal and deeply personal at once. The best <a href="seo-pages/soulful-house-remix.html">soulful house remixes</a> treat the vocal as sacred: they do not bury it under effects or hide it in reverb, they let it breathe, let it crack, let it soar. These guides look at the full landscape of vocal house, from classic gospel-influenced arrangements to contemporary productions that push the format into new emotional territory. You will find explorations of specific BPM contexts — particularly <a href="seo-pages/soulful-house-remix-124-bpm.html">soulful house at 124 BPM</a>, which sits at the sweet spot between warmth and momentum — alongside location-specific analyses for scenes from <a href="seo-pages/soulful-house-remix-ibiza.html">Ibiza</a> to <a href="seo-pages/soulful-house-remix-berlin.html">Berlin</a>, where vocal house takes on a very different character depending on the room and the crowd.</p>
-  <ul class="page-list">
-    <li><a href="seo-pages/best-soulful-house-remix.html">Best Soulful House Remix</a></li>
-<li><a href="seo-pages/house-soul-remix-2026.html">House Soul Remix 2026</a></li>
-<li><a href="seo-pages/soulful-house-remix.html">Soulful House Remix</a></li>
-<li><a href="seo-pages/soulful-house-remix-124-bpm.html">Soulful House Remix 124 Bpm</a></li>
-<li><a href="seo-pages/soulful-house-remix-2026.html">Soulful House Remix 2026</a></li>
-<li><a href="seo-pages/soulful-house-remix-berlin.html">Soulful House Remix Berlin</a></li>
-<li><a href="seo-pages/soulful-house-remix-best-of.html">Soulful House Remix Best Of</a></li>
-<li><a href="seo-pages/soulful-house-remix-club-ready.html">Soulful House Remix Club Ready</a></li>
-<li><a href="seo-pages/soulful-house-remix-for-djs.html">Soulful House Remix For Djs</a></li>
-<li><a href="seo-pages/soulful-house-remix-hypnotic-session.html">Soulful House Remix Hypnotic Session</a></li>
-<li><a href="seo-pages/soulful-house-remix-ibiza.html">Soulful House Remix Ibiza</a></li>
-<li><a href="seo-pages/soulful-house-remix-warm-up-set.html">Soulful House Remix Warm Up Set</a></li>
-  </ul>
+<!-- ═══════════════ ARTIST ═══════════════ -->
+<section id="artist">
+  <div class="artist-grid">
+    <div class="artist-bio">
+      <p class="section-label">The Artist</p>
+      <h2 class="section-title">DJ since <em>1995</em></h2>
+      <span class="amber-line"></span>
+      <p>It all started in <strong>Angers in 1995</strong> — a time when house music was still a revelation, a secret language that very few people spoke fluently. Vincent Bastille learned it from the ground up: the kick drum at 124 BPM, filtered synths, gospel vocals that transform a dance floor into something almost sacred.</p>
+      <p>A residency in <strong>Athens</strong>. Five years in the <strong>Paris Marais</strong>. Sets in <strong>Ibiza</strong> and <strong>New York</strong>. A career built on the conviction that a DJ is not a jukebox — they're a narrator. Every mix is a story. Every transition is a decision.</p>
+      <p>On the production side, the remixes have left a clear imprint: <strong>Jennifer Lopez, Madonna, Sade, Modjo, Michael Jackson</strong>. The Madonna remix for the <em>Beatport World Challenge</em> finished 2nd globally. The Jennifer Lopez remix generated millions of streams. That's not luck — it's an ear trained on thirty years of dancefloors.</p>
+      <p>Today, the Bandcamp catalogue holds the essentials: originals, remixes, remastered archives, instrumentals. <strong>25+ releases</strong> spanning thirty years of house music in all its forms.</p>
+    </div>
+
+    <div>
+      <div class="artist-stats">
+        <div class="stat-row">
+          <div class="stat-number">30</div>
+          <div class="stat-desc">
+            <strong>Years of career</strong>
+            Angers 1995 → Today
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-number">2nd</div>
+          <div class="stat-desc">
+            <strong>Beatport World Challenge</strong>
+            Madonna remix — global ranking
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-number">25+</div>
+          <div class="stat-desc">
+            <strong>Releases on Bandcamp</strong>
+            Albums, EPs, remixes, archives
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-number">300</div>
+          <div class="stat-desc">
+            <strong>House music guides</strong>
+            Deep house, afro, French touch, vocal
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <span class="timeline-year">1995</span>
+          <span class="timeline-content"><strong>Angers</strong> — First sets, discovery of house music</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2000s</span>
+          <span class="timeline-content"><strong>Athens residency</strong> — Clubs, Mediterranean culture</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2010s</span>
+          <span class="timeline-content"><strong>Paris Marais</strong> — 5-year residency, Parisian house scene</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2014</span>
+          <span class="timeline-content"><strong>Jennifer Lopez remix</strong> — Millions of streams</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2025</span>
+          <span class="timeline-content"><strong>Madonna Beatport Challenge</strong> — 2nd worldwide</span>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">2026</span>
+          <span class="timeline-content"><strong>Remixes 2026</strong> — Sade, Janet Jackson, Rick Astley…</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section class="theme-group">
-  <h2>Underground &amp; Club</h2>
-  <p class="category-intro">Underground house is not a subgenre — it is an attitude. It values function over decoration, impact over polish, and the specific physics of a dark room over any concern about radio play or streaming algorithms. The <a href="seo-pages/chicago-house-remix-guide.html">Chicago house remix tradition</a> is the foundation of everything here: those early Roland 909 patterns, those acid basslines, that relentless four-to-the-floor kick. Detroit refined the blueprint and pushed it toward something more abstract and forward-looking. What these guides trace is the living thread that connects those founding moments to what a DJ plays tonight at a club in London, Paris, or New York. You will find BPM breakdowns — from the <a href="seo-pages/underground-house-edit-120-bpm.html">rolling 120 BPM underground edits</a> through to <a href="seo-pages/underground-house-edit-130-bpm.html">harder 130 BPM cuts</a> — as well as deep dives into the scene-specific sounds of <a href="seo-pages/chicago-house-remix-london.html">Chicago house in London</a> and <a href="seo-pages/chicago-house-remix-new-york.html">Chicago house interpreted through New York</a>. The underground is not a place. It is a set of values. These pages help you understand them.</p>
-  <ul class="page-list">
-    <li><a href="seo-pages/best-underground-house-edit.html">Best Underground House Edit</a></li>
-<li><a href="seo-pages/chicago-house-remix.html">Chicago House Remix</a></li>
-<li><a href="seo-pages/chicago-house-remix-128-bpm.html">Chicago House Remix 128 Bpm</a></li>
-<li><a href="seo-pages/chicago-house-remix-2026.html">Chicago House Remix 2026</a></li>
-<li><a href="seo-pages/chicago-house-remix-b-ready-deep-dive.html">Chicago House Remix B-Ready Deep Dive</a></li>
-<li><a href="seo-pages/chicago-house-remix-best-of.html">Chicago House Remix Best Of</a></li>
-<li><a href="seo-pages/chicago-house-remix-chicago.html">Chicago House Remix Chicago</a></li>
-<li><a href="seo-pages/chicago-house-remix-club-perspective.html">Chicago House Remix Club Perspective</a></li>
-<li><a href="seo-pages/chicago-house-remix-guide.html">Chicago House Remix Guide</a></li>
-<li><a href="seo-pages/chicago-house-remix-ibiza.html">Chicago House Remix Ibiza</a></li>
-<li><a href="seo-pages/chicago-house-remix-late-night.html">Chicago House Remix Late Night</a></li>
-<li><a href="seo-pages/chicago-house-remix-listening-session.html">Chicago House Remix Listening Session</a></li>
-<li><a href="seo-pages/chicago-house-remix-london.html">Chicago House Remix London</a></li>
-<li><a href="seo-pages/chicago-house-remix-new-york.html">Chicago House Remix New York</a></li>
-<li><a href="seo-pages/chicago-house-remix-summer.html">Chicago House Remix Summer</a></li>
-<li><a href="seo-pages/chicago-house-remix-warm-up-set.html">Chicago House Remix Warm Up Set</a></li>
-<li><a href="seo-pages/chicago-house-remix-winter.html">Chicago House Remix Winter</a></li>
-<li><a href="seo-pages/club-house-remix-detroit.html">Club House Remix Detroit</a></li>
-<li><a href="seo-pages/french-house-remix-chicago.html">French House Remix Chicago</a></li>
-<li><a href="seo-pages/french-house-remix-detroit.html">French House Remix Detroit</a></li>
-<li><a href="seo-pages/funky-house-remix-chicago.html">Funky House Remix Chicago</a></li>
-<li><a href="seo-pages/funky-house-remix-detroit.html">Funky House Remix Detroit</a></li>
-<li><a href="seo-pages/garage-house-remix-chicago.html">Garage House Remix Chicago</a></li>
-<li><a href="seo-pages/house-remix-detroit.html">House Remix Detroit</a></li>
-<li><a href="seo-pages/latin-house-remix-chicago.html">Latin House Remix Chicago</a></li>
-<li><a href="seo-pages/latin-house-remix-detroit.html">Latin House Remix Detroit</a></li>
-<li><a href="seo-pages/melodic-house-remix-chicago.html">Melodic House Remix Chicago</a></li>
-<li><a href="seo-pages/minimal-house-remix-detroit.html">Minimal House Remix Detroit</a></li>
-<li><a href="seo-pages/night-electronic-remix-chicago.html">Night Electronic Remix Chicago</a></li>
-<li><a href="seo-pages/night-electronic-remix-detroit.html">Night Electronic Remix Detroit</a></li>
-<li><a href="seo-pages/organic-house-remix-chicago.html">Organic House Remix Chicago</a></li>
-<li><a href="seo-pages/organic-house-remix-detroit.html">Organic House Remix Detroit</a></li>
-<li><a href="seo-pages/tech-house-remix-chicago.html">Tech House Remix Chicago</a></li>
-<li><a href="seo-pages/tech-house-remix-detroit.html">Tech House Remix Detroit</a></li>
-<li><a href="seo-pages/top-chicago-house-remix-2026.html">Top Chicago House Remix 2026</a></li>
-<li><a href="seo-pages/underground-house-edit-120-bpm.html">Underground House Edit 120 Bpm</a></li>
-<li><a href="seo-pages/underground-house-edit-124-bpm.html">Underground House Edit 124 Bpm</a></li>
-<li><a href="seo-pages/underground-house-edit-130-bpm.html">Underground House Edit 130 Bpm</a></li>
-<li><a href="seo-pages/underground-house-edit-b-ready-deep-dive.html">Underground House Edit B-Ready Deep Dive</a></li>
-<li><a href="seo-pages/underground-house-edit-club-perspective.html">Underground House Edit Club Perspective</a></li>
-<li><a href="seo-pages/underground-house-edit-for-djs.html">Underground House Edit For Djs</a></li>
-<li><a href="seo-pages/underground-house-edit-guide.html">Underground House Edit Guide</a></li>
-<li><a href="seo-pages/underground-house-edit-hypnotic-session.html">Underground House Edit Hypnotic Session</a></li>
-<li><a href="seo-pages/underground-house-edit-listening-session.html">Underground House Edit Listening Session</a></li>
-<li><a href="seo-pages/underground-house-edit-paris.html">Underground House Edit Paris</a></li>
-<li><a href="seo-pages/underground-house-edit-sound-design-notes.html">Underground House Edit Sound Design Notes</a></li>
-<li><a href="seo-pages/underground-house-edit-summer.html">Underground House Edit Summer</a></li>
-<li><a href="seo-pages/underground-house-edit-winter.html">Underground House Edit Winter</a></li>
-  </ul>
+<!-- ═══════════════ BANDCAMP ═══════════════ -->
+<section id="bandcamp" style="padding: clamp(60px, 10vw, 120px) clamp(20px, 5vw, 80px);">
+  <div class="bandcamp-hero">
+
+    <p class="section-label">Listen</p>
+    <h2 class="section-title">On <em>Bandcamp</em></h2>
+
+    <div class="bandcamp-cta-box">
+      <div class="bandcamp-cta-text">
+        <h3>The full catalogue<br>streaming free</h3>
+        <p>Albums, remixes, remastered archives, instrumentals — 25+ releases available directly on Bandcamp. No algorithm. Just the music.</p>
+      </div>
+      <div class="bandcamp-btn-group">
+        <a href="https://vincentbastille.bandcamp.com/" target="_blank" rel="noopener" class="btn-primary">
+          ♫ &nbsp;Open Bandcamp
+        </a>
+        <a href="https://vincentbastille.bandcamp.com/album/vincent-bastille-remixes-legacy" target="_blank" rel="noopener" class="btn-secondary">
+          Remixes Legacy
+        </a>
+      </div>
+    </div>
+
+    <div class="releases-grid">
+
+      <div class="release-card">
+        <a href="https://vincentbastille.bandcamp.com/album/vincent-bastille-remixes-2026" target="_blank" rel="noopener">
+          <p class="release-type">EP · 2026</p>
+          <h3 class="release-title">Remixes 2026</h3>
+          <ul class="release-tracks">
+            <li>Madonna — Ray Of Light (VB Beatport Remix)</li>
+            <li>Sade — Smooth Operator (VB House Remix)</li>
+            <li>Janet Jackson — Together Again (VB Remix)</li>
+            <li>Rick Astley — Never Gonna Give You Up (VB)</li>
+            <li>Troye Sivan — Rush (VB House Remix)</li>
+          </ul>
+          <p class="release-more">+ 5 tracks →</p>
+        </a>
+      </div>
+
+      <div class="release-card">
+        <a href="https://vincentbastille.bandcamp.com/album/vincent-bastille-remixes-legacy" target="_blank" rel="noopener">
+          <p class="release-type">Compilation · Legacy</p>
+          <h3 class="release-title">Remixes (Legacy)</h3>
+          <ul class="release-tracks">
+            <li>Jennifer Lopez — Can't Get Enough (VB Remix)</li>
+            <li>Modjo — Lady (VB Remix)</li>
+            <li>Michael Jackson — You Rock My World (VB)</li>
+            <li>Madonna — Ray Of Light (VB Remix)</li>
+            <li>Sade — Smooth Operator (VB Remix)</li>
+          </ul>
+          <p class="release-more">+ 8 tracks →</p>
+        </a>
+      </div>
+
+      <div class="release-card">
+        <a href="https://vincentbastille.bandcamp.com/album/one-more-time" target="_blank" rel="noopener">
+          <p class="release-type">Album</p>
+          <h3 class="release-title">One More Time</h3>
+          <ul class="release-tracks">
+            <li>Alright (Remastered)</li>
+            <li>Boom Boom (Radio Edit)</li>
+            <li>Calabria</li>
+            <li>Epic Funky Disco Banger</li>
+            <li>San Junipero (Radio Edit)</li>
+          </ul>
+          <p class="release-more">+ 7 tracks →</p>
+        </a>
+      </div>
+
+      <div class="release-card">
+        <a href="https://vincentbastille.bandcamp.com/album/vincent-bastille-legacy" target="_blank" rel="noopener">
+          <p class="release-type">Archive · Remastered</p>
+          <h3 class="release-title">Legacy</h3>
+          <ul class="release-tracks">
+            <li>Percubata (REMASTERED)</li>
+            <li>Africaans (REMASTERED)</li>
+            <li>Princess Liquid (REMASTERED)</li>
+            <li>Vodoo (REMASTERED)</li>
+            <li>Mystic (Bab' Long remix)</li>
+          </ul>
+          <p class="release-more">+ 5 tracks →</p>
+        </a>
+      </div>
+
+      <div class="release-card">
+        <a href="https://vincentbastille.bandcamp.com/album/true-lp" target="_blank" rel="noopener">
+          <p class="release-type">Album</p>
+          <h3 class="release-title">True LP</h3>
+          <ul class="release-tracks">
+            <li>True (Radio Edit)</li>
+            <li>Milk & Sugar</li>
+            <li>Belly Dancer</li>
+            <li>My Disco Is Cheap</li>
+            <li>The Sand Man</li>
+          </ul>
+          <p class="release-more">+ 5 tracks →</p>
+        </a>
+      </div>
+
+      <div class="release-card">
+        <a href="https://vincentbastille.bandcamp.com/album/vincent-bastille-hypercub" target="_blank" rel="noopener">
+          <p class="release-type">Album</p>
+          <h3 class="release-title">HyperCub</h3>
+          <ul class="release-tracks">
+            <li>Save Jay-Z</li>
+            <li>Andalucia</li>
+            <li>Ibiza</li>
+            <li>Je Suis Music</li>
+            <li>StarFlash</li>
+          </ul>
+          <p class="release-more">+ 7 tracks →</p>
+        </a>
+      </div>
+
+      <div class="release-card">
+        <a href="https://vincentbastille.bandcamp.com/album/music-for-film" target="_blank" rel="noopener">
+          <p class="release-type">Album · Cinématique</p>
+          <h3 class="release-title">Music For Film</h3>
+          <ul class="release-tracks">
+            <li>Theme to Rob Zombie</li>
+            <li>Black Blood</li>
+            <li>Falling Down</li>
+            <li>Souvenirs From Earth</li>
+            <li>Superstar</li>
+          </ul>
+          <p class="release-more">+ 13 tracks →</p>
+        </a>
+      </div>
+
+      <div class="release-card">
+        <a href="https://vincentbastille.bandcamp.com/album/calls-from-the-city" target="_blank" rel="noopener">
+          <p class="release-type">Album</p>
+          <h3 class="release-title">Calls From The City</h3>
+          <ul class="release-tracks">
+            <li>End Of Time</li>
+            <li>Sugar Sugar</li>
+            <li>Music Takin' Over</li>
+            <li>Lions On The See</li>
+            <li>2 Be In Love</li>
+          </ul>
+          <p class="release-more">+ 6 tracks →</p>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- MID CTA -->
+    <div class="mid-cta">
+      <p>"Thirty years of dancefloors condensed into a catalogue — available for streaming and download on Bandcamp."</p>
+      <a href="https://vincentbastille.bandcamp.com/" target="_blank" rel="noopener" class="btn-primary">
+        ♫ &nbsp;Browse the full Bandcamp catalogue
+      </a>
+    </div>
+
+  </div>
 </section>
 
-<section class="theme-group">
-  <h2>Melodic &amp; Organic</h2>
-  <p class="category-intro">Melodic house asks a different question than most electronic music. Instead of asking how hard the room can hit, it asks how far inside a person the music can reach. At its best, a <a href="seo-pages/melodic-house-remix-guide.html">melodic house remix</a> works like a slow tide — it does not crash, it rises, and by the time you realize how deep you are, there is no going back. This section also covers the growing world of organic house, which brings live instrumentation, acoustic textures, and natural resonance into a framework that remains fundamentally electronic. The <a href="seo-pages/organic-house-remix-guide.html">organic house remix</a> approach has gained enormous traction in recent years, particularly in Ibiza and the open-air festival circuit, where the blending of acoustic and electronic worlds feels most natural. These guides trace melodic and organic house across tempos — especially the crucial <a href="seo-pages/melodic-house-remix-126-bpm.html">126 BPM midpoint</a> — and across moods, from the <a href="seo-pages/melodic-house-remix-emotional-guide.html">emotionally driven</a> to the purely dancefloor functional. Progressive house also lives in this section, bridging the gap between melodic depth and peak-hour impact at <a href="seo-pages/progressive-house-remix-128-bpm.html">128 BPM</a>.</p>
-  <ul class="page-list">
-    <li><a href="seo-pages/best-house-ambient-remix.html">Best House Ambient Remix</a></li>
-<li><a href="seo-pages/house-ambient-remix.html">House Ambient Remix</a></li>
-<li><a href="seo-pages/house-ambient-remix-2026.html">House Ambient Remix 2026</a></li>
-<li><a href="seo-pages/melodic-house-remix-126-bpm.html">Melodic House Remix 126 Bpm</a></li>
-<li><a href="seo-pages/melodic-house-remix-2026.html">Melodic House Remix 2026</a></li>
-<li><a href="seo-pages/melodic-house-remix-b-ready-deep-dive.html">Melodic House Remix B-Ready Deep Dive</a></li>
-<li><a href="seo-pages/melodic-house-remix-berlin.html">Melodic House Remix Berlin</a></li>
-<li><a href="seo-pages/melodic-house-remix-best-of.html">Melodic House Remix Best Of</a></li>
-<li><a href="seo-pages/melodic-house-remix-club-perspective.html">Melodic House Remix Club Perspective</a></li>
-<li><a href="seo-pages/melodic-house-remix-emotional-guide.html">Melodic House Remix Emotional Guide</a></li>
-<li><a href="seo-pages/melodic-house-remix-for-djs.html">Melodic House Remix For Djs</a></li>
-<li><a href="seo-pages/melodic-house-remix-guide.html">Melodic House Remix Guide</a></li>
-<li><a href="seo-pages/melodic-house-remix-listening-session.html">Melodic House Remix Listening Session</a></li>
-<li><a href="seo-pages/melodic-house-remix-new-york.html">Melodic House Remix New York</a></li>
-<li><a href="seo-pages/melodic-house-remix-paris.html">Melodic House Remix Paris</a></li>
-<li><a href="seo-pages/melodic-house-remix-sound-design-notes.html">Melodic House Remix Sound Design Notes</a></li>
-<li><a href="seo-pages/melodic-house-remix-summer.html">Melodic House Remix Summer</a></li>
-<li><a href="seo-pages/melodic-house-remix-vincent-bastille.html">Melodic House Remix Vincent Bastille</a></li>
-<li><a href="seo-pages/melodic-house-remix-warm-up-set.html">Melodic House Remix Warm Up Set</a></li>
-<li><a href="seo-pages/organic-house-remix-124-bpm.html">Organic House Remix 124 Bpm</a></li>
-<li><a href="seo-pages/organic-house-remix-archive-entry.html">Organic House Remix Archive Entry</a></li>
-<li><a href="seo-pages/organic-house-remix-b-ready-deep-dive.html">Organic House Remix B-Ready Deep Dive</a></li>
-<li><a href="seo-pages/organic-house-remix-emotional-guide.html">Organic House Remix Emotional Guide</a></li>
-<li><a href="seo-pages/organic-house-remix-guide.html">Organic House Remix Guide</a></li>
-<li><a href="seo-pages/organic-house-remix-ibiza.html">Organic House Remix Ibiza</a></li>
-<li><a href="seo-pages/organic-house-remix-late-night.html">Organic House Remix Late Night</a></li>
-<li><a href="seo-pages/organic-house-remix-london.html">Organic House Remix London</a></li>
-<li><a href="seo-pages/organic-house-remix-new-york.html">Organic House Remix New York</a></li>
-<li><a href="seo-pages/organic-house-remix-peak-hour.html">Organic House Remix Peak Hour</a></li>
-<li><a href="seo-pages/progressive-house-remix-128-bpm.html">Progressive House Remix 128 Bpm</a></li>
-<li><a href="seo-pages/progressive-house-remix-b-ready-deep-dive.html">Progressive House Remix B-Ready Deep Dive</a></li>
-<li><a href="seo-pages/progressive-house-remix-best-of.html">Progressive House Remix Best Of</a></li>
-<li><a href="seo-pages/progressive-house-remix-club-ready.html">Progressive House Remix Club Ready</a></li>
-<li><a href="seo-pages/progressive-house-remix-guide.html">Progressive House Remix Guide</a></li>
-<li><a href="seo-pages/progressive-house-remix-hypnotic-session.html">Progressive House Remix Hypnotic Session</a></li>
-<li><a href="seo-pages/progressive-house-remix-ibiza.html">Progressive House Remix Ibiza</a></li>
-<li><a href="seo-pages/progressive-house-remix-paris.html">Progressive House Remix Paris</a></li>
-<li><a href="seo-pages/progressive-house-remix-peak-hour.html">Progressive House Remix Peak Hour</a></li>
-<li><a href="seo-pages/progressive-house-remix-winter.html">Progressive House Remix Winter</a></li>
-<li><a href="seo-pages/top-melodic-house-remix-2026.html">Top Melodic House Remix 2026</a></li>
-<li><a href="seo-pages/top-progressive-house-remix-2026.html">Top Progressive House Remix 2026</a></li>
-  </ul>
+<!-- ═══════════════ REMIXES HIGHLIGHT ═══════════════ -->
+<section id="remixes">
+  <div class="w-full">
+    <p class="section-label">Remix Discography</p>
+    <h2 class="section-title">The <em>iconic</em> remixes</h2>
+    <span class="amber-line"></span>
+    <p style="max-width:600px; font-size:0.92rem; color: var(--grey-light); line-height:1.8;">
+      Reinterpreting Madonna, Sade or Jennifer Lopez without betraying the original — that's where the difficulty lies. Each remix is a conversation with the source material: preserve the soul, transform the form.
+    </p>
+
+    <div class="remixes-grid">
+      <div class="remix-card">
+        <p class="remix-artist">Madonna</p>
+        <p class="remix-title">Ray Of Light<br><span style="color:var(--grey-mid); font-size:0.78rem;">Beatport World Challenge — 2nd worldwide</span></p>
+      </div>
+      <div class="remix-card">
+        <p class="remix-artist">Jennifer Lopez</p>
+        <p class="remix-title">Can't Get Enough<br><span style="color:var(--grey-mid); font-size:0.78rem;">Millions of streams</span></p>
+      </div>
+      <div class="remix-card">
+        <p class="remix-artist">Sade</p>
+        <p class="remix-title">Smooth Operator<br><span style="color:var(--grey-mid); font-size:0.78rem;">House Remix · 2024–2026</span></p>
+      </div>
+      <div class="remix-card">
+        <p class="remix-artist">Modjo</p>
+        <p class="remix-title">Lady<br><span style="color:var(--grey-mid); font-size:0.78rem;">Disco House Remix</span></p>
+      </div>
+      <div class="remix-card">
+        <p class="remix-artist">Michael Jackson</p>
+        <p class="remix-title">You Rock My World<br><span style="color:var(--grey-mid); font-size:0.78rem;">Disco House Remix</span></p>
+      </div>
+      <div class="remix-card">
+        <p class="remix-artist">Janet Jackson</p>
+        <p class="remix-title">Together Again<br><span style="color:var(--grey-mid); font-size:0.78rem;">House Remix 2026</span></p>
+      </div>
+      <div class="remix-card">
+        <p class="remix-artist">Rick Astley</p>
+        <p class="remix-title">Never Gonna Give You Up<br><span style="color:var(--grey-mid); font-size:0.78rem;">House Remix 2026</span></p>
+      </div>
+      <div class="remix-card">
+        <p class="remix-artist">Jeane Manson</p>
+        <p class="remix-title">Avant de nous dire adieu<br><span style="color:var(--grey-mid); font-size:0.78rem;">French Remix</span></p>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem; text-align:center;">
+      <a href="https://vincentbastille.bandcamp.com/album/vincent-bastille-remixes-legacy" target="_blank" rel="noopener" class="btn-primary">
+        ♫ &nbsp;Listen to all remixes
+      </a>
+    </div>
+  </div>
 </section>
 
-<section class="theme-group">
-  <h2>Nu Disco &amp; Funk</h2>
-  <p class="category-intro">Nu disco is time travel with a better sound system. It takes the warmth and humanity of 1970s and 1980s dance music — the strings, the live bass, the analog compression that makes records feel like something physical — and feeds it through contemporary production techniques that give it both clarity and weight. A great <a href="seo-pages/nu-disco-remix.html">nu disco remix</a> does not feel retro; it feels timeless. Funky house operates in the same territory but tends to lean harder into the groove, letting the rhythm section do more of the emotional work while the arrangement breathes around it. Both styles reward a DJ who understands dynamics — who knows when to let a track simmer at <a href="seo-pages/nu-disco-remix-124-bpm.html">124 BPM</a> and when to push it toward <a href="seo-pages/funky-house-remix-128-bpm.html">128 BPM</a> for peak-hour impact. These guides cover both ends of that spectrum and everything in between, from <a href="seo-pages/nu-disco-remix-berlin.html">Berlin's nu disco scene</a> to the sun-soaked energy of <a href="seo-pages/funky-house-remix-ibiza.html">funky house in Ibiza</a>. Available to explore and stream via Bandcamp, these are sounds that reward active listening as much as passive movement.</p>
-  <ul class="page-list">
-    <li><a href="seo-pages/best-house-funk-remix.html">Best House Funk Remix</a></li>
-<li><a href="seo-pages/best-nu-disco-remix.html">Best Nu Disco Remix</a></li>
-<li><a href="seo-pages/funky-house-remix-128-bpm.html">Funky House Remix 128 Bpm</a></li>
-<li><a href="seo-pages/funky-house-remix-b-ready-deep-dive.html">Funky House Remix B-Ready Deep Dive</a></li>
-<li><a href="seo-pages/funky-house-remix-club-perspective.html">Funky House Remix Club Perspective</a></li>
-<li><a href="seo-pages/funky-house-remix-emotional-guide.html">Funky House Remix Emotional Guide</a></li>
-<li><a href="seo-pages/funky-house-remix-guide.html">Funky House Remix Guide</a></li>
-<li><a href="seo-pages/funky-house-remix-hypnotic-session.html">Funky House Remix Hypnotic Session</a></li>
-<li><a href="seo-pages/funky-house-remix-ibiza.html">Funky House Remix Ibiza</a></li>
-<li><a href="seo-pages/funky-house-remix-listening-session.html">Funky House Remix Listening Session</a></li>
-<li><a href="seo-pages/funky-house-remix-new-york.html">Funky House Remix New York</a></li>
-<li><a href="seo-pages/funky-house-remix-peak-hour.html">Funky House Remix Peak Hour</a></li>
-<li><a href="seo-pages/funky-house-remix-winter.html">Funky House Remix Winter</a></li>
-<li><a href="seo-pages/house-funk-remix-2026.html">House Funk Remix 2026</a></li>
-<li><a href="seo-pages/nu-disco-remix.html">Nu Disco Remix</a></li>
-<li><a href="seo-pages/nu-disco-remix-124-bpm.html">Nu Disco Remix 124 Bpm</a></li>
-<li><a href="seo-pages/nu-disco-remix-126-bpm.html">Nu Disco Remix 126 Bpm</a></li>
-<li><a href="seo-pages/nu-disco-remix-b-ready-deep-dive.html">Nu Disco Remix B-Ready Deep Dive</a></li>
-<li><a href="seo-pages/nu-disco-remix-berlin.html">Nu Disco Remix Berlin</a></li>
-<li><a href="seo-pages/nu-disco-remix-best-of.html">Nu Disco Remix Best Of</a></li>
-<li><a href="seo-pages/nu-disco-remix-hypnotic-session.html">Nu Disco Remix Hypnotic Session</a></li>
-<li><a href="seo-pages/nu-disco-remix-ibiza.html">Nu Disco Remix Ibiza</a></li>
-<li><a href="seo-pages/nu-disco-remix-london.html">Nu Disco Remix London</a></li>
-<li><a href="seo-pages/nu-disco-remix-peak-hour.html">Nu Disco Remix Peak Hour</a></li>
-<li><a href="seo-pages/nu-disco-remix-winter.html">Nu Disco Remix Winter</a></li>
-<li><a href="seo-pages/top-nu-disco-remix-2026.html">Top Nu Disco Remix 2026</a></li>
-  </ul>
+<!-- ═══════════════ GUIDES ═══════════════ -->
+<section id="guides" style="padding: clamp(60px, 10vw, 120px) clamp(20px, 5vw, 80px);">
+  <div class="w-full">
+    <p class="section-label">Resources</p>
+    <h2 class="section-title">House Music <em>Guide</em></h2>
+    <span class="amber-line"></span>
+
+    <div class="guides-intro">
+      <p>300 reference pages on house music — every subgenre, every tempo, every geographic scene. Built for DJs, producers, and anyone who wants to go deeper than the surface.</p>
+    </div>
+
+    <div class="guides-categories">
+
+      <div class="guide-category">
+        <div class="guide-cat-header">
+          <span class="guide-cat-name">Afro House</span>
+          <span class="guide-cat-count">14 guides</span>
+        </div>
+        <ul class="guide-list">
+          <li><a href="seo-pages/best-tribal-house-remix.html">Best Tribal House Remix</a></li>
+          <li><a href="seo-pages/tribal-house-remix-124-bpm.html">Tribal House Remix 124 BPM</a></li>
+          <li><a href="seo-pages/tribal-house-remix-126-bpm.html">Tribal House Remix 126 BPM</a></li>
+          <li><a href="seo-pages/tribal-house-remix-for-djs.html">Tribal House Remix For DJs</a></li>
+          <li><a href="seo-pages/tribal-house-remix-paris.html">Tribal House · Paris</a></li>
+          <li><a href="seo-pages/tribal-house-remix-london.html">Tribal House · London</a></li>
+          <li><a href="seo-pages/tribal-house-remix-new-york.html">Tribal House · New York</a></li>
+        </ul>
+      </div>
+
+      <div class="guide-category">
+        <div class="guide-cat-header">
+          <span class="guide-cat-name">Vocal House</span>
+          <span class="guide-cat-count">14 guides</span>
+        </div>
+        <ul class="guide-list">
+          <li><a href="seo-pages/best-soulful-house-remix.html">Best Soulful House Remix</a></li>
+          <li><a href="seo-pages/soulful-house-remix-124-bpm.html">Soulful House 124 BPM</a></li>
+          <li><a href="seo-pages/soulful-house-remix-ibiza.html">Soulful House · Ibiza</a></li>
+          <li><a href="seo-pages/soulful-house-remix-berlin.html">Soulful House · Berlin</a></li>
+          <li><a href="seo-pages/soulful-house-remix.html">Soulful House Remix Guide</a></li>
+          <li><a href="seo-pages/gospel-house-remix.html">Gospel House Remix</a></li>
+          <li><a href="seo-pages/deep-house-remix-120-bpm.html">Deep House 120 BPM</a></li>
+        </ul>
+      </div>
+
+      <div class="guide-category">
+        <div class="guide-cat-header">
+          <span class="guide-cat-name">French Touch</span>
+          <span class="guide-cat-count">14 guides</span>
+        </div>
+        <ul class="guide-list">
+          <li><a href="seo-pages/french-house-remix-guide.html">French House Remix Guide</a></li>
+          <li><a href="seo-pages/french-touch-house-remix.html">French Touch Remix</a></li>
+          <li><a href="seo-pages/disco-house-remix.html">Disco House Remix</a></li>
+          <li><a href="seo-pages/nu-disco-house-remix.html">Nu Disco House Remix</a></li>
+          <li><a href="seo-pages/filter-house-remix.html">Filter House Remix</a></li>
+          <li><a href="seo-pages/french-house-124-bpm.html">French House 124 BPM</a></li>
+          <li><a href="seo-pages/french-house-remix-paris.html">French House · Paris</a></li>
+        </ul>
+      </div>
+
+      <div class="guide-category">
+        <div class="guide-cat-header">
+          <span class="guide-cat-name">Tech & Underground</span>
+          <span class="guide-cat-count">14 guides</span>
+        </div>
+        <ul class="guide-list">
+          <li><a href="seo-pages/tech-house-remix.html">Tech House Remix</a></li>
+          <li><a href="seo-pages/underground-house-edit-130-bpm.html">Underground House 130 BPM</a></li>
+          <li><a href="seo-pages/minimal-house-remix.html">Minimal House Remix</a></li>
+          <li><a href="seo-pages/dark-house-remix.html">Dark House Remix</a></li>
+          <li><a href="seo-pages/club-house-remix.html">Club House Remix</a></li>
+          <li><a href="seo-pages/peak-hour-house-remix.html">Peak Hour House</a></li>
+          <li><a href="seo-pages/late-night-house-remix.html">Late Night House</a></li>
+        </ul>
+      </div>
+
+      <div class="guide-category">
+        <div class="guide-cat-header">
+          <span class="guide-cat-name">Electronic & Ambient</span>
+          <span class="guide-cat-count">14 guides</span>
+        </div>
+        <ul class="guide-list">
+          <li><a href="seo-pages/house-electronic-remix.html">House Electronic Remix</a></li>
+          <li><a href="seo-pages/cinematic-house-remix.html">Cinematic House</a></li>
+          <li><a href="seo-pages/ambient-house-remix.html">Ambient House</a></li>
+          <li><a href="seo-pages/progressive-house-remix.html">Progressive House</a></li>
+          <li><a href="seo-pages/electro-house-remix.html">Electro House</a></li>
+          <li><a href="seo-pages/melodic-house-remix.html">Melodic House</a></li>
+          <li><a href="seo-pages/house-remix-guide.html">House Remix Guide (general)</a></li>
+        </ul>
+      </div>
+
+      <div class="guide-category">
+        <div class="guide-cat-header">
+          <span class="guide-cat-name">Geographic Scenes</span>
+          <span class="guide-cat-count">14 guides</span>
+        </div>
+        <ul class="guide-list">
+          <li><a href="seo-pages/house-remix-chicago.html">Chicago House</a></li>
+          <li><a href="seo-pages/house-remix-new-york.html">New York House</a></li>
+          <li><a href="seo-pages/house-remix-ibiza.html">Ibiza House</a></li>
+          <li><a href="seo-pages/house-remix-paris.html">Paris House</a></li>
+          <li><a href="seo-pages/house-remix-berlin.html">Berlin House</a></li>
+          <li><a href="seo-pages/house-remix-london.html">London House</a></li>
+          <li><a href="seo-pages/house-remix-amsterdam.html">Amsterdam House</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div style="margin-top:2rem; padding: 20px 24px; background: var(--surface); border: 1px solid var(--border); display:inline-flex; align-items:center; gap:16px;">
+      <span style="font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--grey-mid); letter-spacing:0.1em; text-transform:uppercase;">300 guides · Updated 2026-04-24</span>
+      <a href="https://vincentbastille.bandcamp.com/" target="_blank" rel="noopener" style="font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--amber); text-decoration:none; letter-spacing:0.08em; text-transform:uppercase; white-space:nowrap;">♫ Listen on Bandcamp →</a>
+    </div>
+  </div>
 </section>
 
-<section class="theme-group">
-  <h2>Other Styles</h2>
-  <p class="category-intro">House music is not a monolith. It is a family of genres with shared DNA but very different temperaments, and the breadth of this section reflects exactly that. Deep house slows the tempo and deepens the atmosphere, creating the kind of <a href="seo-pages/deep-house-remix.html">deep house remix</a> that works as well in headphones as on a dancefloor. French house filters everything through a warm analog lens — that Parisian sensibility for space, texture, and the exact right amount of swing. Garage house carries the energy of UK clubs in the 1990s and early 2000s, that two-step rhythm and diva vocal that made the warehouse feel like a home. Tech house brings mechanical precision and loop-driven hypnosis, especially in its <a href="seo-pages/tech-house-remix-128-bpm.html">128 BPM form</a>, which has become one of the dominant sounds of contemporary club culture globally. These guides also cover afro house from a broader perspective, night electronic work from producers like <a href="seo-pages/vincent-bastille-night-electronic-remix.html">Vincent Bastille</a>, Latin house's polyrhythmic energy at <a href="seo-pages/latin-house-remix-128-bpm.html">128 BPM</a>, and the stripped-back discipline of <a href="seo-pages/minimal-house-remix.html">minimal house</a>. Every style has its own logic. These pages help you find yours.</p>
-  <ul class="page-list">
-    <li><a href="seo-pages/afro-house-remix.html">Afro House Remix</a></li>
-<li><a href="seo-pages/afro-house-remix-122-bpm.html">Afro House Remix 122 Bpm</a></li>
-<li><a href="seo-pages/afro-house-remix-124-bpm.html">Afro House Remix 124 Bpm</a></li>
-<li><a href="seo-pages/afro-house-remix-126-bpm.html">Afro House Remix 126 Bpm</a></li>
-<li><a href="seo-pages/afro-house-remix-128-bpm.html">Afro House Remix 128 Bpm</a></li>
-<li><a href="seo-pages/afro-house-remix-archive-entry.html">Afro House Remix Archive Entry</a></li>
-<li><a href="seo-pages/afro-house-remix-b-ready-deep-dive.html">Afro House Remix B-Ready Deep Dive</a></li>
-<li><a href="seo-pages/afro-house-remix-berlin.html">Afro House Remix Berlin</a></li>
-<li><a href="seo-pages/afro-house-remix-club-perspective.html">Afro House Remix Club Perspective</a></li>
-<li><a href="seo-pages/afro-house-remix-club-ready.html">Afro House Remix Club Ready</a></li>
-<li><a href="seo-pages/afro-house-remix-emotional-guide.html">Afro House Remix Emotional Guide</a></li>
-<li><a href="seo-pages/afro-house-remix-for-djs.html">Afro House Remix For Djs</a></li>
-<li><a href="seo-pages/afro-house-remix-hypnotic-session.html">Afro House Remix Hypnotic Session</a></li>
-<li><a href="seo-pages/afro-house-remix-ibiza.html">Afro House Remix Ibiza</a></li>
-<li><a href="seo-pages/afro-house-remix-late-night.html">Afro House Remix Late Night</a></li>
-<li><a href="seo-pages/afro-house-remix-london.html">Afro House Remix London</a></li>
-<li><a href="seo-pages/afro-house-remix-peak-hour.html">Afro House Remix Peak Hour</a></li>
-<li><a href="seo-pages/afro-house-remix-summer.html">Afro House Remix Summer</a></li>
-<li><a href="seo-pages/afro-house-remix-vincent-bastille.html">Afro House Remix Vincent Bastille</a></li>
-<li><a href="seo-pages/afro-house-remix-winter.html">Afro House Remix Winter</a></li>
-<li><a href="seo-pages/best-club-house-remix.html">Best Club House Remix</a></li>
-<li><a href="seo-pages/best-french-house-remix.html">Best French House Remix</a></li>
-<li><a href="seo-pages/best-garage-house-remix.html">Best Garage House Remix</a></li>
-<li><a href="seo-pages/best-house-electronic-remix.html">Best House Electronic Remix</a></li>
-<li><a href="seo-pages/best-house-jazz-remix.html">Best House Jazz Remix</a></li>
-<li><a href="seo-pages/best-house-remix.html">Best House Remix</a></li>
-<li><a href="seo-pages/best-night-electronic-remix.html">Best Night Electronic Remix</a></li>
-<li><a href="seo-pages/club-house-remix.html">Club House Remix</a></li>
-<li><a href="seo-pages/club-house-remix-128-bpm.html">Club House Remix 128 Bpm</a></li>
-<li><a href="seo-pages/club-house-remix-2026.html">Club House Remix 2026</a></li>
-<li><a href="seo-pages/club-house-remix-archive-entry.html">Club House Remix Archive Entry</a></li>
-<li><a href="seo-pages/club-house-remix-berlin.html">Club House Remix Berlin</a></li>
-<li><a href="seo-pages/club-house-remix-emotional-guide.html">Club House Remix Emotional Guide</a></li>
-<li><a href="seo-pages/club-house-remix-for-djs.html">Club House Remix For Djs</a></li>
-<li><a href="seo-pages/club-house-remix-guide.html">Club House Remix Guide</a></li>
-<li><a href="seo-pages/club-house-remix-hypnotic-session.html">Club House Remix Hypnotic Session</a></li>
-<li><a href="seo-pages/club-house-remix-late-night.html">Club House Remix Late Night</a></li>
-<li><a href="seo-pages/club-house-remix-london.html">Club House Remix London</a></li>
-<li><a href="seo-pages/club-house-remix-new-york.html">Club House Remix New York</a></li>
-<li><a href="seo-pages/club-house-remix-peak-hour.html">Club House Remix Peak Hour</a></li>
-<li><a href="seo-pages/club-house-remix-sound-design-notes.html">Club House Remix Sound Design Notes</a></li>
-<li><a href="seo-pages/deep-house-remix.html">Deep House Remix</a></li>
-<li><a href="seo-pages/deep-house-remix-120-bpm.html">Deep House Remix 120 Bpm</a></li>
-<li><a href="seo-pages/deep-house-remix-122-bpm.html">Deep House Remix 122 Bpm</a></li>
-<li><a href="seo-pages/deep-house-remix-128-bpm.html">Deep House Remix 128 Bpm</a></li>
-<li><a href="seo-pages/deep-house-remix-archive-entry.html">Deep House Remix Archive Entry</a></li>
-<li><a href="seo-pages/deep-house-remix-club-perspective.html">Deep House Remix Club Perspective</a></li>
-<li><a href="seo-pages/deep-house-remix-ibiza.html">Deep House Remix Ibiza</a></li>
-<li><a href="seo-pages/deep-house-remix-late-night.html">Deep House Remix Late Night</a></li>
-<li><a href="seo-pages/deep-house-remix-listening-session.html">Deep House Remix Listening Session</a></li>
-<li><a href="seo-pages/deep-house-remix-paris.html">Deep House Remix Paris</a></li>
-<li><a href="seo-pages/deep-house-remix-sound-design-notes.html">Deep House Remix Sound Design Notes</a></li>
-<li><a href="seo-pages/french-house-remix.html">French House Remix</a></li>
-<li><a href="seo-pages/french-house-remix-122-bpm.html">French House Remix 122 Bpm</a></li>
-<li><a href="seo-pages/french-house-remix-124-bpm.html">French House Remix 124 Bpm</a></li>
-<li><a href="seo-pages/french-house-remix-2026.html">French House Remix 2026</a></li>
-<li><a href="seo-pages/french-house-remix-for-djs.html">French House Remix For Djs</a></li>
-<li><a href="seo-pages/french-house-remix-late-night.html">French House Remix Late Night</a></li>
-<li><a href="seo-pages/french-house-remix-new-york.html">French House Remix New York</a></li>
-<li><a href="seo-pages/french-house-remix-peak-hour.html">French House Remix Peak Hour</a></li>
-<li><a href="seo-pages/french-house-remix-sound-design-notes.html">French House Remix Sound Design Notes</a></li>
-<li><a href="seo-pages/french-house-remix-summer.html">French House Remix Summer</a></li>
-<li><a href="seo-pages/french-house-remix-warm-up-set.html">French House Remix Warm Up Set</a></li>
-<li><a href="seo-pages/garage-house-remix-124-bpm.html">Garage House Remix 124 Bpm</a></li>
-<li><a href="seo-pages/garage-house-remix-126-bpm.html">Garage House Remix 126 Bpm</a></li>
-<li><a href="seo-pages/garage-house-remix-128-bpm.html">Garage House Remix 128 Bpm</a></li>
-<li><a href="seo-pages/garage-house-remix-berlin.html">Garage House Remix Berlin</a></li>
-<li><a href="seo-pages/garage-house-remix-best-of.html">Garage House Remix Best Of</a></li>
-<li><a href="seo-pages/garage-house-remix-emotional-guide.html">Garage House Remix Emotional Guide</a></li>
-<li><a href="seo-pages/garage-house-remix-hypnotic-session.html">Garage House Remix Hypnotic Session</a></li>
-<li><a href="seo-pages/garage-house-remix-late-night.html">Garage House Remix Late Night</a></li>
-<li><a href="seo-pages/garage-house-remix-listening-session.html">Garage House Remix Listening Session</a></li>
-<li><a href="seo-pages/garage-house-remix-london.html">Garage House Remix London</a></li>
-<li><a href="seo-pages/garage-house-remix-paris.html">Garage House Remix Paris</a></li>
-<li><a href="seo-pages/garage-house-remix-peak-hour.html">Garage House Remix Peak Hour</a></li>
-<li><a href="seo-pages/garage-house-remix-winter.html">Garage House Remix Winter</a></li>
-<li><a href="seo-pages/house-electronic-remix.html">House Electronic Remix</a></li>
-<li><a href="seo-pages/house-electronic-remix-2026.html">House Electronic Remix 2026</a></li>
-<li><a href="seo-pages/house-jazz-remix-2026.html">House Jazz Remix 2026</a></li>
-<li><a href="seo-pages/house-remix-120-bpm.html">House Remix 120 Bpm</a></li>
-<li><a href="seo-pages/house-remix-124-bpm.html">House Remix 124 Bpm</a></li>
-<li><a href="seo-pages/house-remix-berlin.html">House Remix Berlin</a></li>
-<li><a href="seo-pages/house-remix-emotional-guide.html">House Remix Emotional Guide</a></li>
-<li><a href="seo-pages/house-remix-for-djs.html">House Remix For Djs</a></li>
-<li><a href="seo-pages/house-remix-guide.html">House Remix Guide</a></li>
-<li><a href="seo-pages/house-remix-hypnotic-session.html">House Remix Hypnotic Session</a></li>
-<li><a href="seo-pages/house-remix-ibiza.html">House Remix Ibiza</a></li>
-<li><a href="seo-pages/house-remix-winter.html">House Remix Winter</a></li>
-<li><a href="seo-pages/latin-house-remix.html">Latin House Remix</a></li>
-<li><a href="seo-pages/latin-house-remix-124-bpm.html">Latin House Remix 124 Bpm</a></li>
-<li><a href="seo-pages/latin-house-remix-126-bpm.html">Latin House Remix 126 Bpm</a></li>
-<li><a href="seo-pages/latin-house-remix-128-bpm.html">Latin House Remix 128 Bpm</a></li>
-<li><a href="seo-pages/latin-house-remix-2026.html">Latin House Remix 2026</a></li>
-<li><a href="seo-pages/latin-house-remix-berlin.html">Latin House Remix Berlin</a></li>
-<li><a href="seo-pages/latin-house-remix-emotional-guide.html">Latin House Remix Emotional Guide</a></li>
-<li><a href="seo-pages/latin-house-remix-guide.html">Latin House Remix Guide</a></li>
-<li><a href="seo-pages/latin-house-remix-hypnotic-session.html">Latin House Remix Hypnotic Session</a></li>
-<li><a href="seo-pages/latin-house-remix-listening-session.html">Latin House Remix Listening Session</a></li>
-<li><a href="seo-pages/latin-house-remix-london.html">Latin House Remix London</a></li>
-<li><a href="seo-pages/latin-house-remix-paris.html">Latin House Remix Paris</a></li>
-<li><a href="seo-pages/latin-house-remix-peak-hour.html">Latin House Remix Peak Hour</a></li>
-<li><a href="seo-pages/latin-house-remix-warm-up-set.html">Latin House Remix Warm Up Set</a></li>
-<li><a href="seo-pages/latin-house-remix-winter.html">Latin House Remix Winter</a></li>
-<li><a href="seo-pages/minimal-house-remix.html">Minimal House Remix</a></li>
-<li><a href="seo-pages/minimal-house-remix-126-bpm.html">Minimal House Remix 126 Bpm</a></li>
-<li><a href="seo-pages/minimal-house-remix-best-of.html">Minimal House Remix Best Of</a></li>
-<li><a href="seo-pages/minimal-house-remix-club-ready.html">Minimal House Remix Club Ready</a></li>
-<li><a href="seo-pages/minimal-house-remix-ibiza.html">Minimal House Remix Ibiza</a></li>
-<li><a href="seo-pages/minimal-house-remix-listening-session.html">Minimal House Remix Listening Session</a></li>
-<li><a href="seo-pages/minimal-house-remix-warm-up-set.html">Minimal House Remix Warm Up Set</a></li>
-<li><a href="seo-pages/minimal-house-remix-winter.html">Minimal House Remix Winter</a></li>
-<li><a href="seo-pages/night-electronic-remix-122-bpm.html">Night Electronic Remix 122 Bpm</a></li>
-<li><a href="seo-pages/night-electronic-remix-124-bpm.html">Night Electronic Remix 124 Bpm</a></li>
-<li><a href="seo-pages/night-electronic-remix-126-bpm.html">Night Electronic Remix 126 Bpm</a></li>
-<li><a href="seo-pages/night-electronic-remix-2026.html">Night Electronic Remix 2026</a></li>
-<li><a href="seo-pages/night-electronic-remix-b-ready-deep-dive.html">Night Electronic Remix B-Ready Deep Dive</a></li>
-<li><a href="seo-pages/night-electronic-remix-best-of.html">Night Electronic Remix Best Of</a></li>
-<li><a href="seo-pages/night-electronic-remix-listening-session.html">Night Electronic Remix Listening Session</a></li>
-<li><a href="seo-pages/night-electronic-remix-new-york.html">Night Electronic Remix New York</a></li>
-<li><a href="seo-pages/night-electronic-remix-paris.html">Night Electronic Remix Paris</a></li>
-<li><a href="seo-pages/night-electronic-remix-peak-hour.html">Night Electronic Remix Peak Hour</a></li>
-<li><a href="seo-pages/night-electronic-remix-sound-design-notes.html">Night Electronic Remix Sound Design Notes</a></li>
-<li><a href="seo-pages/night-electronic-remix-vincent-bastille.html">Night Electronic Remix Vincent Bastille</a></li>
-<li><a href="seo-pages/night-electronic-remix-winter.html">Night Electronic Remix Winter</a></li>
-<li><a href="seo-pages/tech-house-remix-128-bpm.html">Tech House Remix 128 Bpm</a></li>
-<li><a href="seo-pages/tech-house-remix-2026.html">Tech House Remix 2026</a></li>
-<li><a href="seo-pages/tech-house-remix-archive-entry.html">Tech House Remix Archive Entry</a></li>
-<li><a href="seo-pages/tech-house-remix-berlin.html">Tech House Remix Berlin</a></li>
-<li><a href="seo-pages/tech-house-remix-club-ready.html">Tech House Remix Club Ready</a></li>
-<li><a href="seo-pages/tech-house-remix-emotional-guide.html">Tech House Remix Emotional Guide</a></li>
-<li><a href="seo-pages/tech-house-remix-for-djs.html">Tech House Remix For Djs</a></li>
-<li><a href="seo-pages/tech-house-remix-ibiza.html">Tech House Remix Ibiza</a></li>
-<li><a href="seo-pages/tech-house-remix-listening-session.html">Tech House Remix Listening Session</a></li>
-<li><a href="seo-pages/tech-house-remix-london.html">Tech House Remix London</a></li>
-<li><a href="seo-pages/tech-house-remix-peak-hour.html">Tech House Remix Peak Hour</a></li>
-<li><a href="seo-pages/tech-house-remix-vincent-bastille.html">Tech House Remix Vincent Bastille</a></li>
-<li><a href="seo-pages/tech-house-remix-warm-up-set.html">Tech House Remix Warm Up Set</a></li>
-<li><a href="seo-pages/top-afro-house-remix-2026.html">Top Afro House Remix 2026</a></li>
-<li><a href="seo-pages/top-club-house-remix-2026.html">Top Club House Remix 2026</a></li>
-<li><a href="seo-pages/top-deep-house-remix-2026.html">Top Deep House Remix 2026</a></li>
-<li><a href="seo-pages/top-french-house-remix-2026.html">Top French House Remix 2026</a></li>
-<li><a href="seo-pages/top-garage-house-remix-2026.html">Top Garage House Remix 2026</a></li>
-<li><a href="seo-pages/top-house-remix-2026.html">Top House Remix 2026</a></li>
-<li><a href="seo-pages/top-latin-house-remix-2026.html">Top Latin House Remix 2026</a></li>
-<li><a href="seo-pages/top-minimal-house-remix-2026.html">Top Minimal House Remix 2026</a></li>
-<li><a href="seo-pages/top-night-electronic-remix-2026.html">Top Night Electronic Remix 2026</a></li>
-<li><a href="seo-pages/top-tech-house-remix-2026.html">Top Tech House Remix 2026</a></li>
-<li><a href="seo-pages/vincent-bastille-club-house-remix.html">Vincent Bastille Club House Remix</a></li>
-<li><a href="seo-pages/vincent-bastille-house-remix.html">Vincent Bastille House Remix</a></li>
-<li><a href="seo-pages/vincent-bastille-night-electronic-remix.html">Vincent Bastille Night Electronic Remix</a></li>
-<li><a href="seo-pages/vincent-bastille-tech-house-remix.html">Vincent Bastille Tech House Remix</a></li>
-<li><a href="seo-pages/vocal-house-remix-122-bpm.html">Vocal House Remix 122 Bpm</a></li>
-<li><a href="seo-pages/vocal-house-remix-126-bpm.html">Vocal House Remix 126 Bpm</a></li>
-<li><a href="seo-pages/vocal-house-remix-b-ready-deep-dive.html">Vocal House Remix B-Ready Deep Dive</a></li>
-<li><a href="seo-pages/vocal-house-remix-club-perspective.html">Vocal House Remix Club Perspective</a></li>
-<li><a href="seo-pages/vocal-house-remix-hypnotic-session.html">Vocal House Remix Hypnotic Session</a></li>
-<li><a href="seo-pages/vocal-house-remix-new-york.html">Vocal House Remix New York</a></li>
-<li><a href="seo-pages/vocal-house-remix-paris.html">Vocal House Remix Paris</a></li>
-<li><a href="seo-pages/vocal-house-remix-vincent-bastille.html">Vocal House Remix Vincent Bastille</a></li>
-  </ul>
+<!-- ═══════════════ LEGACY ═══════════════ -->
+<section id="legacy">
+  <div class="legacy-content">
+    <div class="legacy-text">
+      <p class="section-label">Archive</p>
+      <h2 class="section-title">Legacy &<br><em>Archives</em></h2>
+      <span class="amber-line"></span>
+      <p>Before the Madonna remixes and the Beatport rankings, there were the first tracks — recorded without a safety net, at a time when French house music was still searching for its voice. These archives have been restored, remastered, and published on Bandcamp.</p>
+      <p>The <strong>Legacy</strong> album gathers remastered originals from the 2000s: Percubata, Africaans, Princess Liquid — tracks that define the aesthetic of the era. The <strong>Gumbing</strong> album reaches even further back into the West-African groove that has always run through the work.</p>
+      <p>The <strong>Remixes (Legacy)</strong> compilation chronicles twenty years of reinterpretations: versions that never had an official release, DJ edits, bootlegs that became set classics.</p>
+      <a href="https://vincentbastille.bandcamp.com/album/vincent-bastille-legacy" target="_blank" rel="noopener" class="btn-primary" style="margin-top:1.5rem; display:inline-flex;">
+        ♫ &nbsp;Access the Legacy
+      </a>
+    </div>
+
+    <div class="legacy-archive">
+      <div class="legacy-archive-header">
+        <span>Bandcamp Archives</span>
+        <span class="legacy-archive-count">25+</span>
+      </div>
+      <ul class="legacy-archive-list">
+        <li><a href="https://vincentbastille.bandcamp.com/album/vincent-bastille-legacy" target="_blank" rel="noopener">Vincent Bastille — Legacy (Remastered)</a></li>
+        <li><a href="https://vincentbastille.bandcamp.com/album/vincent-bastille-remixes-legacy" target="_blank" rel="noopener">Remixes (Legacy) — Compilation</a></li>
+        <li><a href="https://vincentbastille.bandcamp.com/album/gumbing" target="_blank" rel="noopener">Gumbing</a></li>
+        <li><a href="https://vincentbastille.bandcamp.com/album/true-lp" target="_blank" rel="noopener">True LP</a></li>
+        <li><a href="https://vincentbastille.bandcamp.com/album/vincent-bastille-hypercub" target="_blank" rel="noopener">HyperCub</a></li>
+        <li><a href="https://vincentbastille.bandcamp.com/album/the-cosmic-tits" target="_blank" rel="noopener">The Cosmic Tits</a></li>
+        <li><a href="https://vincentbastille.bandcamp.com/album/music-for-film" target="_blank" rel="noopener">Music For Film</a></li>
+        <li><a href="https://vincentbastille.bandcamp.com/album/resistance-2" target="_blank" rel="noopener">Resistance</a></li>
+        <li><a href="https://vincentbastille.bandcamp.com/album/calls-from-the-city" target="_blank" rel="noopener">Calls From The City</a></li>
+        <li><a href="https://vincentbastille.bandcamp.com/album/one-more-time" target="_blank" rel="noopener">One More Time</a></li>
+        <li><a href="https://vincentbastille.bandcamp.com/album/mystic-original-soundtrack-from-the-short-movie" target="_blank" rel="noopener">Mystic — Original Soundtrack</a></li>
+        <li><a href="https://vincentbastille.bandcamp.com/" target="_blank" rel="noopener" style="color:var(--amber);">→ Browse the full catalogue</a></li>
+      </ul>
+    </div>
+  </div>
 </section>
 
+<!-- ═══════════════ FINAL CTA ═══════════════ -->
+<section id="final-cta">
+  <div class="final-cta-content">
+    <p class="section-label">Listen now</p>
+    <h2 class="final-big-text">
+      The music<br>lives on<br><em>Bandcamp</em>
+    </h2>
+    <p>
+      Thirty years of house — remixes, originals, archives.<br>
+      Free streaming, downloads, no algorithm.
+    </p>
+    <div class="final-actions">
+      <a href="https://vincentbastille.bandcamp.com/" target="_blank" rel="noopener" class="btn-primary" style="font-size:0.85rem; padding:18px 36px;">
+        ♫ &nbsp;Open Bandcamp
+      </a>
+      <a href="https://vincentbastille.online" target="_blank" rel="noopener" class="btn-secondary" style="font-size:0.85rem; padding:18px 36px;">
+        Artist Site →
+      </a>
+    </div>
+    <p class="bandcamp-url">
+      <a href="https://vincentbastille.bandcamp.com/" target="_blank" rel="noopener">vincentbastille.bandcamp.com</a>
+    </p>
+  </div>
+</section>
 
-<div class="closing-section">
-<h2>Why House Remix Culture Matters</h2>
-
-<p>House music was never supposed to be preserved in amber. From the very beginning — in Chicago basements, in New York lofts, in the sweaty afterhours clubs of the mid-1980s — it was music designed to transform. A house remix is not a cover version or a karaoke backing track. It is an act of creative reinterpretation, a producer sitting down with a piece of music and asking: what else could this be? That question has driven the genre forward for four decades, and it continues to drive every release, every edit, every reconstruction documented across these 300 pages.</p>
-
-<p>The remix as a format has always been democratic in the best sense. It does not belong to any one city, any one scene, or any one demographic. When a DJ in Paris layers a <a href="seo-pages/french-house-remix-sound-design-notes.html">French house remix</a> over a vocal from New York and exports it to a club in Berlin, something genuinely new is created — a music with no fixed address and no single passport. Vincent Bastille's work sits squarely in that tradition. Built in Paris, influenced by Chicago, shaped by everything from the warm analog textures of classic Bandcamp releases to the precision engineering of contemporary studio production, these tracks and these guides represent a genuine attempt to understand and extend what house music can do.</p>
-
-<p>For the working DJ, a house remix is a practical tool. It is the version of a record that fits better in a set than the original, that has the right BPM, the right intro length, the right energy arc to transition smoothly from what came before and set up what comes next. The guides here are written with that perspective in mind. They are not purely academic — they are designed to be useful at 1am with headphones on one ear and a crowd waiting. Understanding why a <a href="seo-pages/house-remix-for-djs.html">house remix built for DJs</a> works the way it does is part of developing the instincts that separate a good set from a great one.</p>
-
-<p>For the producer, a house remix is a laboratory. It is the place where you learn how a track actually works by taking it apart and reassembling it under different constraints. Why does this chord progression feel different at 124 BPM than it does at 128 BPM? What happens to the emotional weight of a vocal when you strip the arrangement around it down to just kick and pad? How do you build energy across a six-minute electronic remix without relying on a single obvious drop? These are the questions that the <a href="seo-pages/house-remix-emotional-guide.html">emotional guide</a> and <a href="seo-pages/club-house-remix-sound-design-notes.html">sound design notes</a> sections of this archive are specifically built to answer.</p>
-
-<p>For the listener, a house remix is permission to feel something you might not have known you needed to feel. The best electronic music — regardless of subgenre, regardless of BPM, regardless of whether it arrives via a late-night hypnotic session or a peak-hour floor bomb — creates a specific kind of emotional space. It is both personal and communal. It happens in your chest and in the room simultaneously. That quality does not come from technical excellence alone; it comes from intent, from a producer or DJ who understood what they were trying to do and executed it with conviction. Vincent Bastille's entire output is driven by that intent, and every page in this archive is an attempt to illuminate it.</p>
-
-<p>House music in 2026 is both everywhere and, in its truest form, still deeply underground. The mainstream has absorbed its surface — the four-to-the-floor kick, the synth stabs, the breakdown-and-build structure — but the real thing remains what it always was: a culture built around shared experience, around the specific alchemy of a great room and a DJ who knows exactly when to play the right record. The tracks, remixes, and analyses gathered here are offered in that spirit. Whether you start with the <a href="seo-pages/best-house-remix.html">best house remix</a> overview or go straight into the BPM-specific deep dives, you are entering a conversation that has been going on for forty years and shows no sign of stopping. Welcome to it.</p>
-</div>
-
-
+<!-- ═══════════════ FOOTER ═══════════════ -->
 <footer>
-  <p>&copy; 2026 Vincent Bastille. House music made with love in Paris.</p>
-  <p><a href="sitemap.xml">Sitemap</a></p>
+  <div class="footer-brand">
+    <strong>Vincent Bastille</strong> — DJ · Producer · Remixer<br>
+    Paris · Ibiza · Athens · New York · Since 1995
+  </div>
+
+  <ul class="footer-links">
+    <li><a href="#artist">Artist</a></li>
+    <li><a href="#bandcamp">Releases</a></li>
+    <li><a href="#guides">Guides</a></li>
+    <li><a href="#legacy">Legacy</a></li>
+    <li><a href="https://vincentbastille.online" target="_blank" rel="noopener">vincentbastille.online</a></li>
+  </ul>
+
+  <a href="https://vincentbastille.bandcamp.com/" target="_blank" rel="noopener" class="footer-bandcamp">
+    ♫ Bandcamp
+  </a>
 </footer>
 
 </body>
