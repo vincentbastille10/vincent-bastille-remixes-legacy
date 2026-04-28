@@ -1,7 +1,13 @@
 {
   "version": 2,
   "routes": [
-    { "src": "^/$", "dest": "/remixes/index.html" },
-    { "handle": "filesystem" }
+    {
+      "src": "^/$",
+      "dest": "/remixes/index.html"
+    },
+    {
+      "src": "^/(.*)$",
+      "dest": "/$1"
+    }
   ]
 }
