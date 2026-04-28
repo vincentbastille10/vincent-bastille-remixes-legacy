@@ -1,6 +1,7 @@
 {
   "version": 2,
   "routes": [
+    { "src": "/sitemap", "dest": "/sitemap.xml", "status": 301 },
     { "handle": "filesystem" }
   ]
 }
