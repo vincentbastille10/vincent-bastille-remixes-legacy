@@ -1,10 +1,9 @@
 {
   "version": 2,
   "routes": [
-    { "src": "^/$", "dest": "/remixes/index.html" },
+    { "handle": "filesystem" },
 
-    { "src": "^/sitemap.xml$", "dest": "/sitemap.xml" },
-    { "src": "^/robots.txt$", "dest": "/robots.txt" },
+    { "src": "^/$", "dest": "/remixes/index.html" },
 
     { "src": "^/remixes/(.*\\.html)$", "dest": "/remixes/$1" },
 
