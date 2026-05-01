@@ -1,8 +1,20 @@
 {
   "version": 2,
   "routes": [
-    { "src": "/sitemap", "dest": "/sitemap.xml", "status": 301 },
-    { "src": "/remixes/(.*)", "dest": "/remixes/$1" },
-    { "handle": "filesystem" }
+    {
+      "src": "/sitemap.xml",
+      "dest": "/sitemap.xml",
+      "headers": {
+        "Content-Type": "application/xml; charset=utf-8"
+      }
+    },
+    {
+      "src": "/sitemap",
+      "dest": "/sitemap.xml",
+      "status": 301
+    },
+    {
+      "handle": "filesystem"
+    }
   ]
 }
