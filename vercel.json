@@ -2,6 +2,7 @@
   "version": 2,
   "routes": [
     { "src": "/sitemap", "dest": "/sitemap.xml", "status": 301 },
+    { "src": "/remixes/(.*)", "dest": "/remixes/$1" },
     { "handle": "filesystem" }
   ]
 }
