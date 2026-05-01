@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://remixes.vincentbastille.online/sitemap.xml
