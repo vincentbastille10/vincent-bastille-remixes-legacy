@@ -1,0 +1,74 @@
+export default function handler(req, res) {
+  res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=3600');
+  res.status(200).send(`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- CORE / MONEY -->
+  <url><loc>https://remixes.vincentbastille.online/</loc><lastmod>2026-04-28</lastmod><priority>1.0</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/vincent-bastille-remixes.html</loc><lastmod>2026-04-28</lastmod><priority>1.0</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/house-music-remix-achat-bandcamp.html</loc><lastmod>2026-04-28</lastmod><priority>1.0</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/remixes-electroniques-francais-achat.html</loc><lastmod>2026-04-28</lastmod><priority>0.95</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/telecharger-remixes-electroniques-legalement.html</loc><lastmod>2026-04-28</lastmod><priority>0.95</priority></url>
+  <!-- BEST / TOP INTENT -->
+  <url><loc>https://remixes.vincentbastille.online/best-house-remixes-2026.html</loc><lastmod>2026-04-28</lastmod><priority>0.95</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/best-electronic-remixes-2026.html</loc><lastmod>2026-04-28</lastmod><priority>0.95</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/best-deep-house-remixes-2026.html</loc><lastmod>2026-04-28</lastmod><priority>0.9</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/best-disco-house-remixes-2026.html</loc><lastmod>2026-04-28</lastmod><priority>0.9</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/best-vocal-remixes-2026.html</loc><lastmod>2026-04-28</lastmod><priority>0.9</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/top-house-remix-2026.html</loc><lastmod>2026-04-28</lastmod><priority>0.9</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/top-french-house-remix-2026.html</loc><lastmod>2026-04-28</lastmod><priority>0.85</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/top-afro-house-remix-2026.html</loc><lastmod>2026-04-28</lastmod><priority>0.85</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/top-tech-house-remix-2026.html</loc><lastmod>2026-04-28</lastmod><priority>0.85</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/top-deep-house-remix-2026.html</loc><lastmod>2026-04-28</lastmod><priority>0.85</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/top-nu-disco-remix-2026.html</loc><lastmod>2026-04-28</lastmod><priority>0.85</priority></url>
+  <!-- ARTISTS -->
+  <url><loc>https://remixes.vincentbastille.online/remix-madonna-ray-of-light.html</loc><lastmod>2026-04-28</lastmod><priority>0.9</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/madonna-house-remix.html</loc><lastmod>2026-04-28</lastmod><priority>0.9</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/michael-jackson-house-remix.html</loc><lastmod>2026-04-28</lastmod><priority>0.9</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/remix-michael-jackson-you-rock-my-world.html</loc><lastmod>2026-04-28</lastmod><priority>0.85</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/sade-remix-electronic.html</loc><lastmod>2026-04-28</lastmod><priority>0.9</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/remix-sade-smooth-operator.html</loc><lastmod>2026-04-28</lastmod><priority>0.85</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/remix-modjo-lady-french-touch.html</loc><lastmod>2026-04-28</lastmod><priority>0.9</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/modjo-lady-french-touch-histoire.html</loc><lastmod>2026-04-28</lastmod><priority>0.85</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/remix-jennifer-lopez-cant-get-enough.html</loc><lastmod>2026-04-28</lastmod><priority>0.85</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/the-weeknd-remix-house.html</loc><lastmod>2026-04-28</lastmod><priority>0.85</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/dua-lipa-remix-house.html</loc><lastmod>2026-04-28</lastmod><priority>0.85</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/daft-punk-style-remix.html</loc><lastmod>2026-04-28</lastmod><priority>0.85</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/depeche-mode-remixes-electroniques.html</loc><lastmod>2026-04-28</lastmod><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/massive-attack-remixes-electroniques.html</loc><lastmod>2026-04-28</lastmod><priority>0.8</priority></url>
+  <!-- GENRE PILLARS -->
+  <url><loc>https://remixes.vincentbastille.online/french-house-remix-guide.html</loc><lastmod>2026-04-28</lastmod><priority>0.85</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/house-remix-guide.html</loc><lastmod>2026-04-28</lastmod><priority>0.85</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/deep-house-remix-guide.html</loc><lastmod>2026-04-28</lastmod><priority>0.85</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/club-house-remix-guide.html</loc><lastmod>2026-04-28</lastmod><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/chicago-house-remix-guide.html</loc><lastmod>2026-04-28</lastmod><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/tribal-house-remix-guide.html</loc><lastmod>2026-04-28</lastmod><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/latin-house-remix-guide.html</loc><lastmod>2026-04-28</lastmod><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/organic-house-remix-guide.html</loc><lastmod>2026-04-28</lastmod><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/melodic-house-remix-guide.html</loc><lastmod>2026-04-28</lastmod><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/underground-house-edit-guide.html</loc><lastmod>2026-04-28</lastmod><priority>0.8</priority></url>
+  <!-- STYLE PAGES -->
+  <url><loc>https://remixes.vincentbastille.online/nu-disco-remix.html</loc><lastmod>2026-04-28</lastmod><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/french-house-remix.html</loc><lastmod>2026-04-28</lastmod><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/afro-house-remix.html</loc><lastmod>2026-04-28</lastmod><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/deep-house-remix.html</loc><lastmod>2026-04-28</lastmod><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/club-house-remix.html</loc><lastmod>2026-04-28</lastmod><priority>0.75</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/tech-house-remix-2026.html</loc><lastmod>2026-04-28</lastmod><priority>0.75</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/ambient-electronic-remix-atlas.html</loc><lastmod>2026-04-28</lastmod><priority>0.75</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/cinematic-electronic-remix.html</loc><lastmod>2026-04-28</lastmod><priority>0.75</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/house-electronic-remix.html</loc><lastmod>2026-04-28</lastmod><priority>0.75</priority></url>
+  <!-- BRAND / LOCAL -->
+  <url><loc>https://remixes.vincentbastille.online/dj-vincent-bastille-mix.html</loc><lastmod>2026-04-28</lastmod><priority>0.85</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/vincent-bastille-house-remix.html</loc><lastmod>2026-04-28</lastmod><priority>0.85</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/vincent-bastille-club-house-remix.html</loc><lastmod>2026-04-28</lastmod><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/vincent-bastille-tech-house-remix.html</loc><lastmod>2026-04-28</lastmod><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/producteur-musique-electronique-le-mans.html</loc><lastmod>2026-04-28</lastmod><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/musique-electronique-le-mans.html</loc><lastmod>2026-04-28</lastmod><priority>0.8</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/musique-electronique-le-mans-scene.html</loc><lastmod>2026-04-28</lastmod><priority>0.75</priority></url>
+  <!-- REMIXES CLUSTER -->
+  <url><loc>https://remixes.vincentbastille.online/remixes/afro-house-remix.html</loc><lastmod>2026-04-28</lastmod><priority>0.7</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/remixes/abba-remixes-house-electronique.html</loc><lastmod>2026-04-28</lastmod><priority>0.7</priority></url>
+  <url><loc>https://remixes.vincentbastille.online/remixes/adele-remixes-deep-house.html</loc><lastmod>2026-04-28</lastmod><priority>0.7</priority></url>
+</urlset>
+`);
+}
