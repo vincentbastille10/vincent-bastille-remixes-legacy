@@ -2,19 +2,23 @@
   "version": 2,
   "routes": [
     {
-      "src": "/sitemap.xml",
-      "dest": "/public/sitemap.xml",
-      "headers": {
-        "Content-Type": "application/xml; charset=utf-8"
-      }
-    },
-    {
       "src": "/sitemap",
       "dest": "/sitemap.xml",
       "status": 301
     },
     {
       "handle": "filesystem"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml; charset=utf-8"
+        }
+      ]
     }
   ]
 }
