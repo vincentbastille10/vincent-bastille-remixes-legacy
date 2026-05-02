@@ -2,6 +2,10 @@
   "version": 2,
   "routes": [
     {
+      "src": "/sitemap.xml",
+      "dest": "/api/sitemap.xml"
+    },
+    {
       "src": "/sitemap",
       "dest": "/sitemap.xml",
       "status": 301
@@ -11,28 +15,7 @@
       "dest": "/remixes/$1"
     },
     {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/sitemap.xml",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/xml; charset=utf-8"
-        }
-      ]
-    },
-    {
-      "source": "/robots.txt",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/plain"
-        }
-      ]
+      "handle": "filesystem"
     }
   ]
 }
