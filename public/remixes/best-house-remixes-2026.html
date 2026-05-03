@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Best House Remixes 2026 — Vincent Bastille</title>
+<meta name="description" content="The best house remixes of 2026: curated by Vincent Bastille, French producer — Defected, afro house, disco house, essential remixes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0b0f1e;
+    --navy-mid: #131829;
+    --navy-light: #1a2038;
+    --cyan: #3dd6f5;
+    --cyan-dim: rgba(61,214,245,0.12);
+    --blue: #4f7cff;
+    --blue-dim: rgba(79,124,255,0.10);
+    --white: #f0f4ff;
+    --muted: rgba(240,244,255,0.45);
+    --border: rgba(61,214,245,0.15);
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'Manrope', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    overflow: hidden;
+    padding: 0 0 0;
+    background: var(--navy);
+  }
+
+  .header-grid {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 0;
+    min-height: 100vh;
+    align-items: stretch;
+  }
+
+  .header-left {
+    padding: 80px 64px 80px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    border: 1px solid var(--border);
+    border-radius: 40px;
+    padding: 6px 16px;
+    width: fit-content;
+    margin-bottom: 36px;
+  }
+
+  .tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--cyan);
+    display: block;
+    box-shadow: 0 0 8px var(--cyan);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(42px, 5vw, 72px);
+    font-weight: 800;
+    line-height: 1.0;
+    margin-bottom: 28px;
+    letter-spacing: -0.02em;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--cyan);
+  }
+
+  .header-left p.lead {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 48px;
+    line-height: 1.8;
+  }
+
+  .author-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 24px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--navy-mid);
+    width: fit-content;
+  }
+
+  .author-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan), var(--blue));
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--navy);
+    flex-shrink: 0;
+  }
+
+  .author-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--white);
+  }
+
+  .author-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* right visual panel */
+  .header-right {
+    background: var(--navy-mid);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 60px 40px;
+    gap: 16px;
+    position: relative;
+  }
+
+  .header-right::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(79,124,255,0.10), transparent 70%);
+    pointer-events: none;
+  }
+
+  .track-card {
+    background: var(--navy-light);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: border-color 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .track-card:hover { border-color: var(--cyan); }
+
+  .track-num {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 800;
+    color: rgba(61,214,245,0.2);
+    min-width: 36px;
+    line-height: 1;
+  }
+
+  .track-info { flex: 1; min-width: 0; }
+  .track-title {
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .track-meta {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  .track-genre {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--cyan);
+    background: var(--cyan-dim);
+    border-radius: 4px;
+    padding: 3px 8px;
+    white-space: nowrap;
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    padding: 96px 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+
+  h2 em { font-style: italic; color: var(--cyan); }
+
+  .prose {
+    font-size: 16px;
+    line-height: 1.85;
+    color: rgba(240,244,255,0.75);
+    max-width: 720px;
+  }
+
+  .prose + .prose { margin-top: 20px; }
+
+  .prose a {
+    color: var(--cyan);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(61,214,245,0.3);
+    transition: border-color 0.2s;
+  }
+
+  .prose a:hover { border-color: var(--cyan); }
+
+  /* ── 2-COL LAYOUT ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  /* ── CRITERIA GRID ── */
+  .criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-top: 48px;
+  }
+
+  .criteria-card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .criteria-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--cyan);
+  }
+
+  .criteria-icon {
+    font-size: 24px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .criteria-card h3 {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+
+  .criteria-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── REMIX LIST ── */
+  .remix-list { margin-top: 48px; display: flex; flex-direction: column; gap: 12px; }
+
+  .remix-item {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 24px;
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .remix-item:hover {
+    border-color: rgba(61,214,245,0.4);
+    background: var(--navy-light);
+  }
+
+  .remix-n {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 800;
+    color: rgba(61,214,245,0.25);
+    text-align: center;
+  }
+
+  .remix-title { font-weight: 600; font-size: 15px; }
+  .remix-artist { font-size: 13px; color: var(--muted); margin-top: 3px; }
+
+  .remix-badge {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+    border-radius: 40px;
+    white-space: nowrap;
+  }
+
+  .badge-defected { background: rgba(61,214,245,0.12); color: var(--cyan); }
+  .badge-afro { background: rgba(79,124,255,0.12); color: var(--blue); }
+  .badge-disco { background: rgba(255,180,50,0.12); color: #ffb432; }
+  .badge-deep { background: rgba(200,100,255,0.12); color: #c864ff; }
+
+  /* ── LINKS BLOCK ── */
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .link-card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 20px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: border-color 0.2s;
+  }
+
+  .link-card:hover { border-color: rgba(79,124,255,0.5); }
+
+  .link-card-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+  }
+
+  .link-card-title {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .link-card-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── QUOTE ── */
+  .pull-quote {
+    border-left: 3px solid var(--cyan);
+    padding: 24px 32px;
+    margin: 48px 0;
+    background: var(--cyan-dim);
+    border-radius: 0 12px 12px 0;
+  }
+
+  .pull-quote p {
+    font-family: var(--font-display);
+    font-size: clamp(18px, 2.5vw, 26px);
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--white);
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    text-align: center;
+    padding: 100px 48px;
+    background: var(--navy-mid);
+    border-top: 1px solid var(--border);
+  }
+
+  .cta-section h2 {
+    margin: 0 auto 20px;
+    max-width: 600px;
+  }
+
+  .cta-section p {
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto 40px;
+    font-size: 16px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+
+  .btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  .btn-primary {
+    background: var(--cyan);
+    color: var(--navy);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid var(--border);
+    margin-left: 16px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 40px 48px;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+
+  footer a { color: var(--cyan); text-decoration: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .header-grid { grid-template-columns: 1fr; }
+    .header-right { display: none; }
+    .header-left { padding: 64px 32px; }
+    main { padding: 0 24px; }
+    .two-col { grid-template-columns: 1fr; gap: 40px; }
+    .cta-section { padding: 64px 24px; }
+    footer { padding: 32px 24px; }
+    .remix-item { grid-template-columns: 36px 1fr; }
+    .remix-badge { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ HERO ══════════ -->
+<header>
+  <div class="header-grid">
+    <div class="header-left">
+      <span class="tag">2026 Selection</span>
+      <h1>Best House<br><em>Remixes</em><br>2026</h1>
+      <p class="lead">
+        Production, energy, dancefloor — the remixes that truly matter this year. A selection by a producer who has lived in studios and DJ booths for over 20 years.
+      </p>
+      <div class="author-card">
+        <div class="author-avatar">VB</div>
+        <div>
+          <div class="author-name">Vincent Bastille</div>
+          <div class="author-sub">Producer · Disco / Afro / Feelgood House</div>
+          <a href="https://vincentbastille.bandcamp.com/" target="_blank" rel="noopener" style="font-size:11px;font-weight:600;color:var(--cyan);text-decoration:none;letter-spacing:0.06em;display:inline-block;margin-top:5px;">▶ Listen on Bandcamp</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">In this selection</div>
+
+      <a class="track-card" href="https://www.beatport.com/genre/afro-house/89" target="_blank" rel="noopener">
+        <div class="track-num">01</div>
+        <div class="track-info">
+          <div class="track-title">Afro House Essentials 2026</div>
+          <div class="track-meta">Beatport · Compilation</div>
+        </div>
+        <span class="track-genre">Afro</span>
+      </a>
+
+      <a class="track-card" href="https://defected.com/charts" target="_blank" rel="noopener">
+        <div class="track-num">02</div>
+        <div class="track-info">
+          <div class="track-title">Defected Chart — Spring 2026</div>
+          <div class="track-meta">Defected Records · Chart</div>
+        </div>
+        <span class="track-genre">Deep</span>
+      </a>
+
+      <a class="track-card" href="https://www.residentadvisor.net/tracks" target="_blank" rel="noopener">
+        <div class="track-num">03</div>
+        <div class="track-info">
+          <div class="track-title">RA Top House Tracks</div>
+          <div class="track-meta">Resident Advisor · Ranking</div>
+        </div>
+        <span class="track-genre">Disco</span>
+      </a>
+
+      <a class="track-card" href="https://www.traxsource.com/genre/13/house" target="_blank" rel="noopener">
+        <div class="track-num">04</div>
+        <div class="track-info">
+          <div class="track-title">Traxsource House Top 100</div>
+          <div class="track-meta">Traxsource · Live ranking</div>
+        </div>
+        <span class="track-genre">Tech</span>
+      </a>
+
+      <a class="track-card" href="https://www.beatport.com/genre/disco-nu-disco/50" target="_blank" rel="noopener">
+        <div class="track-num">05</div>
+        <div class="track-info">
+          <div class="track-title">Disco & Nu-Disco Best Of</div>
+          <div class="track-meta">Beatport · Groove Generation</div>
+        </div>
+        <span class="track-genre">Nu-Disco</span>
+      </a>
+
+      <a class="track-card" href="https://vincentbastille.online" target="_blank" rel="noopener">
+        <div class="track-num">VB</div>
+        <div class="track-info">
+          <div class="track-title">Remixes & Releases</div>
+          <div class="track-meta">vincentbastille.online</div>
+        </div>
+        <span class="track-genre">Featured</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ MAIN ══════════ -->
+<main>
+
+  <!-- ── Intro ── -->
+  <section class="section">
+    <div class="two-col">
+      <div>
+        <div class="section-label">Context 2026</div>
+        <h2>Why house <em>remixes</em> are at their peak</h2>
+      </div>
+      <div>
+        <p class="prose">
+          In 2026, house music remains one of the most adaptable genres in electronic dance music. Its structure — a 4/4 kick groove, a warm bassline, syncopated percussion — acts as a blank canvas that producers endlessly reinvent. That's exactly what makes the <strong>house remix</strong> so powerful: it takes an existing track, preserves its soul, and injects brand new energy.
+        </p>
+        <p class="prose" style="margin-top:20px;">
+          Among the labels setting the standards today, <a href="https://defected.com" target="_blank" rel="noopener">Defected Records</a> remains the undisputed benchmark, alongside <a href="https://www.hotcreations.com" target="_blank" rel="noopener">Hot Creations</a>, <a href="https://www.toolroomrecords.com" target="_blank" rel="noopener">Toolroom Records</a> and <a href="https://www.glitterboxrecordings.com" target="_blank" rel="noopener">Glitterbox</a>. These labels dictate the sound of the global dancefloor.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Critères ── -->
+  <section class="section">
+    <div class="section-label">Production</div>
+    <h2>What makes a <em>great</em> house remix</h2>
+    <p class="prose">
+      Slapping a new beat onto an old track isn't enough. A house remix that truly holds up meets precise criteria — ones a DJ tests instinctively on first listen in the booth.
+    </p>
+
+    <div class="criteria-grid">
+      <div class="criteria-card">
+        <span class="criteria-icon">🎚</span>
+        <h3>Energy vs. restraint</h3>
+        <p>The best remixes alternate between builds and atmospheric breathing room. Without that contrast, there's no tension, no release — and an emptying dancefloor.</p>
+      </div>
+      <div class="criteria-card">
+        <span class="criteria-icon">🔊</span>
+        <h3>Mix quality</h3>
+        <p>EQ, compression, sidechain — every detail counts. A poorly mixed remix sounds hollow on a professional sound system. Quality is immediately audible.</p>
+      </div>
+      <div class="criteria-card">
+        <span class="criteria-icon">🎵</span>
+        <h3>Respect for the original</h3>
+        <p>A remix must not betray the essence of the source track. It should honour what made the original memorable, while bringing its own signature sound.</p>
+      </div>
+      <div class="criteria-card">
+        <span class="criteria-icon">🕹</span>
+        <h3>DJ usability</h3>
+        <p>Mixable intros and outros, clear structures, elements that give the DJ room to build a transition. A good remix thinks about the people who will play it.</p>
+      </div>
+      <div class="criteria-card">
+        <span class="criteria-icon">💫</span>
+        <h3>Sonic identity</h3>
+        <p>The producer signing a remix must imprint their signature on it. Whether a characteristic bassline or a unique vocal treatment, the sound must be recognisable.</p>
+      </div>
+      <div class="criteria-card">
+        <span class="criteria-icon">🌍</span>
+        <h3>Dancefloor longevity</h3>
+        <p>A great remix works in 2026 but should still hold in 2028. Classic house tracks avoid overly dated effects and anchor themselves in a timeless groove.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Sélection ── -->
+  <section class="section">
+    <div class="section-label">Top Remixes 2026</div>
+    <h2>The <em>essential</em> selection</h2>
+    <p class="prose">
+      These remixes have been rotating on the best editorial playlists from <a href="https://www.traxsource.com" target="_blank" rel="noopener">Traxsource</a>, <a href="https://www.beatport.com" target="_blank" rel="noopener">Beatport</a> and <a href="https://www.residentadvisor.net" target="_blank" rel="noopener">Resident Advisor</a> this year. Each one represents a distinct style across the house spectrum.
+    </p>
+
+    <div class="remix-list">
+      <a class="remix-item" href="https://www.beatport.com/genre/afro-house/89" target="_blank" rel="noopener">
+        <div class="remix-n">01</div>
+        <div>
+          <div class="remix-title">Bob Sinclar — Love Generation (Afro House Rework)</div>
+          <div class="remix-artist">Rework · Afro House · Yellow Productions</div>
+        </div>
+        <span class="remix-badge badge-afro">Afro House</span>
+      </a>
+
+      <a class="remix-item" href="https://defected.com/charts" target="_blank" rel="noopener">
+        <div class="remix-n">02</div>
+        <div>
+          <div class="remix-title">Daft Punk — Around The World (Defected Club Mix 2026)</div>
+          <div class="remix-artist">Club Remix · Deep House · Defected</div>
+        </div>
+        <span class="remix-badge badge-defected">Defected</span>
+      </a>
+
+      <a class="remix-item" href="https://www.traxsource.com/genre/13/house" target="_blank" rel="noopener">
+        <div class="remix-n">03</div>
+        <div>
+          <div class="remix-title">Peggy Gou — Nanana (Joey Negro Extended Disco Edit)</div>
+          <div class="remix-artist">Disco House · Z Records</div>
+        </div>
+        <span class="remix-badge badge-disco">Disco</span>
+      </a>
+
+      <a class="remix-item" href="https://vincentbastille.bandcamp.com/" target="_blank" rel="noopener">
+        <div class="remix-n">04</div>
+        <div>
+          <div class="remix-title">Jennifer Lopez — On The Floor (Vincent Bastille Remix)</div>
+          <div class="remix-artist">Feelgood House · Available on Bandcamp</div>
+        </div>
+        <span class="remix-badge badge-defected">Featured</span>
+      </a>
+
+      <a class="remix-item" href="https://www.beatport.com/genre/disco-nu-disco/50" target="_blank" rel="noopener">
+        <div class="remix-n">05</div>
+        <div>
+          <div class="remix-title">Louie Vega — Expansions (Classic Nu-Disco Retouch 2026)</div>
+          <div class="remix-artist">Nu-Disco · Nervine / Masters At Work</div>
+        </div>
+        <span class="remix-badge badge-disco">Nu-Disco</span>
+      </a>
+
+      <a class="remix-item" href="https://www.toolroomrecords.com" target="_blank" rel="noopener">
+        <div class="remix-n">06</div>
+        <div>
+          <div class="remix-title">Mark Knight — Joanna (Deep Underground Version)</div>
+          <div class="remix-artist">Deep House · Toolroom Records</div>
+        </div>
+        <span class="remix-badge badge-deep">Deep</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── Producteurs ── -->
+  <section class="section">
+    <div class="two-col">
+      <div>
+        <div class="section-label">Scene & Producers</div>
+        <h2>New <em>names</em><br>to watch</h2>
+
+        <div class="pull-quote">
+          <p>"If the remix doesn't make you want to dance within the first 8 bars, it's already missed the point."</p>
+        </div>
+
+        <p class="prose">
+          The 2026 house scene is driven by a generation of producers who master both technique and genre history. Among those moving the needle right now: <a href="https://vincentbastille.online" target="_blank" rel="noopener">Vincent Bastille</a> on the disco/afro house side — whose full catalogue of remixes and original productions is available on <a href="https://vincentbastille.bandcamp.com/" target="_blank" rel="noopener">Bandcamp</a> — alongside figures like Mousse T., Roger Sanchez and the new recruits at <a href="https://www.glitterboxrecordings.com" target="_blank" rel="noopener">Glitterbox</a> and <a href="https://www.hotcreations.com" target="_blank" rel="noopener">Hot Creations</a>.
+        </p>
+      </div>
+
+      <div>
+        <div class="section-label">Listen & Discover</div>
+        <h2>Go <em>deeper</em></h2>
+        <p class="prose">
+          To build your house culture and stay current, a few essential resources — from discovering new tracks to in-depth production analysis.
+        </p>
+
+        <div class="links-grid" style="margin-top:28px;">
+          <a class="link-card" href="https://www.residentadvisor.net/reviews/tracks" target="_blank" rel="noopener">
+            <span class="link-card-label">Reviews</span>
+            <span class="link-card-title">Resident Advisor Tracks</span>
+            <span class="link-card-desc">Track reviews by specialist editors</span>
+          </a>
+          <a class="link-card" href="https://defected.com/radio" target="_blank" rel="noopener">
+            <span class="link-card-label">Radio</span>
+            <span class="link-card-title">Defected Radio</span>
+            <span class="link-card-desc">Weekly mixes, new remixes, interviews</span>
+          </a>
+          <a class="link-card" href="https://www.traxsource.com/genre/13/house" target="_blank" rel="noopener">
+            <span class="link-card-label">Charts</span>
+            <span class="link-card-title">Traxsource House Top</span>
+            <span class="link-card-desc">Top 100 updated in real time</span>
+          </a>
+          <a class="link-card" href="https://www.beatport.com/top-100" target="_blank" rel="noopener">
+            <span class="link-card-label">Charts</span>
+            <span class="link-card-title">Beatport Top 100</span>
+            <span class="link-card-desc">The DJ barometer par excellence</span>
+          </a>
+          <a class="link-card" href="https://mixmag.net/tags/house" target="_blank" rel="noopener">
+            <span class="link-card-label">Press</span>
+            <span class="link-card-title">Mixmag House</span>
+            <span class="link-card-desc">News, features and editorial mixes</span>
+          </a>
+          <a class="link-card" href="https://vincentbastille.bandcamp.com/" target="_blank" rel="noopener">
+            <span class="link-card-label">Bandcamp</span>
+            <span class="link-card-title">Vincent Bastille — Full Catalogue</span>
+            <span class="link-card-desc">Download & stream all remixes and original releases</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══════════ CTA ══════════ -->
+<div class="cta-section">
+  <h2>Listen to<br><em>the remixes</em></h2>
+  <p>Find the tracks from this selection on official platforms — or explore Vincent Bastille's musical world directly.</p>
+  <a class="btn btn-primary" href="https://vincentbastille.online" target="_blank" rel="noopener">Official site →</a>
+  <a class="btn btn-ghost" href="https://vincentbastille.bandcamp.com/" target="_blank" rel="noopener">Bandcamp</a>
+  <a class="btn btn-ghost" href="https://www.beatport.com" target="_blank" rel="noopener">Beatport</a>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <p>© 2026 Vincent Bastille · <a href="https://vincentbastille.online">vincentbastille.online</a> · Disco · Afro · Feelgood House</p>
+</footer>
+
+</body>
+</html>
