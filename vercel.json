@@ -11,6 +11,27 @@
       "status": 301
     },
     {
+      "src": "/seo-pages/(.*)",
+      "status": 301,
+      "headers": {
+        "Location": "/best-michael-jackson-remixes.html"
+      }
+    },
+    {
+      "src": "/SEO/(.*)",
+      "status": 301,
+      "headers": {
+        "Location": "/best-michael-jackson-remixes.html"
+      }
+    },
+    {
+      "src": "/old-pages/(.*)",
+      "status": 301,
+      "headers": {
+        "Location": "/best-michael-jackson-remixes.html"
+      }
+    },
+    {
       "src": "/remixes/(.*)",
       "dest": "/remixes/$1"
     },
