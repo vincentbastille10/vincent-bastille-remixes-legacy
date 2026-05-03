@@ -6,6 +6,83 @@
   <url><loc>https://remixes.vincentbastille.online/house-music-remix-achat-bandcamp.html</loc><lastmod>2026-04-28</lastmod><priority>1.0</priority></url>
   <url><loc>https://remixes.vincentbastille.online/remixes-electroniques-francais-achat.html</loc><lastmod>2026-04-28</lastmod><priority>0.95</priority></url>
   <url><loc>https://remixes.vincentbastille.online/telecharger-remixes-electroniques-legalement.html</loc><lastmod>2026-04-28</lastmod><priority>0.95</priority></url>
+  
+
+
+  <!-- CORE -->
+  <url>
+    <loc>https://remixes.vincentbastille.online/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://remixes.vincentbastille.online/michael-jackson-house-remix.html</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://remixes.vincentbastille.online/you-rock-my-world-remix.html</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://remixes.vincentbastille.online/best-michael-jackson-remixes.html</loc>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- BEST / TRAFIC -->
+  <url>
+    <loc>https://remixes.vincentbastille.online/best-house-remixes-2026.html</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://remixes.vincentbastille.online/best-deep-house-remixes-2026.html</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- ARTISTS STRONG -->
+  <url>
+    <loc>https://remixes.vincentbastille.online/madonna-house-remix.html</loc>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://remixes.vincentbastille.online/michael-jackson-house-remix.html</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://remixes.vincentbastille.online/the-weeknd-remix-house.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://remixes.vincentbastille.online/dua-lipa-remix-house.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- GENRES -->
+  <url>
+    <loc>https://remixes.vincentbastille.online/house-remix-guide.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://remixes.vincentbastille.online/deep-house-remix.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://remixes.vincentbastille.online/afro-house-remix.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+
+  
+  
+  
+  
   <!-- BEST / TOP INTENT -->
   <url><loc>https://remixes.vincentbastille.online/best-house-remixes-2026.html</loc><lastmod>2026-04-28</lastmod><priority>0.95</priority></url>
   <url><loc>https://remixes.vincentbastille.online/best-electronic-remixes-2026.html</loc><lastmod>2026-04-28</lastmod><priority>0.95</priority></url>
